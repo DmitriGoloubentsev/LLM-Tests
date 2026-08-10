@@ -1,0 +1,8 @@
+# plotting venv (193 MB, rebuild with: python3 -m venv .venv-plot && .venv-plot/bin/pip install matplotlib)
+.venv-plot/
+__pycache__/
+*.pyc
+
+# internal planning docs — not for the public repo
+CONTENT-PLAN.md
+LINKEDIN-DRAFT.md

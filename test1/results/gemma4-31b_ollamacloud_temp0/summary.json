@@ -1,0 +1,70 @@
+{
+  "meta": {
+    "model": "gemma4:31b",
+    "base_url": "https://ollama.com/v1",
+    "temperature": 0.0,
+    "reasoning_effort": null,
+    "concurrency": 8,
+    "grid": {
+      "lo": -1.0,
+      "hi": 1.0,
+      "step": 0.02,
+      "points": 101
+    },
+    "wall_s": 21.9,
+    "utc": "20260810_085522",
+    "system_prompt": "You are a numerical calculator. Answer with the numeric result only: a single decimal number, no words, no units, no formatting, no explanation.",
+    "user_prompt_template": "Compute exp({x}), the exponential function e raised to the power {x}. Give the value as a plain decimal number with at least 12 significant digits. Output only the number."
+  },
+  "points": 101,
+  "answered": 101,
+  "unparsed_or_failed": 0,
+  "exact_float_matches": 1,
+  "max_abs_err": 1786038444033.2139,
+  "mean_abs_err": 17683548950.8239,
+  "rms_abs_err": 177717467495.78302,
+  "max_rel_err": 1000000007437.2086,
+  "mean_rel_err": 9900990172.64563,
+  "min_correct_digits": -12.000000003229939,
+  "mean_correct_digits": 10.19308219339734,
+  "digit_histogram": {
+    "11": 14,
+    "8": 12,
+    "7": 12,
+    "6": 7,
+    "10": 11,
+    "12": 16,
+    "9": 11,
+    "13": 9,
+    "15 (exact)": 4,
+    "14": 2,
+    "5": 2,
+    "-12": 1
+  },
+  "worst_abs": {
+    "x": 0.58,
+    "expected": 1.7860384307500734,
+    "got": 1786038444035.0,
+    "abs_err": 1786038444033.2139,
+    "rel_err": 1000000007437.2086
+  },
+  "worst_rel": {
+    "x": 0.58,
+    "expected": 1.7860384307500734,
+    "got": 1786038444035.0,
+    "abs_err": 1786038444033.2139,
+    "rel_err": 1000000007437.2086
+  },
+  "latency_s": {
+    "mean": 1.6701287128712867,
+    "min": 0.875,
+    "max": 6.034
+  },
+  "tokens": {
+    "prompt": 9292,
+    "completion": 1491,
+    "reasoning": 0,
+    "cache_hit": 0
+  },
+  "failures": []
+}
