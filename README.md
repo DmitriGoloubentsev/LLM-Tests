@@ -10,6 +10,13 @@ interesting here; "4.8 digits" and "15 digits" are both "wrong" to a boolean gra
 Stdlib Python only. Works against any OpenAI-compatible endpoint — hosted or a local
 llama.cpp/SGLang/vLLM/Ollama server.
 
+![Four configurations of the same 101-point exp(x) grid](docs/hero_recall_ablation.png)
+
+Four runs of the same function, the same 101 points and the same prompt. Top row: one model on
+arguments it can recall, then on arguments it cannot — the same model loses six digits. Bottom row:
+a reasoning model that derives every value instead, and what happens when you throttle its
+thinking. Regenerate with `.venv-plot/bin/python make_hero_figure.py [--dark]`.
+
 ## The two tests
 
 | | grid | question it answers |
@@ -36,6 +43,12 @@ gemma4's worst point is not a rounding error: asked for `exp(0.58)` it replied `
 **the decimal point is missing**, so the answer is off by a factor of 10¹² while looking perfectly
 well-formed.
 
+![gemma4:31b on round arguments](test1/results/gemma4-31b_ollamacloud_temp0/plots/1_accuracy_vs_x.png)
+
+The lower panel of every per-run figure shows the tokens spent on each point. gemma4 emits ~14 per
+answer and no reasoning at all — it is recalling, not computing, and the accuracy scatter reflects
+that.
+
 **Recall-proof arguments (test1v2):**
 
 | run | answered | median digits | worst | tokens |
@@ -56,10 +69,21 @@ Three findings the round-argument grid could not have shown:
    because with nothing to recall it derives every value (argument splitting + Taylor series,
    cross-checked — one trace is 46,000 characters of long multiplication for a single point). But
    47 of 101 calls exhaust the 65,536-token output limit mid-arithmetic and return **empty**.
+![DeepSeek on recall-proof arguments, unbounded thinking](test1v2/results/exp_ds-v4-flash_v2/plots/1_accuracy_vs_x.png)
+
+Every answered point sits on the double-precision line; the red row along the bottom is the 47
+calls that never produced one, and the lower panel shows why — they are pinned against the
+65,536-token output cap.
+
 3. **Throttling the thinking trades silence for silent errors.** `reasoning_effort=low` lifts the
    answered rate 54 → 98 at half the cost, median still 15 digits — but the tail collapses. The
    worst `sin` point came back as `+0.5423228246946903` where the answer is `-0.54232282470165383`:
    **eleven correct digits with the sign flipped.**
+
+![DeepSeek with reasoning_effort=low](test1v2/results/exp_ds-v4-flash_v2_efflow/plots/1_accuracy_vs_x.png)
+
+Same model, same grid, thinking throttled: the token panel drops off the cap, nearly every point
+now returns — and a spray of answers falls to 5–12 digits.
 
 No configuration gives "always answers and always correct": no thinking → always answers, never
 accurate; unbounded thinking → exact or silent; throttled thinking → occasionally, quietly wrong.
