@@ -69,21 +69,21 @@ Three findings the round-argument grid could not have shown:
    because with nothing to recall it derives every value (argument splitting + Taylor series,
    cross-checked — one trace is 46,000 characters of long multiplication for a single point). But
    47 of 101 calls exhaust the 65,536-token output limit mid-arithmetic and return **empty**.
-![DeepSeek on recall-proof arguments, unbounded thinking](test1v2/results/exp_ds-v4-flash_v2/plots/1_accuracy_vs_x.png)
-
-Every answered point sits on the double-precision line; the red row along the bottom is the 47
-calls that never produced one, and the lower panel shows why — they are pinned against the
-65,536-token output cap.
-
 3. **Throttling the thinking trades silence for silent errors.** `reasoning_effort=low` lifts the
    answered rate 54 → 98 at half the cost, median still 15 digits — but the tail collapses. The
    worst `sin` point came back as `+0.5423228246946903` where the answer is `-0.54232282470165383`:
    **eleven correct digits with the sign flipped.**
 
+![DeepSeek on recall-proof arguments, unbounded thinking](test1v2/results/exp_ds-v4-flash_v2/plots/1_accuracy_vs_x.png)
+
+*Unbounded thinking.* Every answered point sits on the double-precision line; the red row along the
+bottom is the 47 calls that never produced one, and the lower panel shows why — they are pinned
+against the 65,536-token output cap.
+
 ![DeepSeek with reasoning_effort=low](test1v2/results/exp_ds-v4-flash_v2_efflow/plots/1_accuracy_vs_x.png)
 
-Same model, same grid, thinking throttled: the token panel drops off the cap, nearly every point
-now returns — and a spray of answers falls to 5–12 digits.
+*Throttled thinking.* Same model, same grid: the token panel drops off the cap and nearly every
+point now returns — at the cost of a spray of answers falling to 5–12 digits.
 
 No configuration gives "always answers and always correct": no thinking → always answers, never
 accurate; unbounded thinking → exact or silent; throttled thinking → occasionally, quietly wrong.
