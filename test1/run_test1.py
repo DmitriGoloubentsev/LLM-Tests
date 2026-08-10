@@ -143,6 +143,27 @@ def summarize(rows, meta):
     return s
 
 
+
+def render_plots(outdir):
+    """Render the standard figures. Needs matplotlib; the repo keeps it in .venv-plot."""
+    import subprocess, sys
+    here = os.path.dirname(os.path.abspath(__file__))
+    repo = os.path.dirname(here) if os.path.basename(here) != "LLM-Tests" else here
+    script = os.path.join(repo, "test1", "plot_results.py")
+    venv = os.path.join(repo, ".venv-plot", "bin", "python")
+    python = venv if os.path.exists(venv) else sys.executable
+    if not os.path.exists(script):
+        print(f"  (no plot script at {script} - skipping figures)")
+        return
+    for extra in ([], ["--dark"]):
+        r = subprocess.run([python, script, outdir] + extra, capture_output=True, text=True)
+        if r.returncode != 0:
+            print("  (plotting skipped: " + (r.stderr.strip().splitlines() or ["?"])[-1][:120] + ")")
+            print(f"  render manually: {venv} {script} {outdir}")
+            return
+    print(f"  plots -> {os.path.join(outdir, 'plots')}")
+
+
 def main():
     p = argparse.ArgumentParser()
     p.add_argument("--base-url", default="https://api.deepseek.com/v1")
@@ -159,6 +180,8 @@ def main():
     p.add_argument("--concurrency", type=int, default=8)
     p.add_argument("--timeout", type=float, default=180)
     p.add_argument("--retries", type=int, default=2)
+    p.add_argument("--no-plot", action="store_true",
+                   help="skip rendering figures at the end of the run")
     p.add_argument("--tag", default=None, help="output dir name (default <model>_<UTC stamp>)")
     p.add_argument("--out-root", default=os.path.join(os.path.dirname(os.path.abspath(__file__)), "results"))
     args = p.parse_args()
@@ -227,6 +250,10 @@ def main():
     print(f"  wall {wall:.0f}s  completion_tokens {s['tokens']['completion']} "
           f"(reasoning {s['tokens']['reasoning']})")
     print(f"  -> {outdir}")
+
+    if not args.no_plot:
+        render_plots(outdir)
+
 
 
 if __name__ == "__main__":

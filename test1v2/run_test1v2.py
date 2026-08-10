@@ -63,11 +63,9 @@ def recall_proof_grid(lo, hi, step, jitter, seed):
     return xs
 
 
-def post(url, key, payload, timeout):
+def post(url, headers, payload, timeout):
     req = urllib.request.Request(
-        url, data=json.dumps(payload).encode(),
-        headers={"Content-Type": "application/json", "Authorization": f"Bearer {key}"},
-        method="POST")
+        url, data=json.dumps(payload).encode(), headers=headers, method="POST")
     with urllib.request.urlopen(req, timeout=timeout) as r:
         return json.loads(r.read().decode())
 
@@ -94,22 +92,175 @@ def build_user(args, x):
     return f"Compute {noun}. {tail} Output only the number."
 
 
-def ask(args, key, x):
+def build_anthropic_payload(args, x):
+    """Native Anthropic Messages API body (POST {base}/v1/messages).
+
+    Differences from the OpenAI-compatible path, per the current API:
+      * `system` is a top-level field, not a message with role="system";
+      * `max_tokens` is REQUIRED and caps thinking + visible text together;
+      * `temperature` is rejected (400) on current models - we never send it here;
+      * thinking depth is `output_config.effort`, not `reasoning_effort`;
+        `thinking.budget_tokens` is removed on current models (400).
+      * `display: "summarized"` is needed to get any reasoning text back at all -
+        the default ("omitted") streams thinking blocks with empty content.
+    """
+    payload = {"model": args.model,
+               "max_tokens": args.max_tokens or 16000,
+               "system": SYSTEM,
+               "messages": [{"role": "user", "content": build_user(args, x)}]}
+    eff = (args.reasoning_effort or "").lower()
+    if eff in ("none", "off", "disabled"):
+        payload["thinking"] = {"type": "disabled"}
+    else:
+        payload["thinking"] = {"type": "adaptive", "display": "summarized"}
+        if eff:
+            payload["output_config"] = {"effort": eff}
+    return payload
+
+
+def parse_anthropic(resp):
+    """-> (answer_text, reasoning_text, usage_dict). Content is a block list."""
+    text, thinking = [], []
+    for b in resp.get("content") or []:
+        if not isinstance(b, dict):
+            continue
+        if b.get("type") == "text":
+            text.append(b.get("text") or "")
+        elif b.get("type") == "thinking":
+            thinking.append(b.get("thinking") or "")
+    u = resp.get("usage", {}) or {}
+    return ("".join(text) or None, "".join(thinking) or None, u)
+
+
+# --------------------------------------------------------------------------
+# claude-cli backend: drive the Claude Code CLI instead of an HTTP API.
+# Uses the machine's Claude Code credentials, so it needs no ANTHROPIC_API_KEY.
+# Two isolation requirements, both enforced here:
+#   * ZERO TOOLS      - `--tools ""` disables the entire built-in tool set, so
+#                       the model cannot compute the answer with bash/python.
+#   * NO CLAUDE.md    - `claude` walks cwd->root for CLAUDE.md and reads
+#                       $HOME/.claude/CLAUDE.md. We run in an empty temp dir
+#                       under a temp HOME holding only a copy of the
+#                       credentials, so no project or user memory is loaded.
+# `--system-prompt` (not --append-system-prompt) REPLACES Claude Code's agent
+# prompt with ours, and --exclude-dynamic-system-prompt-sections drops the
+# per-machine cwd/env/memory-path preamble.
+# --------------------------------------------------------------------------
+CLAUDE_ENV = {"home": None, "cwd": None}
+
+
+def claude_cli_env():
+    """Create (once per run) the throwaway HOME + cwd the CLI is invoked in."""
+    if CLAUDE_ENV["home"]:
+        return CLAUDE_ENV["home"], CLAUDE_ENV["cwd"]
+    import shutil, tempfile
+    root = tempfile.mkdtemp(prefix="test1v2_claude_")
+    home, cwd = os.path.join(root, "home"), os.path.join(root, "ws")
+    os.makedirs(os.path.join(home, ".claude"), exist_ok=True)
+    os.makedirs(cwd, exist_ok=True)
+    src = os.path.expanduser("~/.claude/.credentials.json")
+    if os.path.exists(src):
+        shutil.copy2(src, os.path.join(home, ".claude", ".credentials.json"))
+    with open(os.path.join(home, ".claude.json"), "w") as f:
+        f.write('{"hasCompletedOnboarding":true,"theme":"dark"}\n')
+    CLAUDE_ENV["home"], CLAUDE_ENV["cwd"] = home, cwd
+    return home, cwd
+
+
+def ask_claude_cli(args, x):
+    """One stateless `claude -p` invocation. Returns the same row shape as ask()."""
+    import subprocess
     ref = FUNCS[args.func][0]
-    payload = {"model": args.model, "temperature": args.temperature,
-               "messages": [{"role": "system", "content": SYSTEM},
-                            {"role": "user", "content": build_user(args, x)}]}
-    if args.max_tokens:
-        payload["max_tokens"] = args.max_tokens
-    if args.reasoning_effort:
-        payload["reasoning_effort"] = args.reasoning_effort
+    home, cwd = claude_cli_env()
+    cmd = [args.claude_bin, "-p", build_user(args, x),
+           "--system-prompt", SYSTEM,
+           "--tools", "",                       # no tools at all
+           "--output-format", "json",
+           "--exclude-dynamic-system-prompt-sections"]
+    if args.model:
+        cmd += ["--model", args.model]
+    env = dict(os.environ, HOME=home, CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC="1")
+    env.pop("ANTHROPIC_API_KEY", None)          # use the CLI's own credentials
+    last_err = None
+    for attempt in range(args.retries + 1):
+        t0 = time.time()
+        try:
+            r = subprocess.run(cmd, cwd=cwd, env=env, capture_output=True,
+                               text=True, timeout=args.timeout)
+            dt = time.time() - t0
+            if r.returncode != 0:
+                last_err = f"claude rc={r.returncode}: {r.stderr.strip()[:200]}"
+                time.sleep(1.5 * (attempt + 1)); continue
+            d = json.loads(r.stdout)
+            u = d.get("usage", {}) or {}
+            content = d.get("result") if not d.get("is_error") else None
+            return {"x": x, "expected": ref(x), "got": parse_number(content),
+                    "raw": content, "reasoning": None,
+                    "latency_s": round(dt, 3), "attempt": attempt,
+                    "prompt_tokens": u.get("input_tokens", 0),
+                    "completion_tokens": u.get("output_tokens", 0),
+                    # `claude -p` does not expose thinking text or a separate
+                    # reasoning-token count; thinking is inside output_tokens.
+                    "reasoning_tokens": 0,
+                    "cache_hit_tokens": u.get("cache_read_input_tokens", 0),
+                    "cost_usd": d.get("total_cost_usd"),
+                    "stop_reason": d.get("stop_reason"),
+                    "error": d.get("api_error_status") if d.get("is_error") else None}
+        except Exception as e:                                   # noqa: BLE001
+            last_err = f"{type(e).__name__}: {e}"
+            time.sleep(1.5 * (attempt + 1))
+    return {"x": x, "expected": ref(x), "got": None, "raw": None, "reasoning": None,
+            "latency_s": None, "attempt": args.retries, "prompt_tokens": 0,
+            "completion_tokens": 0, "reasoning_tokens": 0, "cache_hit_tokens": 0,
+            "error": last_err}
+
+
+def ask(args, key, x):
+    if args.api == "claude-cli":
+        return ask_claude_cli(args, x)
+    ref = FUNCS[args.func][0]
+    anthropic = args.api == "anthropic"
+    if anthropic:
+        payload = build_anthropic_payload(args, x)
+        url = args.base_url.rstrip("/") + "/v1/messages"
+        headers = {"Content-Type": "application/json", "x-api-key": key,
+                   "anthropic-version": "2023-06-01"}
+    else:
+        payload = {"model": args.model,
+                   "messages": [{"role": "system", "content": SYSTEM},
+                                {"role": "user", "content": build_user(args, x)}]}
+        if not args.no_temperature:
+            payload["temperature"] = args.temperature
+        if args.max_tokens:
+            payload["max_tokens"] = args.max_tokens
+        if args.reasoning_effort:
+            payload["reasoning_effort"] = args.reasoning_effort
+        url = args.base_url.rstrip("/") + "/chat/completions"
+        headers = {"Content-Type": "application/json", "Authorization": f"Bearer {key}"}
 
     last_err = None
     for attempt in range(args.retries + 1):
         t0 = time.time()
         try:
-            resp = post(args.base_url.rstrip("/") + "/chat/completions", key, payload, args.timeout)
+            resp = post(url, headers, payload, args.timeout)
             dt = time.time() - t0
+            if anthropic:
+                content, reasoning, u = parse_anthropic(resp)
+                # A safety refusal is HTTP 200 with stop_reason="refusal" and no
+                # usable content - record it as a failure, not as a wrong value.
+                err = None
+                if resp.get("stop_reason") in ("refusal", "max_tokens") and not content:
+                    err = f'stop_reason={resp.get("stop_reason")}'
+                return {"x": x, "expected": ref(x), "got": parse_number(content),
+                        "raw": content, "reasoning": reasoning,
+                        "latency_s": round(dt, 3), "attempt": attempt,
+                        "prompt_tokens": u.get("input_tokens", 0),
+                        "completion_tokens": u.get("output_tokens", 0),
+                        # thinking is billed inside output_tokens; the API reports
+                        # no separate reasoning-token count.
+                        "reasoning_tokens": 0,
+                        "cache_hit_tokens": u.get("cache_read_input_tokens", 0),
+                        "stop_reason": resp.get("stop_reason"), "error": err}
             msg = (resp.get("choices") or [{}])[0].get("message", {}) or {}
             usage = resp.get("usage", {}) or {}
             return {"x": x, "expected": ref(x), "got": parse_number(msg.get("content")),
@@ -124,10 +275,18 @@ def ask(args, key, x):
                     "error": None}
         except Exception as e:                                   # noqa: BLE001 - record, retry
             last_err = f"{type(e).__name__}: {e}"
+            wait = 1.5 * (attempt + 1)
             if isinstance(e, urllib.error.HTTPError):
                 try: last_err += " :: " + e.read().decode()[:300]
                 except Exception: pass
-            time.sleep(1.5 * (attempt + 1))
+                if e.code == 429:
+                    # rate limited: honour Retry-After when given, else back off hard.
+                    # Free/shared endpoints 429 constantly; a 1.5s retry just burns the budget.
+                    ra = None
+                    try: ra = float(e.headers.get("Retry-After", ""))
+                    except Exception: pass
+                    wait = ra if ra else min(120.0, 10.0 * (attempt + 1) ** 2)
+            time.sleep(wait)
     return {"x": x, "expected": ref(x), "got": None, "raw": None, "reasoning": None,
             "latency_s": None, "attempt": args.retries, "prompt_tokens": 0, "completion_tokens": 0,
             "reasoning_tokens": 0, "cache_hit_tokens": 0, "error": last_err}
@@ -180,18 +339,52 @@ def summarize(rows, meta):
     return s
 
 
+
+def render_plots(outdir):
+    """Render the standard figures. Needs matplotlib; the repo keeps it in .venv-plot."""
+    import subprocess, sys
+    here = os.path.dirname(os.path.abspath(__file__))
+    repo = os.path.dirname(here) if os.path.basename(here) != "LLM-Tests" else here
+    script = os.path.join(repo, "test1", "plot_results.py")
+    venv = os.path.join(repo, ".venv-plot", "bin", "python")
+    python = venv if os.path.exists(venv) else sys.executable
+    if not os.path.exists(script):
+        print(f"  (no plot script at {script} - skipping figures)")
+        return
+    for extra in ([], ["--dark"]):
+        r = subprocess.run([python, script, outdir] + extra, capture_output=True, text=True)
+        if r.returncode != 0:
+            print("  (plotting skipped: " + (r.stderr.strip().splitlines() or ["?"])[-1][:120] + ")")
+            print(f"  render manually: {venv} {script} {outdir}")
+            return
+    print(f"  plots -> {os.path.join(outdir, 'plots')}")
+
+
 def main():
     p = argparse.ArgumentParser()
     p.add_argument("--func", default="exp", choices=sorted(FUNCS))
-    p.add_argument("--base-url", default="https://api.deepseek.com/v1")
-    p.add_argument("--model", default="deepseek-v4-flash")
-    p.add_argument("--api-key-env", default="DEEPSEEK_API_KEY")
+    p.add_argument("--api", default="openai", choices=("openai", "anthropic", "claude-cli"),
+                   help="openai: OpenAI-compatible /chat/completions (default); "
+                        "anthropic: native /v1/messages; claude-cli: exec the Claude Code "
+                        "CLI with zero tools and no CLAUDE.md (no API key needed)")
+    p.add_argument("--claude-bin", default="claude", help="claude-cli: CLI binary")
+    p.add_argument("--base-url", default=None,
+                   help="default: https://api.deepseek.com/v1 (openai) or "
+                        "https://api.anthropic.com (anthropic)")
+    p.add_argument("--model", default=None,
+                   help="default: deepseek-v4-flash (openai) or claude-opus-5 (anthropic)")
+    p.add_argument("--api-key-env", default=None,
+                   help="default: DEEPSEEK_API_KEY (openai) or ANTHROPIC_API_KEY (anthropic)")
     p.add_argument("--api-key", default=None)
     p.add_argument("--lo", type=float, default=-1.0)
     p.add_argument("--hi", type=float, default=1.0)
     p.add_argument("--step", type=float, default=0.02)
     p.add_argument("--jitter", type=float, default=0.0095, help="max |offset| applied to each point")
     p.add_argument("--seed", default="test1v2", help="grid seed — same seed = same arguments")
+    p.add_argument("--sample", type=int, default=0,
+                   help="run a deterministic random subset of N grid points (0 = all)")
+    p.add_argument("--no-temperature", action="store_true",
+                   help="omit `temperature` entirely — current Claude models reject it")
     p.add_argument("--sigdigits", type=int, default=15)
     p.add_argument("--no-antitrunc", action="store_true",
                    help="drop the 'do not truncate' clause (reproduces the v1 prompt)")
@@ -201,17 +394,43 @@ def main():
     p.add_argument("--concurrency", type=int, default=8)
     p.add_argument("--timeout", type=float, default=900)
     p.add_argument("--retries", type=int, default=2)
+    p.add_argument("--no-plot", action="store_true",
+                   help="skip rendering figures at the end of the run")
     p.add_argument("--tag", default=None)
     p.add_argument("--out-root",
                    default=os.path.join(os.path.dirname(os.path.abspath(__file__)), "results"))
     args = p.parse_args()
+    if args.api == "claude-cli":
+        args.base_url = args.base_url or "claude-code-cli (local)"
+        args.api_key_env = args.api_key_env or "-"
+        if args.temperature:
+            sys.exit("--temperature is not supported by the claude CLI backend")
+    elif args.api == "anthropic":
+        args.base_url = args.base_url or "https://api.anthropic.com"
+        args.model = args.model or "claude-opus-5"
+        args.api_key_env = args.api_key_env or "ANTHROPIC_API_KEY"
+        if args.temperature:
+            # current Claude models reject temperature/top_p/top_k with a 400
+            sys.exit("--temperature is not accepted by the Anthropic API; drop it "
+                     "(sampling params were removed on current models)")
+    else:
+        args.base_url = args.base_url or "https://api.deepseek.com/v1"
+        args.model = args.model or "deepseek-v4-flash"
+        args.api_key_env = args.api_key_env or "DEEPSEEK_API_KEY"
 
     key = args.api_key or os.environ.get(args.api_key_env)
+    if args.api == "claude-cli":
+        key = key or "cli"          # credentials come from the CLI, not an env var
     if not key:
         sys.exit(f"no API key: set ${args.api_key_env} or pass --api-key")
 
     base = recall_proof_grid(args.lo, args.hi, args.step, args.jitter, args.seed)
     xs = [round(FUNCS[args.func][2](t), 10) for t in base]
+    if args.sample and args.sample < len(xs):
+        # deterministic subset: rank points by a seeded hash, take the first N,
+        # then restore grid order so plots stay left-to-right.
+        rank = sorted(xs, key=lambda v: hashlib.sha256(f"{args.seed}:sample:{v}".encode()).digest())
+        xs = sorted(rank[:args.sample])
     stamp = datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S")
     tag = args.tag or f"{args.func}_{args.model.replace('/', '_').replace(':', '-')}_{stamp}"
     outdir = os.path.join(args.out_root, tag)
@@ -234,11 +453,13 @@ def main():
     wall = time.time() - t0
 
     meta = {"test": "test1v2", "func": args.func, "model": args.model, "base_url": args.base_url,
+            "api": args.api,
             "temperature": args.temperature, "reasoning_effort": args.reasoning_effort,
             "concurrency": args.concurrency, "recall_proof": True, "seed": args.seed,
             "jitter": args.jitter, "sigdigits_requested": args.sigdigits,
             "antitruncation_clause": not args.no_antitrunc,
-            "grid": {"lo": args.lo, "hi": args.hi, "step": args.step, "points": len(xs)},
+            "grid": {"lo": args.lo, "hi": args.hi, "step": args.step, "points": len(xs),
+                     "sampled_from": len(base) if args.sample else None},
             "wall_s": round(wall, 1), "utc": stamp, "system_prompt": SYSTEM,
             "user_prompt_example": build_user(args, xs[0])}
 
@@ -272,6 +493,10 @@ def main():
     print(f"  wall {wall:.0f}s  completion_tokens {s['tokens']['completion']} "
           f"(reasoning {s['tokens']['reasoning']})")
     print(f"  -> {outdir}")
+
+    if not args.no_plot:
+        render_plots(outdir)
+
 
 
 if __name__ == "__main__":

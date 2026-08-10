@@ -49,16 +49,27 @@ The lower panel of every per-run figure shows the tokens spent on each point. ge
 answer and no reasoning at all — it is recalling, not computing, and the accuracy scatter reflects
 that.
 
-**Recall-proof arguments (test1v2):**
+**Recall-proof arguments (test1v2)** — every run to date, sorted by median accuracy:
 
-| run | answered | median digits | worst | tokens |
-|---|---|---|---|---|
-| gemma4 `exp` | 101/101 | **4.76** | 2.97 | 1.8k |
-| gemma4 `sin` | 101/101 | **4.09** | 2.43 | 1.9k |
-| DeepSeek `exp` | 54/101 | 15.00 | 13.17 | 5.2M |
-| DeepSeek `sin` | 39/101 | 15.00 | 11.05 | 5.9M |
-| DeepSeek `exp`, `reasoning_effort=low` | 98/101 | 15.00 | 5.04 | 2.7M |
-| DeepSeek `sin`, `reasoning_effort=low` | 98/101 | 14.38 | **−0.30** | 3.0M |
+| model | endpoint | func | answered | median digits | worst | completion tokens | wall |
+|---|---|---|---|---|---|---|---|
+| DeepSeek-V4-Flash | DeepSeek | exp | 54/101 | **15.00** | 13.17 | 5.22M | 4,486s |
+| DeepSeek-V4-Flash | DeepSeek | sin | 39/101 | **15.00** | 11.05 | 5.90M | 5,365s |
+| DeepSeek-V4-Flash `effort=low` | DeepSeek | exp | 98/101 | **15.00** | 5.04 | 2.68M | 2,134s |
+| Claude Opus 5 | OpenRouter | exp | 10/10† | **15.00** | 13.38 | 167k | 465s |
+| GLM-5.2 | Ollama Cloud | exp | 18/101‡ | **15.00** | 8.37 | 3.05M | 5,388s |
+| GLM-5.2 | OpenRouter | exp | 3/21§ | **15.00** | 9.41 | 1.30M | 3,414s |
+| Claude Opus 5 | Claude Code CLI | exp | 21/21† | 14.87 | 4.33 | 81k | 328s |
+| DeepSeek-V4-Flash `effort=low` | DeepSeek | sin | 98/101 | 14.38 | **−0.30** | 3.00M | 2,370s |
+| gpt-oss:120b | Ollama Cloud | exp | 98/101 | 9.44 | 3.18 | 920k | 3,121s |
+| qwen3.5:397b | Ollama Cloud | exp | 101/101 | 5.37 | 3.49 | 654k | 1,659s |
+| gpt-oss:120b `effort=low` | Ollama Cloud | exp | 101/101 | 4.83 | 3.18 | 48k | 386s |
+| gemma4:31b | Ollama Cloud | exp | 101/101 | 4.76 | 2.97 | 1.8k | 40s |
+| gemma4:31b | Ollama Cloud | sin | 101/101 | 4.09 | 2.43 | 1.9k | 80s |
+
+† sampled subset of the same grid (`--sample`), not the full 101 points.
+‡ quota-truncated by the host — 69 of the 83 failures were HTTP 429, not model behaviour.
+§ 18 of 21 hit OpenRouter's 65,536-token output cap; GLM-5.2 needs ~80k tokens/point.
 
 Three findings the round-argument grid could not have shown:
 
@@ -85,6 +96,24 @@ against the 65,536-token output cap.
 *Throttled thinking.* Same model, same grid: the token panel drops off the cap and nearly every
 point now returns — at the cost of a spray of answers falling to 5–12 digits.
 
+
+### Two findings from the wider model sweep
+
+**Thinking volume does not buy digits — method does.** `qwen3.5:397b` spends ~6.5k tokens per
+point reasoning and lands at **5.37** digits; `gpt-oss:120b` at `effort=low` spends ~470 and lands
+at **4.83**. Fourteen times the thinking buys half a digit. What separates the 15-digit models is
+*what* they do (argument splitting + series, cross-checked) rather than how long they do it.
+
+**The same model differs by host.** Claude Opus 5 through the Claude Code CLI averages ~3.8k
+tokens/point and bottoms out at 4.33 digits; through OpenRouter it averages ~16.7k and bottoms out
+at 13.38. Same weights, ~4.4× the thinking, and the difference lands entirely in the tail — the
+hosting configuration is part of the measurement, not a detail.
+
+**Shortcut answers are where every model fails.** The worst point of almost every run is also its
+cheapest: DeepSeek's 6.18-digit answer took 128 tokens, GLM's 3.29-digit answer took 13, and Claude
+Opus 5's 4.33-digit answer took **9**. A model that decides not to derive is a model about to be
+wrong, at every tier.
+
 No configuration gives "always answers and always correct": no thinking → always answers, never
 accurate; unbounded thinking → exact or silent; throttled thinking → occasionally, quietly wrong.
 
@@ -103,6 +132,31 @@ OLLAMA_API_KEY=... ./test1v2/run_test1v2.py --func exp --base-url https://ollama
 ./test1v2/run_test1v2.py --func exp --base-url http://127.0.0.1:8090/v1 --model qwen3.6 \
     --api-key dummy
 ```
+
+```bash
+# Claude Code CLI backend — no API key; zero tools, no CLAUDE.md loaded
+./test1v2/run_test1v2.py --api claude-cli --func exp
+
+# native Anthropic Messages API (adaptive thinking, summarized reasoning)
+ANTHROPIC_API_KEY=sk-ant-... ./test1v2/run_test1v2.py --api anthropic --model claude-opus-5
+
+# any aggregator; --sample runs a deterministic subset of the same grid
+OPENROUTER_API_KEY=sk-or-v1-... ./test1v2/run_test1v2.py \
+    --base-url https://openrouter.ai/api/v1 --model anthropic/claude-opus-5 \
+    --api-key-env OPENROUTER_API_KEY --sample 10 --no-temperature
+```
+
+Three backends, selected with `--api`:
+
+| `--api` | wire protocol | credentials |
+|---|---|---|
+| `openai` (default) | `POST {base}/chat/completions` | bearer token from `--api-key-env` |
+| `anthropic` | `POST {base}/v1/messages`, adaptive thinking, `output_config.effort` | `ANTHROPIC_API_KEY` |
+| `claude-cli` | execs `claude -p` with `--tools ""` and a throwaway `$HOME`/cwd | the machine's Claude Code login |
+
+The `claude-cli` backend is the isolation-sensitive one: `--tools ""` disables the entire built-in
+tool set (otherwise the model just computes the answer with `python`), and the throwaway `$HOME`
+plus empty working directory keep every `CLAUDE.md` — user and project — out of the context.
 
 Keys are read from the environment only — nothing is stored in the repo.
 
