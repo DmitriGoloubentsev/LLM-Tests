@@ -273,16 +273,25 @@ of answers falling to 5–12 digits.*
 
 ## Cost per correct answer
 
-Median accuracy hides an order-of-magnitude spread in what a correct digit costs:
+Median accuracy hides an order-of-magnitude spread in what a correct digit costs.
 
-| model | $ per 101-point grid | answered | ≥12 digits | **$ per 12-digit point** |
-|---|---|---|---|---|
-| **DeepSeek-V4-Flash `effort=low`** | **$0.75** | 98/101 | 82 | **$0.009** |
-| DeepSeek-V4-Flash, default | $1.46 | 54/101 | 54 | $0.027 |
-| gpt-5.6-sol | ~$12.93 | 5/5 | 5 | $0.128 |
-| Claude Opus 5 (OpenRouter) | ~$42.12 | 10/10 | 10 | $0.417 |
-| Claude Sonnet 5 | ~$22.83 | 10/10 | 5 | $0.452 |
-| Claude Opus 4.8 `effort=high` | ~$10.50 | 10/10 | 2 | $0.520 |
+**Read the two money columns differently:**
+
+- **`$ / full grid`** — the total to run **all 101 points**, not the price of one call.
+  `~` means **extrapolated** from a sample: the run really cost `$ actually paid`, scaled ×101/n.
+  Only the two DeepSeek rows were measured over a real 101-point grid.
+- **`$ / 12-digit point`** — that total divided by how many points cleared 12 digits, i.e. the cost
+  of one *useful* answer. A model that answers 10/101 wastes most of its spend, and this column is
+  where that shows up.
+
+| model | points run | **$ actually paid** | **$ / full grid** | ≥12 digits (per 101) | **$ / 12-digit point** |
+|---|---|---|---|---|---|
+| **DeepSeek-V4-Flash `effort=low`** | **101** | **$0.75** | **$0.75** | 82 | **$0.009** |
+| DeepSeek-V4-Flash, default | **101** | $1.46 | $1.46 | 54 | $0.027 |
+| gpt-5.6-sol | 5 | $0.64 | ~$12.93 | 101 | $0.128 |
+| Claude Opus 5 (OpenRouter) | 10 | $4.17 | ~$42.12 | 101 | $0.417 |
+| Claude Sonnet 5 | 10 | $2.26 | ~$22.83 | 50 | $0.452 |
+| Claude Opus 4.8 `effort=high` | 10 | $1.04 | ~$10.50 | 20 | $0.520 |
 
 **DeepSeek-V4-Flash at `effort=low` is the standout: a 12-significant-digit answer for about one
 cent — ~14× cheaper than the next best, ~46× cheaper than Opus 5 for the same median.**
