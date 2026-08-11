@@ -1,0 +1,123 @@
+{
+  "meta": {
+    "test": "test1v2",
+    "func": "exp",
+    "model": "gpt-oss:20b",
+    "base_url": "https://ollama.com/v1",
+    "api": "openai",
+    "temperature": 0.0,
+    "reasoning_effort": null,
+    "concurrency": 6,
+    "recall_proof": true,
+    "seed": "test1v2",
+    "jitter": 0.0095,
+    "sigdigits_requested": 15,
+    "antitruncation_clause": true,
+    "grid": {
+      "lo": -1.0,
+      "hi": 1.0,
+      "step": 0.02,
+      "points": 101,
+      "sampled_from": null
+    },
+    "wall_s": 12247.0,
+    "utc": "20260810_223214",
+    "system_prompt": "You are a numerical calculator. Answer with the numeric result only: a single decimal number, no words, no units, no formatting, no explanation.",
+    "user_prompt_example": "Compute exp(-0.9985798483), the exponential function e raised to the power -0.9985798483. Give the value as a plain decimal number with at least 15 significant digits. Give every digit you are confident in \u2014 do not round or truncate the result to fewer digits than you computed. Output only the number."
+  },
+  "points": 101,
+  "answered": 93,
+  "unparsed_or_failed": 8,
+  "exact_float_matches": 1,
+  "max_abs_err": 0.008751312349801754,
+  "mean_abs_err": 0.00013572677373261172,
+  "rms_abs_err": 0.0009156600629526491,
+  "max_rel_err": 0.003668329340528527,
+  "mean_rel_err": 8.643845672626572e-05,
+  "min_correct_digits": 2.4355316805392566,
+  "mean_correct_digits": 6.928224212546334,
+  "median_correct_digits": 6.374503392527899,
+  "digit_histogram": {
+    "15 (exact)": 2,
+    "9": 9,
+    "5": 15,
+    "6": 16,
+    "2": 2,
+    "4": 14,
+    "3": 7,
+    "7": 10,
+    "8": 10,
+    "11": 4,
+    "10": 3,
+    "14": 1
+  },
+  "worst_abs": {
+    "x": 0.8694673341,
+    "expected": 2.38563976606879,
+    "got": 2.3768884537189883,
+    "abs_err": 0.008751312349801754,
+    "rel_err": 0.003668329340528527,
+    "raw": "2.37688845371898825656"
+  },
+  "worst_rel": {
+    "x": 0.8694673341,
+    "expected": 2.38563976606879,
+    "got": 2.3768884537189883,
+    "abs_err": 0.008751312349801754,
+    "rel_err": 0.003668329340528527,
+    "raw": "2.37688845371898825656"
+  },
+  "latency_s": {
+    "mean": 463.304322580645,
+    "min": 141.254,
+    "max": 866.806
+  },
+  "tokens": {
+    "prompt": 16170,
+    "completion": 2668420,
+    "reasoning": 0,
+    "cache_hit": 0
+  },
+  "failures": [
+    {
+      "x": -0.8073587721,
+      "error": "TimeoutError: The read operation timed out",
+      "raw": null
+    },
+    {
+      "x": -0.681319212,
+      "error": "TimeoutError: The read operation timed out",
+      "raw": null
+    },
+    {
+      "x": -0.634661819,
+      "error": "HTTPError: HTTP Error 429: Too Many Requests :: {\"error\":\"timed out waiting for a concurrent request slot\"}\n",
+      "raw": null
+    },
+    {
+      "x": -0.6177280923,
+      "error": "HTTPError: HTTP Error 429: Too Many Requests :: {\"error\":\"timed out waiting for a concurrent request slot\"}\n",
+      "raw": null
+    },
+    {
+      "x": -0.6066231217,
+      "error": "HTTPError: HTTP Error 429: Too Many Requests :: {\"error\":\"timed out waiting for a concurrent request slot\"}\n",
+      "raw": null
+    },
+    {
+      "x": 0.3085842799,
+      "error": "HTTPError: HTTP Error 429: Too Many Requests :: {\"error\":\"timed out waiting for a concurrent request slot\"}\n",
+      "raw": null
+    },
+    {
+      "x": 0.3365311812,
+      "error": "TimeoutError: The read operation timed out",
+      "raw": null
+    },
+    {
+      "x": 0.6938073077,
+      "error": "HTTPError: HTTP Error 429: Too Many Requests :: {\"error\":\"timed out waiting for a concurrent request slot\"}\n",
+      "raw": null
+    }
+  ]
+}

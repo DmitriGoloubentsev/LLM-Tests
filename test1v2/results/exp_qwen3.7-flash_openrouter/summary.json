@@ -1,0 +1,189 @@
+{
+  "meta": {
+    "test": "test1v2",
+    "func": "exp",
+    "model": "qwen/qwen3.7-flash",
+    "base_url": "https://openrouter.ai/api/v1",
+    "api": "openai",
+    "temperature": 0.0,
+    "reasoning_effort": null,
+    "concurrency": 6,
+    "recall_proof": true,
+    "seed": "test1v2",
+    "jitter": 0.0095,
+    "sigdigits_requested": 15,
+    "antitruncation_clause": true,
+    "grid": {
+      "lo": -1.0,
+      "hi": 1.0,
+      "step": 0.02,
+      "points": 101,
+      "sampled_from": null
+    },
+    "wall_s": 2717.2,
+    "utc": "20260810_193209",
+    "system_prompt": "You are a numerical calculator. Answer with the numeric result only: a single decimal number, no words, no units, no formatting, no explanation.",
+    "user_prompt_example": "Compute exp(-0.9985798483), the exponential function e raised to the power -0.9985798483. Give the value as a plain decimal number with at least 15 significant digits. Give every digit you are confident in \u2014 do not round or truncate the result to fewer digits than you computed. Output only the number."
+  },
+  "points": 101,
+  "answered": 80,
+  "unparsed_or_failed": 21,
+  "exact_float_matches": 0,
+  "max_abs_err": 0.0005812230259275575,
+  "mean_abs_err": 6.109129851894768e-05,
+  "rms_abs_err": 0.0001326280449621483,
+  "max_rel_err": 0.0014618951239880483,
+  "mean_rel_err": 5.835144292013702e-05,
+  "min_correct_digits": 2.8350837824445083,
+  "mean_correct_digits": 6.254939435123299,
+  "median_correct_digits": 5.626718162052683,
+  "digit_histogram": {
+    "6": 6,
+    "8": 10,
+    "3": 13,
+    "2": 1,
+    "4": 22,
+    "12": 1,
+    "5": 8,
+    "7": 13,
+    "9": 2,
+    "10": 1,
+    "15 (exact)": 1,
+    "14": 1,
+    "13": 1
+  },
+  "worst_abs": {
+    "x": -0.9223543543,
+    "expected": 0.39758188969259417,
+    "got": 0.3970006666666666,
+    "abs_err": 0.0005812230259275575,
+    "rel_err": 0.0014618951239880483,
+    "raw": "0.3970006666666666"
+  },
+  "worst_rel": {
+    "x": -0.9223543543,
+    "expected": 0.39758188969259417,
+    "got": 0.3970006666666666,
+    "abs_err": 0.0005812230259275575,
+    "rel_err": 0.0014618951239880483,
+    "raw": "0.3970006666666666"
+  },
+  "latency_s": {
+    "mean": 82.24247499999996,
+    "min": 7.239,
+    "max": 360.758
+  },
+  "tokens": {
+    "prompt": 12811,
+    "completion": 2785476,
+    "reasoning": 2783244,
+    "cache_hit": 0
+  },
+  "failures": [
+    {
+      "x": -0.9078417884,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.829496683,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.8073587721,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.6953112289,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.6177280923,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.5731993577,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.5425603887,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.4725893327,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.4246474579,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.3381515142,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.2544673891,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.2136228964,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.1862615737,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.0015297841,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.2679986763,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.2861848676,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.3085842799,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.3862471261,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.4554682359,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.7800439074,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.8730076706,
+      "error": null,
+      "raw": null
+    }
+  ]
+}

@@ -1,0 +1,272 @@
+{
+  "meta": {
+    "test": "test1v2",
+    "func": "exp",
+    "model": "claude-fable-5",
+    "base_url": "claude-code-cli (local)",
+    "api": "claude-cli",
+    "temperature": 0.0,
+    "reasoning_effort": null,
+    "concurrency": 4,
+    "recall_proof": true,
+    "seed": "test1v2",
+    "jitter": 0.0095,
+    "sigdigits_requested": 15,
+    "antitruncation_clause": true,
+    "grid": {
+      "lo": -1.0,
+      "hi": 1.0,
+      "step": 0.02,
+      "points": 101,
+      "sampled_from": null
+    },
+    "wall_s": 1550.4,
+    "utc": "20260811_013217",
+    "system_prompt": "You are a numerical calculator. Answer with the numeric result only: a single decimal number, no words, no units, no formatting, no explanation.",
+    "user_prompt_example": "Compute exp(-0.9985798483), the exponential function e raised to the power -0.9985798483. Give the value as a plain decimal number with at least 15 significant digits. Give every digit you are confident in \u2014 do not round or truncate the result to fewer digits than you computed. Output only the number."
+  },
+  "points": 101,
+  "answered": 62,
+  "unparsed_or_failed": 39,
+  "exact_float_matches": 3,
+  "max_abs_err": 1.5834611399867526e-11,
+  "mean_abs_err": 3.8593053484153336e-13,
+  "rms_abs_err": 2.0816572361032383e-12,
+  "max_rel_err": 3.244424827860604e-11,
+  "mean_rel_err": 7.098018024843981e-13,
+  "min_correct_digits": 10.488862283833333,
+  "mean_correct_digits": 14.151609127808001,
+  "median_correct_digits": 14.677566102121085,
+  "digit_histogram": {
+    "15 (exact)": 24,
+    "13": 10,
+    "12": 4,
+    "11": 4,
+    "14": 19,
+    "10": 1
+  },
+  "worst_abs": {
+    "x": -0.7173250396,
+    "expected": 0.4880560419798346,
+    "got": 0.488056041964,
+    "abs_err": 1.5834611399867526e-11,
+    "rel_err": 3.244424827860604e-11,
+    "raw": "0.488056041964"
+  },
+  "worst_rel": {
+    "x": -0.7173250396,
+    "expected": 0.4880560419798346,
+    "got": 0.488056041964,
+    "abs_err": 1.5834611399867526e-11,
+    "rel_err": 3.244424827860604e-11,
+    "raw": "0.488056041964"
+  },
+  "latency_s": {
+    "mean": 93.31967741935486,
+    "min": 18.881,
+    "max": 314.123
+  },
+  "tokens": {
+    "prompt": 124,
+    "completion": 555843,
+    "reasoning": 0,
+    "cache_hit": 1067126
+  },
+  "failures": [
+    {
+      "x": 0.2483288406,
+      "error": "claude rc=1: ",
+      "raw": null
+    },
+    {
+      "x": 0.2679986763,
+      "error": "claude rc=1: ",
+      "raw": null
+    },
+    {
+      "x": 0.2861848676,
+      "error": "claude rc=1: ",
+      "raw": null
+    },
+    {
+      "x": 0.3085842799,
+      "error": "claude rc=1: ",
+      "raw": null
+    },
+    {
+      "x": 0.328791263,
+      "error": "claude rc=1: ",
+      "raw": null
+    },
+    {
+      "x": 0.3365311812,
+      "error": "claude rc=1: ",
+      "raw": null
+    },
+    {
+      "x": 0.3694180556,
+      "error": "claude rc=1: ",
+      "raw": null
+    },
+    {
+      "x": 0.3862471261,
+      "error": "claude rc=1: ",
+      "raw": null
+    },
+    {
+      "x": 0.3948244887,
+      "error": "claude rc=1: ",
+      "raw": null
+    },
+    {
+      "x": 0.4273082696,
+      "error": "claude rc=1: ",
+      "raw": null
+    },
+    {
+      "x": 0.4393102754,
+      "error": "claude rc=1: ",
+      "raw": null
+    },
+    {
+      "x": 0.4554682359,
+      "error": "claude rc=1: ",
+      "raw": null
+    },
+    {
+      "x": 0.4740283039,
+      "error": "claude rc=1: ",
+      "raw": null
+    },
+    {
+      "x": 0.5052254264,
+      "error": "claude rc=1: ",
+      "raw": null
+    },
+    {
+      "x": 0.5187170226,
+      "error": "claude rc=1: ",
+      "raw": null
+    },
+    {
+      "x": 0.5350224846,
+      "error": "claude rc=1: ",
+      "raw": null
+    },
+    {
+      "x": 0.5618823536,
+      "error": "claude rc=1: ",
+      "raw": null
+    },
+    {
+      "x": 0.5876625875,
+      "error": "claude rc=1: ",
+      "raw": null
+    },
+    {
+      "x": 0.6016659687,
+      "error": "claude rc=1: ",
+      "raw": null
+    },
+    {
+      "x": 0.6188645751,
+      "error": "claude rc=1: ",
+      "raw": null
+    },
+    {
+      "x": 0.6484347985,
+      "error": "claude rc=1: ",
+      "raw": null
+    },
+    {
+      "x": 0.6605729619,
+      "error": "claude rc=1: ",
+      "raw": null
+    },
+    {
+      "x": 0.684086953,
+      "error": "claude rc=1: ",
+      "raw": null
+    },
+    {
+      "x": 0.6938073077,
+      "error": "claude rc=1: ",
+      "raw": null
+    },
+    {
+      "x": 0.7247429906,
+      "error": "claude rc=1: ",
+      "raw": null
+    },
+    {
+      "x": 0.7349933738,
+      "error": "claude rc=1: ",
+      "raw": null
+    },
+    {
+      "x": 0.7673753916,
+      "error": "claude rc=1: ",
+      "raw": null
+    },
+    {
+      "x": 0.7800439074,
+      "error": "claude rc=1: ",
+      "raw": null
+    },
+    {
+      "x": 0.7931144531,
+      "error": "claude rc=1: ",
+      "raw": null
+    },
+    {
+      "x": 0.8189004342,
+      "error": "claude rc=1: ",
+      "raw": null
+    },
+    {
+      "x": 0.8428166028,
+      "error": "claude rc=1: ",
+      "raw": null
+    },
+    {
+      "x": 0.8694673341,
+      "error": "claude rc=1: ",
+      "raw": null
+    },
+    {
+      "x": 0.8730076706,
+      "error": "claude rc=1: ",
+      "raw": null
+    },
+    {
+      "x": 0.9034060419,
+      "error": "claude rc=1: ",
+      "raw": null
+    },
+    {
+      "x": 0.9246204423,
+      "error": "claude rc=1: ",
+      "raw": null
+    },
+    {
+      "x": 0.9449889901,
+      "error": "claude rc=1: ",
+      "raw": null
+    },
+    {
+      "x": 0.9582162565,
+      "error": "claude rc=1: ",
+      "raw": null
+    },
+    {
+      "x": 0.9830754318,
+      "error": "claude rc=1: ",
+      "raw": null
+    },
+    {
+      "x": 0.995404084,
+      "error": "claude rc=1: ",
+      "raw": null
+    }
+  ]
+}

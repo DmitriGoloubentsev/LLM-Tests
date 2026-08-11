@@ -1,0 +1,239 @@
+{
+  "meta": {
+    "test": "test1v2",
+    "func": "sin",
+    "model": "qwen/qwen3.7-flash",
+    "base_url": "https://openrouter.ai/api/v1",
+    "api": "openai",
+    "temperature": 0.0,
+    "reasoning_effort": null,
+    "concurrency": 6,
+    "recall_proof": true,
+    "seed": "test1v2",
+    "jitter": 0.0095,
+    "sigdigits_requested": 15,
+    "antitruncation_clause": true,
+    "grid": {
+      "lo": -1.0,
+      "hi": 1.0,
+      "step": 0.02,
+      "points": 101,
+      "sampled_from": null
+    },
+    "wall_s": 2234.8,
+    "utc": "20260810_231316",
+    "system_prompt": "You are a numerical calculator. Answer with the numeric result only: a single decimal number, no words, no units, no formatting, no explanation.",
+    "user_prompt_example": "Compute sin(-0.9985798483), the sine of -0.9985798483 RADIANS (not degrees). Give the value as a plain decimal number with at least 15 significant digits. Give every digit you are confident in \u2014 do not round or truncate the result to fewer digits than you computed. Output only the number."
+  },
+  "points": 101,
+  "answered": 69,
+  "unparsed_or_failed": 32,
+  "exact_float_matches": 0,
+  "max_abs_err": 0.0005534974258569747,
+  "mean_abs_err": 1.4702329086202652e-05,
+  "rms_abs_err": 7.15962424966136e-05,
+  "max_rel_err": 0.0007134912177738776,
+  "mean_rel_err": 2.121212804741629e-05,
+  "min_correct_digits": 3.146611368163654,
+  "mean_correct_digits": 6.175700362482647,
+  "median_correct_digits": 6.0610211177559705,
+  "digit_histogram": {
+    "7": 9,
+    "4": 7,
+    "5": 22,
+    "3": 3,
+    "6": 23,
+    "8": 2,
+    "9": 2,
+    "11": 1
+  },
+  "worst_abs": {
+    "x": -0.8879174311,
+    "expected": -0.7757592694468052,
+    "got": -0.7763127668726622,
+    "abs_err": 0.0005534974258569747,
+    "rel_err": 0.0007134912177738776,
+    "raw": "-0.7763127668726622"
+  },
+  "worst_rel": {
+    "x": -0.8879174311,
+    "expected": -0.7757592694468052,
+    "got": -0.7763127668726622,
+    "abs_err": 0.0005534974258569747,
+    "rel_err": 0.0007134912177738776,
+    "raw": "-0.7763127668726622"
+  },
+  "latency_s": {
+    "mean": 89.60556521739127,
+    "min": 5.891,
+    "max": 208.201
+  },
+  "tokens": {
+    "prompt": 12912,
+    "completion": 1931809,
+    "reasoning": 1930152,
+    "cache_hit": 0
+  },
+  "failures": [
+    {
+      "x": -0.9985798483,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.9223543543,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.863389757,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.7863662979,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.634661819,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.6066231217,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.5230900242,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.4476202759,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.3381515142,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.2544673891,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.1906816532,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.1652531899,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.1039949724,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.0553520462,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.0291663476,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.0473917113,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.0746622569,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.1627731267,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.2294190616,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.2861848676,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.3085842799,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.3862471261,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.4273082696,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.5350224846,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.6016659687,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.6938073077,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.7931144531,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.8189004342,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.9034060419,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.9246204423,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.9449889901,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.995404084,
+      "error": null,
+      "raw": null
+    }
+  ]
+}

@@ -179,6 +179,9 @@ def ask_claude_cli(args, x):
            "--exclude-dynamic-system-prompt-sections"]
     if args.model:
         cmd += ["--model", args.model]
+    if args.reasoning_effort:
+        # CLI exposes the same ladder as the API: low|medium|high|xhigh|max
+        cmd += ["--effort", args.reasoning_effort]
     env = dict(os.environ, HOME=home, CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC="1")
     env.pop("ANTHROPIC_API_KEY", None)          # use the CLI's own credentials
     last_err = None
@@ -205,6 +208,11 @@ def ask_claude_cli(args, x):
                     "cache_hit_tokens": u.get("cache_read_input_tokens", 0),
                     "cost_usd": d.get("total_cost_usd"),
                     "stop_reason": d.get("stop_reason"),
+                    # num_turns == 1 proves no tool round-trip happened (a tool call
+                    # needs >= 2 turns). Recorded per point so the zero-tools claim
+                    # is auditable from raw.jsonl rather than taken on trust.
+                    "num_turns": d.get("num_turns"),
+                    "permission_denials": len(d.get("permission_denials") or []),
                     "error": d.get("api_error_status") if d.get("is_error") else None}
         except Exception as e:                                   # noqa: BLE001
             last_err = f"{type(e).__name__}: {e}"

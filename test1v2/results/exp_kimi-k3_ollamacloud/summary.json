@@ -1,0 +1,561 @@
+{
+  "meta": {
+    "test": "test1v2",
+    "func": "exp",
+    "model": "kimi-k3",
+    "base_url": "https://ollama.com/v1",
+    "api": "openai",
+    "temperature": 0.0,
+    "reasoning_effort": null,
+    "concurrency": 6,
+    "recall_proof": true,
+    "seed": "test1v2",
+    "jitter": 0.0095,
+    "sigdigits_requested": 15,
+    "antitruncation_clause": true,
+    "grid": {
+      "lo": -1.0,
+      "hi": 1.0,
+      "step": 0.02,
+      "points": 101,
+      "sampled_from": null
+    },
+    "wall_s": 169.3,
+    "utc": "20260810_203225",
+    "system_prompt": "You are a numerical calculator. Answer with the numeric result only: a single decimal number, no words, no units, no formatting, no explanation.",
+    "user_prompt_example": "Compute exp(-0.9985798483), the exponential function e raised to the power -0.9985798483. Give the value as a plain decimal number with at least 15 significant digits. Give every digit you are confident in \u2014 do not round or truncate the result to fewer digits than you computed. Output only the number."
+  },
+  "points": 101,
+  "answered": 0,
+  "unparsed_or_failed": 101,
+  "exact_float_matches": 0,
+  "max_abs_err": null,
+  "mean_abs_err": null,
+  "rms_abs_err": null,
+  "max_rel_err": null,
+  "mean_rel_err": null,
+  "min_correct_digits": null,
+  "mean_correct_digits": null,
+  "median_correct_digits": null,
+  "digit_histogram": {},
+  "worst_abs": null,
+  "worst_rel": null,
+  "latency_s": {
+    "mean": null,
+    "min": null,
+    "max": null
+  },
+  "tokens": {
+    "prompt": 0,
+    "completion": 0,
+    "reasoning": 0,
+    "cache_hit": 0
+  },
+  "failures": [
+    {
+      "x": -0.9985798483,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: 00be2801-6e0e-43dc-b423-ebf48d6c363b)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": -0.9814799602,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: ab3dd752-0576-4801-a60a-8e2878ac25de)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": -0.9513299347,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: b76996b4-29e3-4a71-8792-2a55c20fc629)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": -0.9380804614,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: a99a02ed-7c58-434e-9470-0caf8f079a71)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": -0.9223543543,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: 5480497a-5080-40eb-90e7-5ff8833edd43)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": -0.9078417884,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: 38d60eaa-ce70-4894-8009-7fe6fea54d90)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": -0.8879174311,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: cc989a2b-c6f7-45b9-812a-9917f2255467)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": -0.863389757,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: 1fdff9a6-09cf-4d43-9bea-5b821b0b8357)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": -0.8344821424,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: 78fd6579-f289-4bcc-881a-d5896dd1be19)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": -0.829496683,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: 14aa2d17-1193-4b12-8d40-780ddadb6f26)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": -0.8073587721,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: 6aae6dd2-1367-42aa-89e3-94b5631a0cdd)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": -0.7863662979,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: e47d4af2-c127-4a99-8e99-6f5e54e6fe4b)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": -0.7682166995,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: 8b4785e9-f3db-42ea-a715-3233890e76f3)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": -0.7364300142,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: d7dd9173-d090-40bd-bf11-854012456b5a)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": -0.7173250396,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: a6a198f9-056a-4d84-9c41-8e08c7efbe8e)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": -0.6953112289,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: 9783ebfa-d339-49e0-a167-3ea08e8f1589)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": -0.681319212,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: 32484cab-9e9a-4c3d-94df-8f95beeb26fc)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": -0.662176483,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: a2082751-4c42-4762-8e51-077c0748f01e)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": -0.634661819,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: 8446a293-fe4b-4136-936b-18f591dde71d)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": -0.6177280923,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: 4715ef1d-678e-44fe-a254-dd1c3c9a0a1e)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": -0.6066231217,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: 6afbb6ab-1407-44e7-96b5-c982c9c2341b)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": -0.5731993577,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: a1a55454-59ef-4ad8-a2ac-fbe84973ef41)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": -0.5508534706,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: 43d80029-4197-4ea3-86fd-f6f76ed24fcb)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": -0.5425603887,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: d6be1928-11da-4d74-b53f-e2e7b7971469)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": -0.5230900242,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: 331d3f86-17f0-4633-9759-1c6f67fb227a)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": -0.5054064386,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: 24d17d57-d18a-4650-80ac-f17bc3eb02a8)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": -0.4725893327,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: 5f75c755-e37e-4fa4-a5f1-7016cadca227)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": -0.4628029033,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: 4a7c7392-07e5-4d48-8bb7-ccf26b174b07)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": -0.4476202759,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: 9f57a17e-3711-4365-84a3-af1c22f5df3a)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": -0.4246474579,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: be65bab0-47e2-4605-9d8a-b0cd0a0e7d02)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": -0.4042105879,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: baa61396-373d-48cb-b33b-c07c8af94583)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": -0.3806838196,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: e902355f-a067-4491-8005-a4eb221c4cfe)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": -0.3505948019,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: 634d7cec-f082-43ac-839d-9e845da2481f)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": -0.3381515142,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: 701f7ea1-ee6e-4e65-86fc-5c7aefe7d379)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": -0.3181961257,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: a79047df-bc65-4af8-af9b-35912753d2b9)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": -0.3071621056,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: a2dea52a-b433-4e70-ab4c-9c0969ff8e9f)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": -0.2833967212,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: 1b73780a-ed9b-497e-8967-17239b4818cf)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": -0.2544673891,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: f1d19949-9583-46d9-b576-47dacef17d8b)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": -0.2427024359,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: 3af94f09-bc86-4055-80e1-d17d9c8c71f2)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": -0.2136228964,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: 222e12f2-78eb-4469-8bea-4b46a227cebb)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": -0.1906816532,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: 5827f54a-d3b9-4f77-8c5e-9823ed1920c7)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": -0.1862615737,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: a81d2c19-8e06-43d2-88b2-9629e81516c1)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": -0.1652531899,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: 61ebe348-406c-4e9e-86d6-fbe971590dcb)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": -0.1441326741,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: 6d76d98b-563b-488b-a9aa-aa571c935e0b)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": -0.1144790812,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: fbf2abc6-74a4-46d0-ac60-4136eb953ef1)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": -0.1039949724,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: c4fe6e26-52ef-409b-baa6-9049b137c9eb)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": -0.0859920192,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: 55adafe5-d799-4513-a117-95968cd4d086)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": -0.0553520462,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: dae7e745-30af-4a75-8f87-f38f9c7aae32)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": -0.0450636657,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: f7c25e56-ebb9-4a24-90b0-96de7370f130)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": -0.0222930415,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: ccd4ca71-cfe6-4726-9493-273a37a0cc97)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": 0.0015297841,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: ddcb7877-1eca-4fd6-850f-92d16a342bfb)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": 0.0291663476,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: 8c64bd33-1366-486a-8311-0aca9bb5a266)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": 0.0473917113,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: 59c51759-8aad-4547-b537-85bd4735c558)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": 0.0646797399,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: 5dc9f1ca-d8f6-49f2-bdc1-fa4d57895bd1)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": 0.0746622569,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: c6ebb7b9-1318-4c55-8ab2-10815f4cd7aa)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": 0.1010724327,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: 8d6af8a3-4645-4e66-9cb0-85bc4e9fa50e)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": 0.1235898114,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: b9db5e6d-2ec8-4f4e-bf66-5b302a2fd43a)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": 0.1482453477,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: 70c846cf-f084-4b9c-8050-7f594688fb91)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": 0.1627731267,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: acdaf2c7-26ff-489f-9010-605ac368efc9)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": 0.1823138134,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: d692785c-9547-44c9-a280-629ea71416b1)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": 0.1918553666,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: 5c7a5c1e-b3cf-46ed-8438-ec51e9c8be95)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": 0.2294190616,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: 72aca87f-4245-40a9-9b49-6c3b3b6d0454)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": 0.2483288406,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: 8dd5f0da-d9ae-4ddf-a8d5-109dff2000cf)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": 0.2679986763,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: b20b3d98-c657-4ebd-b1be-c69ad60e510a)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": 0.2861848676,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: 7a7dd45e-a852-4af0-84a0-bd4ac722d644)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": 0.3085842799,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: c82fb191-8058-485b-ad64-ef7b214016c2)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": 0.328791263,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: ce75e279-b312-4abd-bb4e-a7eebb040b7b)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": 0.3365311812,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: bbf236d7-93b2-4183-9954-95db9468bc6d)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": 0.3694180556,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: d0ec1e3a-18f9-4e91-8140-2ae1d6687ac8)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": 0.3862471261,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: 756fddac-7af0-47c4-bd8a-1ba615e828f6)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": 0.3948244887,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: bc18a64f-745e-4db4-b6fb-1ebee989e718)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": 0.4273082696,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: 89699f26-3741-4eeb-b205-a5fd846988d0)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": 0.4393102754,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: 7989114b-8ab8-4b83-80f7-840463f2f844)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": 0.4554682359,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: 2e7803c6-537d-43d2-980a-5cd5442a8306)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": 0.4740283039,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: b4e87ccb-5125-4836-a2d1-8aa240079b67)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": 0.5052254264,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: eb0c5dd5-65a9-425f-a2c1-d71083642316)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": 0.5187170226,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: 57f5276a-dd66-4c6e-aca6-b68006db92e5)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": 0.5350224846,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: 30f904d8-d039-4327-ad41-6c50abe93454)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": 0.5618823536,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: a28bf8fa-2277-47d9-8408-f39e7757a792)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": 0.5876625875,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: ef18148c-e99e-404f-8dba-f5ee81b38be7)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": 0.6016659687,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: 65ad4f60-05ea-45f5-aee9-702c9b5a882e)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": 0.6188645751,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: 771e5823-d447-46ba-9bfa-ee06a8cd5a31)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": 0.6484347985,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: 0517fd85-96b7-4dd4-822d-d32314a5ebbf)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": 0.6605729619,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: 3dc40942-93c5-450a-9d81-fcaa5b53d041)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": 0.684086953,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: 7100b6a1-db47-4451-b6af-fd6b8761c2e8)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": 0.6938073077,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: efcccf31-8606-457f-994a-8288fc3c922b)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": 0.7247429906,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: 2001d79b-67b9-4024-bd27-c56e76ae16d6)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": 0.7349933738,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: af278988-0a58-4452-a9c2-2b9ec23ce7c2)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": 0.7673753916,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: 80596ac8-a40a-44e3-9fa1-bcf7eaa1d8cd)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": 0.7800439074,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: ca0aca6b-4c41-41a7-bec6-a7005443f29e)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": 0.7931144531,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: deb430ac-a37a-435a-b960-3be8f9f3a105)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": 0.8189004342,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: 040ab1c7-219f-4bd5-81dc-ebb7d64b01ff)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": 0.8428166028,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: 2654e110-f53a-4377-b66a-5884db140fb5)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": 0.8694673341,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: 8d807195-8bf3-44b7-b984-f84462c8bd5e)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": 0.8730076706,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: fcfb9bd8-1db2-43b9-94b5-f57d236d9ed4)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": 0.9034060419,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: b869dc81-4525-44e0-8455-d8c6b3f91620)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": 0.9246204423,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: d3263f54-5085-4468-85b9-6f39fd76ccea)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": 0.9449889901,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: ee53d557-02bd-43da-b966-c69b81f5ba4c)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": 0.9582162565,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: 3ee602bb-6e20-4aaf-9fa3-37cfa8435b72)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": 0.9830754318,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: 219eaade-0916-4952-8baf-f1309e65a43f)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": 0.995404084,
+      "error": "HTTPError: HTTP Error 402: Payment Required :: {\"error\":{\"message\":\"this model uses extra usage only (not included plan usage) and your extra usage balance is empty, add extra usage or turn on auto reload at https://ollama.com/settings (ref: 77c38185-8015-47a8-a60d-fa1c6cc70c9a)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    }
+  ]
+}

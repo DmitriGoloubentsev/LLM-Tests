@@ -1,0 +1,72 @@
+{
+  "meta": {
+    "test": "test1v2",
+    "func": "exp",
+    "model": "openai/gpt-5.6-sol",
+    "base_url": "https://openrouter.ai/api/v1",
+    "api": "openai",
+    "temperature": 0.0,
+    "reasoning_effort": null,
+    "concurrency": 3,
+    "recall_proof": true,
+    "seed": "test1v2",
+    "jitter": 0.0095,
+    "sigdigits_requested": 15,
+    "antitruncation_clause": true,
+    "grid": {
+      "lo": -1.0,
+      "hi": 1.0,
+      "step": 0.02,
+      "points": 5,
+      "sampled_from": 101
+    },
+    "wall_s": 210.9,
+    "utc": "20260810_210702",
+    "system_prompt": "You are a numerical calculator. Answer with the numeric result only: a single decimal number, no words, no units, no formatting, no explanation.",
+    "user_prompt_example": "Compute exp(-0.7863662979), the exponential function e raised to the power -0.7863662979. Give the value as a plain decimal number with at least 15 significant digits. Give every digit you are confident in \u2014 do not round or truncate the result to fewer digits than you computed. Output only the number."
+  },
+  "points": 5,
+  "answered": 5,
+  "unparsed_or_failed": 0,
+  "exact_float_matches": 3,
+  "max_abs_err": 8.215650382226158e-15,
+  "mean_abs_err": 1.7319479184152442e-15,
+  "rms_abs_err": 3.679514273087634e-15,
+  "max_rel_err": 6.7814134375336746e-15,
+  "mean_rel_err": 1.396466856012816e-15,
+  "min_correct_digits": 14.168679777497932,
+  "mean_correct_digits": 14.833735955499586,
+  "median_correct_digits": 15.0,
+  "digit_histogram": {
+    "15 (exact)": 4,
+    "14": 1
+  },
+  "worst_abs": {
+    "x": 0.1918553666,
+    "expected": 1.2114952816111002,
+    "got": 1.211495281611092,
+    "abs_err": 8.215650382226158e-15,
+    "rel_err": 6.7814134375336746e-15,
+    "raw": "1.211495281611092"
+  },
+  "worst_rel": {
+    "x": 0.1918553666,
+    "expected": 1.2114952816111002,
+    "got": 1.211495281611092,
+    "abs_err": 8.215650382226158e-15,
+    "rel_err": 6.7814134375336746e-15,
+    "raw": "1.211495281611092"
+  },
+  "latency_s": {
+    "mean": 110.70160000000001,
+    "min": 65.042,
+    "max": 145.928
+  },
+  "tokens": {
+    "prompt": 543,
+    "completion": 21271,
+    "reasoning": 21202,
+    "cache_hit": 0
+  },
+  "failures": []
+}

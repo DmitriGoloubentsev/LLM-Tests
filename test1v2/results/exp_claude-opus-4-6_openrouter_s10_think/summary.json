@@ -1,0 +1,106 @@
+{
+  "meta": {
+    "test": "test1v2",
+    "func": "exp",
+    "model": "anthropic/claude-opus-4.6",
+    "base_url": "https://openrouter.ai/api/v1",
+    "api": "openai",
+    "temperature": 0.0,
+    "reasoning_effort": "high",
+    "concurrency": 4,
+    "recall_proof": true,
+    "seed": "test1v2",
+    "jitter": 0.0095,
+    "sigdigits_requested": 15,
+    "antitruncation_clause": true,
+    "grid": {
+      "lo": -1.0,
+      "hi": 1.0,
+      "step": 0.02,
+      "points": 10,
+      "sampled_from": 101
+    },
+    "wall_s": 2580.6,
+    "utc": "20260810_200237",
+    "system_prompt": "You are a numerical calculator. Answer with the numeric result only: a single decimal number, no words, no units, no formatting, no explanation.",
+    "user_prompt_example": "Compute exp(-0.9985798483), the exponential function e raised to the power -0.9985798483. Give the value as a plain decimal number with at least 15 significant digits. Give every digit you are confident in \u2014 do not round or truncate the result to fewer digits than you computed. Output only the number."
+  },
+  "points": 10,
+  "answered": 0,
+  "unparsed_or_failed": 10,
+  "exact_float_matches": 0,
+  "max_abs_err": null,
+  "mean_abs_err": null,
+  "rms_abs_err": null,
+  "max_rel_err": null,
+  "mean_rel_err": null,
+  "min_correct_digits": null,
+  "mean_correct_digits": null,
+  "median_correct_digits": null,
+  "digit_histogram": {},
+  "worst_abs": null,
+  "worst_rel": null,
+  "latency_s": {
+    "mean": null,
+    "min": null,
+    "max": null
+  },
+  "tokens": {
+    "prompt": 1106,
+    "completion": 655360,
+    "reasoning": 100576,
+    "cache_hit": 0
+  },
+  "failures": [
+    {
+      "x": -0.9985798483,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.863389757,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.7863662979,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.7682166995,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.7173250396,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.662176483,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.3806838196,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.2136228964,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.1918553666,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.7931144531,
+      "error": null,
+      "raw": null
+    }
+  ]
+}

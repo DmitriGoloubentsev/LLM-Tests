@@ -1,0 +1,539 @@
+{
+  "meta": {
+    "test": "test1v2",
+    "func": "exp",
+    "model": "nvidia/nemotron-3-super-120b-a12b",
+    "base_url": "https://integrate.api.nvidia.com/v1",
+    "temperature": 0.0,
+    "reasoning_effort": null,
+    "concurrency": 4,
+    "recall_proof": true,
+    "seed": "test1v2",
+    "jitter": 0.0095,
+    "sigdigits_requested": 15,
+    "antitruncation_clause": true,
+    "grid": {
+      "lo": -1.0,
+      "hi": 1.0,
+      "step": 0.02,
+      "points": 101
+    },
+    "wall_s": 29943.3,
+    "utc": "20260810_175147",
+    "system_prompt": "You are a numerical calculator. Answer with the numeric result only: a single decimal number, no words, no units, no formatting, no explanation.",
+    "user_prompt_example": "Compute exp(-0.9985798483), the exponential function e raised to the power -0.9985798483. Give the value as a plain decimal number with at least 15 significant digits. Give every digit you are confident in \u2014 do not round or truncate the result to fewer digits than you computed. Output only the number."
+  },
+  "points": 101,
+  "answered": 8,
+  "unparsed_or_failed": 93,
+  "exact_float_matches": 0,
+  "max_abs_err": 0.0009959843914538746,
+  "mean_abs_err": 0.0001245242159043647,
+  "rms_abs_err": 0.0003521336661405823,
+  "max_rel_err": 0.0010418937522785263,
+  "mean_rel_err": 0.00013029677826915912,
+  "min_correct_digits": 2.982176566210957,
+  "mean_correct_digits": 10.981930569325804,
+  "median_correct_digits": 15.0,
+  "digit_histogram": {
+    "15 (exact)": 4,
+    "8": 1,
+    "6": 1,
+    "10": 1,
+    "2": 1
+  },
+  "worst_abs": {
+    "x": -0.0450636657,
+    "expected": 0.9559366195216622,
+    "got": 0.9549406351302083,
+    "abs_err": 0.0009959843914538746,
+    "rel_err": 0.0010418937522785263,
+    "raw": "0.9549406351302083"
+  },
+  "worst_rel": {
+    "x": -0.0450636657,
+    "expected": 0.9559366195216622,
+    "got": 0.9549406351302083,
+    "abs_err": 0.0009959843914538746,
+    "rel_err": 0.0010418937522785263,
+    "raw": "0.9549406351302083"
+  },
+  "latency_s": {
+    "mean": 218.09475,
+    "min": 91.268,
+    "max": 289.954
+  },
+  "tokens": {
+    "prompt": 1030,
+    "completion": 79109,
+    "reasoning": 0,
+    "cache_hit": 0
+  },
+  "failures": [
+    {
+      "x": -0.9814799602,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": -0.9513299347,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": -0.9380804614,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": -0.9078417884,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": -0.8879174311,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": -0.863389757,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": -0.8344821424,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": -0.8073587721,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": -0.7863662979,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": -0.7682166995,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": -0.7364300142,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": -0.681319212,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": -0.662176483,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": -0.634661819,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": -0.6177280923,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": -0.6066231217,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": -0.5731993577,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": -0.5508534706,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": -0.5425603887,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": -0.5230900242,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": -0.5054064386,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": -0.4725893327,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": -0.4628029033,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": -0.4476202759,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": -0.4246474579,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": -0.4042105879,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": -0.3806838196,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": -0.3505948019,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": -0.3381515142,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": -0.3181961257,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": -0.3071621056,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": -0.2833967212,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": -0.2544673891,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": -0.2427024359,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": -0.2136228964,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": -0.1906816532,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": -0.1862615737,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": -0.1652531899,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": -0.1441326741,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": -0.1144790812,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": -0.1039949724,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": -0.0859920192,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": -0.0553520462,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": -0.0222930415,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": 0.0015297841,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": 0.0291663476,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": 0.0473917113,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": 0.0646797399,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": 0.0746622569,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": 0.1010724327,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": 0.1235898114,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": 0.1482453477,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": 0.1627731267,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": 0.1918553666,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": 0.2294190616,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": 0.2483288406,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": 0.2679986763,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": 0.2861848676,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": 0.3085842799,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": 0.328791263,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": 0.3365311812,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": 0.3694180556,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": 0.3862471261,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": 0.3948244887,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": 0.4273082696,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": 0.4393102754,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": 0.4554682359,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": 0.4740283039,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": 0.5052254264,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": 0.5187170226,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": 0.5350224846,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": 0.5618823536,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": 0.5876625875,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": 0.6016659687,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": 0.6188645751,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": 0.6484347985,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": 0.6605729619,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": 0.684086953,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": 0.7247429906,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": 0.7349933738,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": 0.7673753916,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": 0.7800439074,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": 0.7931144531,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": 0.8189004342,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": 0.8428166028,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": 0.8694673341,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": 0.8730076706,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": 0.9034060419,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": 0.9246204423,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": 0.9449889901,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": 0.9582162565,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": 0.9830754318,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": 0.995404084,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    }
+  ]
+}
