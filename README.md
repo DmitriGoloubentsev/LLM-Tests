@@ -1,11 +1,47 @@
-# LLM-Tests — how many correct digits does an LLM actually produce?
+# LLM-Tests — can a model *follow a derivation*, or does it just reach for a tool?
 
-Small, reproducible harness that asks a model for the value of an elementary function — **one
-stateless API call per point, no tools, no code execution, no conversation** — and scores the reply
-by how many significant digits agree with IEEE-754 double precision.
+Ask any assistant for `exp(-0.9513299347)` to 15 digits and you will get a perfect answer. It will
+write three lines of Python and run them. That measures the sandbox, not the model.
+
+**This is that exam with the calculator taken away.** No tools are available — not restricted, not
+discouraged, *absent* — so the model has to do what a student does on a closed-book paper: reduce
+the argument onto a constant it remembers, expand a Taylor series, and work through a dozen
+16-digit multiplications by hand. Thousands of tokens of arithmetic in which one slipped carry
+destroys the result. There is no way to bluff it. The answer is either right to fifteen places or
+it isn't, and the grader can tell to a fraction of a digit.
+
+That is the whole point: **we are not testing whether a model can get the right number — we are
+testing whether it can follow a long derivation without losing the thread.** With a tool, every
+model scores 100%. Without one, the spread is enormous.
+
+So this harness removes every escape hatch: **one stateless API call per point — no tools, no code
+execution, no conversation, no retries** — and scores the reply by how many significant digits
+survive against IEEE-754 double precision.
 
 The metric is `correct digits = -log10(relative error)`, capped at 15. Pass/fail hides everything
 interesting here; "4.8 digits" and "15 digits" are both "wrong" to a boolean grader.
+
+Why this task and not a benchmark of word problems:
+
+- **Unfakeable.** A confident paragraph earns nothing; only correct digits score.
+- **Gradable to a fraction of a digit,** against a reference that is correct by construction.
+- **Recall-proof on demand.** The arguments are jittered to ten decimal places by a seeded hash, so
+  they cannot be in any training corpus — the model must derive or guess (§ *the two tests*).
+- **It separates two things every other eval conflates:** knowing the method and executing it
+  without error over thousands of tokens.
+
+**How "no calculator" is enforced.** Over a plain API this is free — no `tools` array is sent, so
+there is nothing to call. The risky path is the Claude Code CLI backend, where the model normally
+*has* an interpreter: there it is launched with `--tools ""` (the entire built-in tool set
+disabled) plus a throwaway `$HOME` and empty working directory, so no `CLAUDE.md` reaches the
+context either. Every CLI reply is verified to have `num_turns == 1` — a tool call would require a
+second turn, so a single turn is proof the answer came out of the model, not out of `python`.
+
+What comes out is a clean split. Some models spend ~24,000 tokens per point and land exactly on the
+double-precision line. Others answer the identical question in **16 tokens** and land 3 digits in —
+they recognise `exp(x)`, emit a remembered-looking number, and stop. Across 70 runs and 30+ models,
+almost nothing sits in between, and **which side a model falls on is not predicted by its size, its
+vendor, or its price.**
 
 Stdlib Python only. Works against any OpenAI-compatible endpoint — hosted or a local
 llama.cpp/SGLang/vLLM/Ollama server.
@@ -49,7 +85,70 @@ The lower panel of every per-run figure shows the tokens spent on each point. ge
 answer and no reasoning at all — it is recalling, not computing, and the accuracy scatter reflects
 that.
 
-**Recall-proof arguments (test1v2)** — 36 runs, 17 models, 6 endpoints, sorted by median accuracy:
+**Recall-proof arguments (test1v2)** — 70 runs, 30+ models, 7 endpoints. Sorted by median accuracy,
+the models fall into four groups that behave qualitatively differently. The `tok/pt` column is the
+one to read alongside the median: it says whether the model *derived* the answer or *recalled* it.
+
+**1 — Derivers.** Thousands of tokens per point, and they land on the double-precision line.
+
+| model | fn | answered | median | worst | tok/pt | cost |
+|---|---|---|---|---|---|---|
+| openai/gpt-5.6-sol | exp | 5/5 | **15.00** | 14.17 | 4,254 | $0.64 |
+| anthropic/claude-opus-5 (OpenRouter) | exp | 10/10 | **15.00** | 13.38 | 16,688 | $4.17 |
+| deepseek-v4-flash | exp | 54/101 | **15.00** | 13.17 | 51,695 | $1.46 |
+| deepseek-v4-flash `effort=low` | exp | **98/101** | **15.00** | 5.04 | 26,520 | **$0.75** |
+| Claude Opus 5 (CLI) `effort=max` | exp | 20/20 | **15.00** | 5.56 | 15,690 | sub |
+| z-ai/glm-5.2 | exp | 18/101 | **15.00** | 8.37 | 30,181 | free |
+| **kimi-k2.6** | exp | 13/20 | **13.68** | 8.31 | 57,209 | free |
+| Claude Fable 5 (CLI) | exp | 62/101 | **14.68** | 10.49 | 5,503 | sub |
+| Claude Opus 5 (CLI) | sin | 101/101 | **14.38** | 8.32 | 7,924 | sub |
+
+**2 — The sparse middle.** They genuinely spend tokens deriving, and still fall short.
+
+| model | fn | answered | median | worst | tok/pt |
+|---|---|---|---|---|---|
+| anthropic/claude-sonnet-5 | exp | 10/10 | 12.10 | 9.30 | 22,630 |
+| anthropic/claude-opus-4.8 `effort=high` | exp | 10/10 | 11.13 | 9.20 | 4,141 |
+| minimax-m2.7 | exp | 1/3 | 9.86 | 9.86 | 59,263 |
+| gpt-oss:120b | exp | 98/101 | 9.55 | 3.18 | 9,105 |
+| poolside/laguna-xs-2.1 | exp | 2/3 | 6.57 | 6.14 | 24,345 |
+| gpt-oss:20b | exp | 93/101 | 6.37 | 2.44 | 26,420 |
+| qwen/qwen3.7-flash | exp | 80/101 | 5.63 | 2.84 | 27,579 |
+| **qwen3.5:397b** | exp | **101/101** | 5.19 | 3.95 | 6,015 |
+
+**3 — Shortcutters.** ~18 tokens per point, 3–5 digits, essentially never fail and never improve.
+
+| model | size | fn | answered | median | tok/pt |
+|---|---|---|---|---|---|
+| google/gemma-4-26b-a4b (MoE) | 26B | exp | 3/3 | 4.91 | 19 |
+| gemma4:31b (dense) | 31B | exp | 101/101 | 4.76 | 18 |
+| anthropic/claude-opus-4.8 (default) | — | exp | 10/10 | 4.66 | **9** |
+| upstage/solar-pro4 | — | exp | 101/101 | 4.41 | 18 |
+| **mistral-large-3:675b** | **675B** | exp | 101/101 | 4.29 | 18 |
+| qwen3-coder | ~30B | exp | 101/101 | 3.72 | 18 |
+| **devstral:24b** | **24B** | exp | 101/101 | 3.46 | 16 |
+| qwen2.5-coder:14b | 14B | exp | 101/101 | 2.93 | 18 |
+
+**4 — Never finish.** They reason until the output cap and return **empty content**.
+
+| model | answered | tok/pt | endpoint |
+|---|---|---|---|
+| minimax-m3 | 0/101 | 32,000 (cap) | Ollama Cloud |
+| inclusionai/ling-3.0-tiny | 0/101 | 27,564 | OpenRouter |
+| cohere/north-mini-code | 0/3 | 26,176 | OpenRouter |
+| deepseek-v4-pro | 0/3 | 65,536 (cap) | Ollama Cloud |
+| glm-5.1 | 0/3 | 32,768 (cap) | Ollama Cloud |
+| claude-opus-4.6 `effort=high`, uncapped | 0/10 | 65,536 (cap) | OpenRouter |
+
+Plus one category of its own: **the Nemotron family is broken on this task at every size.**
+`nemotron-3-nano-30b` scored a median of **0.00** correct digits over 101 points (one reply was
+`229144000.0` where the answer is `0.89`); `nemotron-3-ultra-550b` managed 3.69; and the
+*reasoning-tuned* `nemotron-3-nano-omni-30b-reasoning` scored **−0.00** after burning 32,768 tokens
+per point. Three models, three sizes, two endpoints, one result.
+
+<details>
+<summary>Original 36-run table (sorted purely by median)</summary>
+
 
 | model | fn | answered | median | worst | tokens | cost | notes |
 |---|---|---|---|---|---|---|---|
@@ -89,6 +188,8 @@ that.
 | Claude Opus 4.8 (CLI) | exp | 101/101 | **4.46** | 2.50 | 13,109 | sub |  |
 | Claude Opus 4.8 (CLI) | exp | 101/101 | **4.44** | 2.92 | 3,370 | sub | --effort high (no-op on 4.8) |
 | gemma4:31b | sin | 101/101 | **4.09** | 2.43 | 1,880 | free |  |
+
+</details>
 
 `sub` = Claude Code subscription usage (not a per-token bill). `free` = Ollama Cloud free tier.
 Sampled runs (`n/10`, `n/20`, `n/5`) use `--sample`, a deterministic subset of the same grid, so
@@ -191,6 +292,64 @@ model, same effort, with a 32k cap finished in 6,849 tokens and answered.
 
 No configuration gives "always answers and always correct": no thinking → always answers, never
 accurate; unbounded thinking → exact or silent; throttled thinking → occasionally, quietly wrong.
+
+### What the August 2026 sweep added (34 more runs, 6 new vendors)
+
+**A single sentence of prompting moved a model from 0/101 to 15.00 digits.** `minimax-m3` scored
+**0 of 101** points — every one burning the full budget and returning empty. Its traces show why:
+it does *schoolbook column arithmetic* on 24-digit operands —
+
+```
+Col 7: 5 + 1 + 1 = 7, write 7, no carry
+Result: 522815730554999028331286
+```
+
+— which costs ~24 lines per multiplication and cannot finish in any budget. DeepSeek never does
+this; it splits algebraically (`A*0.12835 = A*0.1 + A*0.02 + A*0.008 + A*0.00035`), ~4–8 lines. So
+we told minimax to do the same, on two points at its own 65,536 ceiling:
+
+| arm | x = −0.9986 | x = 0.9246 |
+|---|---|---|
+| baseline | capped, **empty** | capped, **empty** |
+| "you have a limited budget, commit to the shortest route" | 18,148 tok → **12.79 digits** | 61,759 tok → **14.98** |
+| explicit method hint (reduce → series → split) | 46,036 tok → **15.00** | capped, empty |
+| both | capped, empty | 32,132 tok → **15.00** |
+
+Doubling the budget alone does **not** help (a 20-point run at the 65,536 cap scored 1/20). One
+sentence does. **A meaningful part of what looks like capability here is strategy selection** — the
+model can do the arithmetic and chooses a method that cannot finish. Reported separately from the
+main table, which keeps the identical prompt for every model.
+
+**The host matters more than the model — but only for models that reason.** The same
+DeepSeek-V4-Flash-0731 weights, the same `reasoning_effort=low`, the same 65,536 cap (each host's
+own ceiling):
+
+| host | median tok/pt | hit the ceiling | answered |
+|---|---|---|---|
+| `api.deepseek.com` (native) | 24,370 | 3% | **97%** |
+| OpenRouter | 25,338 | 0% | 75% |
+| Ollama Cloud | **65,536 — the ceiling itself** | **80%** | **20%** |
+
+Ollama silently ignores `reasoning_effort` for this model, so it reasons at full depth and gets
+truncated four times in five. Native and OpenRouter agree within 4%. By contrast `gemma4:31b`
+scores the same run locally (4.32) as on Ollama Cloud (4.76) — **a serving layer can only break
+what the model actually uses.**
+
+**Neither size nor architecture predicts anything.** Mistral shortcuts at **24B (3.46 digits)** and
+at **675B (4.29)** — a 28× parameter increase buys ~0.8 digits and changes nothing structurally.
+Google's gemma scores 4.76 dense and 4.91 as an MoE. And Poolside's *smaller* `laguna-xs` (6.57)
+beats its larger sibling `laguna-s` (4.13). Eight vendors span 14B→675B inside the same 2.8–4.9
+digit band, all at ~18 tokens per point.
+
+**Beware the 3-point smoke.** `laguna-s` looked like a clean shortcutter from its smoke (18 tokens,
+4.51 digits). Its full grid: **20/101 answered** — the 20 answers really are ~18-token shortcuts,
+but the other 81 grind to the cap and die. Smokes set direction, not values; every headline number
+here is from a full grid or an explicit `--sample`.
+
+**Your own `--max-tokens` is an experimental variable, not a safety rail.** Two "the host is broken"
+conclusions in this sweep were wrong — both were a 32k cap sitting below the model's natural spend,
+which looks exactly like a host misconfiguration. If a run's *median* token count equals your cap,
+you measured the cap.
 
 ## Run it
 

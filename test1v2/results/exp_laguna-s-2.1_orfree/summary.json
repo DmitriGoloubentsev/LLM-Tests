@@ -1,0 +1,481 @@
+{
+  "meta": {
+    "test": "test1v2",
+    "func": "exp",
+    "model": "poolside/laguna-s-2.1:free",
+    "base_url": "https://openrouter.ai/api/v1",
+    "api": "openai",
+    "temperature": 0.0,
+    "reasoning_effort": null,
+    "concurrency": 2,
+    "recall_proof": true,
+    "seed": "test1v2",
+    "jitter": 0.0095,
+    "sigdigits_requested": 15,
+    "antitruncation_clause": true,
+    "grid": {
+      "lo": -1.0,
+      "hi": 1.0,
+      "step": 0.02,
+      "points": 101,
+      "sampled_from": null
+    },
+    "wall_s": 19636.8,
+    "utc": "20260811_102753",
+    "system_prompt": "You are a numerical calculator. Answer with the numeric result only: a single decimal number, no words, no units, no formatting, no explanation.",
+    "user_prompt_example": "Compute exp(-0.9985798483), the exponential function e raised to the power -0.9985798483. Give the value as a plain decimal number with at least 15 significant digits. Give every digit you are confident in \u2014 do not round or truncate the result to fewer digits than you computed. Output only the number."
+  },
+  "points": 101,
+  "answered": 20,
+  "unparsed_or_failed": 81,
+  "exact_float_matches": 0,
+  "max_abs_err": 0.00038994485296894865,
+  "mean_abs_err": 9.725648593331693e-05,
+  "rms_abs_err": 0.00015189132647103456,
+  "max_rel_err": 0.0002523538817542078,
+  "mean_rel_err": 8.692898712755687e-05,
+  "min_correct_digits": 3.5979900104806553,
+  "mean_correct_digits": 4.588124606419482,
+  "median_correct_digits": 4.12949986234016,
+  "digit_histogram": {
+    "4": 7,
+    "3": 8,
+    "6": 1,
+    "5": 3,
+    "8": 1
+  },
+  "worst_abs": {
+    "x": 0.9830754318,
+    "expected": 2.672663208900509,
+    "got": 2.67227326404754,
+    "abs_err": 0.00038994485296894865,
+    "rel_err": 0.0001459012312776086,
+    "raw": "2.67227326404754"
+  },
+  "worst_rel": {
+    "x": -0.9078417884,
+    "expected": 0.40339389461222364,
+    "got": 0.403495692627405,
+    "abs_err": 0.00010179801518134246,
+    "rel_err": 0.0002523538817542078,
+    "raw": "0.403495692627405"
+  },
+  "latency_s": {
+    "mean": 26.07815,
+    "min": 0.662,
+    "max": 446.83
+  },
+  "tokens": {
+    "prompt": 10527,
+    "completion": 1596485,
+    "reasoning": 1596125,
+    "cache_hit": 0
+  },
+  "failures": [
+    {
+      "x": -0.9985798483,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.9814799602,
+      "error": "HTTPError: HTTP Error 429: Too Many Requests :: {\"error\":{\"message\":\"Provider returned error\",\"code\":429,\"metadata\":{\"raw\":\"poolside/laguna-s-2.1:free is temporarily rate-limited upstream. Please retry shortly, or add your own key to accumulate your rate limits: https://openrouter.ai/settings/integrations\",\"provider_name\":\"Poolside\",\"is_byok\":fal",
+      "raw": null
+    },
+    {
+      "x": -0.9380804614,
+      "error": "HTTPError: HTTP Error 429: Too Many Requests :: {\"error\":{\"message\":\"Provider returned error\",\"code\":429,\"metadata\":{\"raw\":\"poolside/laguna-s-2.1:free is temporarily rate-limited upstream. Please retry shortly, or add your own key to accumulate your rate limits: https://openrouter.ai/settings/integrations\",\"provider_name\":\"Poolside\",\"is_byok\":fal",
+      "raw": null
+    },
+    {
+      "x": -0.9223543543,
+      "error": "HTTPError: HTTP Error 429: Too Many Requests :: {\"error\":{\"message\":\"Provider returned error\",\"code\":429,\"metadata\":{\"raw\":\"poolside/laguna-s-2.1:free is temporarily rate-limited upstream. Please retry shortly, or add your own key to accumulate your rate limits: https://openrouter.ai/settings/integrations\",\"provider_name\":\"Poolside\",\"is_byok\":fal",
+      "raw": null
+    },
+    {
+      "x": -0.8879174311,
+      "error": "HTTPError: HTTP Error 429: Too Many Requests :: {\"error\":{\"message\":\"Provider returned error\",\"code\":429,\"metadata\":{\"raw\":\"poolside/laguna-s-2.1:free is temporarily rate-limited upstream. Please retry shortly, or add your own key to accumulate your rate limits: https://openrouter.ai/settings/integrations\",\"provider_name\":\"Poolside\",\"is_byok\":fal",
+      "raw": null
+    },
+    {
+      "x": -0.863389757,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.8344821424,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.8073587721,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.7682166995,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.7364300142,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.7173250396,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.6953112289,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.681319212,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.662176483,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.634661819,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.6066231217,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.5731993577,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.5425603887,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.5230900242,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.5054064386,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.4725893327,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.4246474579,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.4042105879,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.3806838196,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.3505948019,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.3381515142,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.3181961257,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.3071621056,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.2833967212,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.2544673891,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.2427024359,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.2136228964,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.1906816532,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.1862615737,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.1652531899,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.1441326741,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.1144790812,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.1039949724,
+      "error": "HTTPError: HTTP Error 429: Too Many Requests :: {\"error\":{\"message\":\"Provider returned error\",\"code\":429,\"metadata\":{\"raw\":\"poolside/laguna-s-2.1:free is temporarily rate-limited upstream. Please retry shortly, or add your own key to accumulate your rate limits: https://openrouter.ai/settings/integrations\",\"provider_name\":\"Poolside\",\"is_byok\":fal",
+      "raw": null
+    },
+    {
+      "x": -0.0859920192,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.0553520462,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.0450636657,
+      "error": "HTTPError: HTTP Error 429: Too Many Requests :: {\"error\":{\"message\":\"Provider returned error\",\"code\":429,\"metadata\":{\"raw\":\"poolside/laguna-s-2.1:free is temporarily rate-limited upstream. Please retry shortly, or add your own key to accumulate your rate limits: https://openrouter.ai/settings/integrations\",\"provider_name\":\"Poolside\",\"is_byok\":fal",
+      "raw": null
+    },
+    {
+      "x": -0.0222930415,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.0015297841,
+      "error": "HTTPError: HTTP Error 429: Too Many Requests :: {\"error\":{\"message\":\"Provider returned error\",\"code\":429,\"metadata\":{\"raw\":\"poolside/laguna-s-2.1:free is temporarily rate-limited upstream. Please retry shortly, or add your own key to accumulate your rate limits: https://openrouter.ai/settings/integrations\",\"provider_name\":\"Poolside\",\"is_byok\":fal",
+      "raw": null
+    },
+    {
+      "x": 0.0473917113,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.0646797399,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.1010724327,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.1235898114,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.1482453477,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.1627731267,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.1823138134,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.1918553666,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.2294190616,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.2483288406,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.2679986763,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.3085842799,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.328791263,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.3365311812,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.3862471261,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.3948244887,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.4273082696,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.4393102754,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.5187170226,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.5618823536,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.6016659687,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.6188645751,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.6605729619,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.684086953,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.6938073077,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.7247429906,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.7349933738,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.7673753916,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.7800439074,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.7931144531,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.8189004342,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.8428166028,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.8694673341,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.8730076706,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.9034060419,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.9449889901,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.9582162565,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.995404084,
+      "error": null,
+      "raw": null
+    }
+  ]
+}

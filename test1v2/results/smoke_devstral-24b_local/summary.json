@@ -1,0 +1,72 @@
+{
+  "meta": {
+    "test": "test1v2",
+    "func": "exp",
+    "model": "devstral:24b-small-2505-q4_K_M",
+    "base_url": "http://127.0.0.1:11434/v1",
+    "api": "openai",
+    "temperature": 0.0,
+    "reasoning_effort": null,
+    "concurrency": 1,
+    "recall_proof": true,
+    "seed": "test1v2",
+    "jitter": 0.0095,
+    "sigdigits_requested": 15,
+    "antitruncation_clause": true,
+    "grid": {
+      "lo": -1.0,
+      "hi": 1.0,
+      "step": 0.02,
+      "points": 3,
+      "sampled_from": 101
+    },
+    "wall_s": 46.6,
+    "utc": "20260811_110246",
+    "system_prompt": "You are a numerical calculator. Answer with the numeric result only: a single decimal number, no words, no units, no formatting, no explanation.",
+    "user_prompt_example": "Compute exp(-0.7863662979), the exponential function e raised to the power -0.7863662979. Give the value as a plain decimal number with at least 15 significant digits. Give every digit you are confident in \u2014 do not round or truncate the result to fewer digits than you computed. Output only the number."
+  },
+  "points": 3,
+  "answered": 3,
+  "unparsed_or_failed": 0,
+  "exact_float_matches": 0,
+  "max_abs_err": 0.0034224055819076504,
+  "mean_abs_err": 0.0013147028431179653,
+  "rms_abs_err": 0.0019893935019863122,
+  "max_rel_err": 0.0015484109898320038,
+  "mean_rel_err": 0.0008662419815865073,
+  "min_correct_digits": 2.810113754941265,
+  "mean_correct_digits": 3.144310270350451,
+  "median_correct_digits": 3.1434533756659424,
+  "digit_histogram": {
+    "3": 2,
+    "2": 1
+  },
+  "worst_abs": {
+    "x": 0.7931144531,
+    "expected": 2.2102694984611078,
+    "got": 2.2068470928792,
+    "abs_err": 0.0034224055819076504,
+    "rel_err": 0.0015484109898320038,
+    "raw": "2.2068470928792"
+  },
+  "worst_rel": {
+    "x": 0.7931144531,
+    "expected": 2.2102694984611078,
+    "got": 2.2068470928792,
+    "abs_err": 0.0034224055819076504,
+    "rel_err": 0.0015484109898320038,
+    "raw": "2.2068470928792"
+  },
+  "latency_s": {
+    "mean": 15.530333333333333,
+    "min": 6.669,
+    "max": 32.081
+  },
+  "tokens": {
+    "prompt": 352,
+    "completion": 49,
+    "reasoning": 0,
+    "cache_hit": 0
+  },
+  "failures": []
+}

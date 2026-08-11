@@ -1,0 +1,511 @@
+{
+  "meta": {
+    "test": "test1v2",
+    "func": "exp",
+    "model": "nvidia/nemotron-3-nano-30b-a3b",
+    "base_url": "https://integrate.api.nvidia.com/v1",
+    "api": "openai",
+    "temperature": 0.0,
+    "reasoning_effort": null,
+    "concurrency": 4,
+    "recall_proof": true,
+    "seed": "test1v2",
+    "jitter": 0.0095,
+    "sigdigits_requested": 15,
+    "antitruncation_clause": true,
+    "grid": {
+      "lo": -1.0,
+      "hi": 1.0,
+      "step": 0.02,
+      "points": 101,
+      "sampled_from": null
+    },
+    "wall_s": 27351.2,
+    "utc": "20260811_021054",
+    "system_prompt": "You are a numerical calculator. Answer with the numeric result only: a single decimal number, no words, no units, no formatting, no explanation.",
+    "user_prompt_example": "Compute exp(-0.9985798483), the exponential function e raised to the power -0.9985798483. Give the value as a plain decimal number with at least 15 significant digits. Give every digit you are confident in \u2014 do not round or truncate the result to fewer digits than you computed. Output only the number."
+  },
+  "points": 101,
+  "answered": 14,
+  "unparsed_or_failed": 87,
+  "exact_float_matches": 0,
+  "max_abs_err": 229143999.1081694,
+  "mean_abs_err": 17178126.823388007,
+  "rms_abs_err": 61286233.73961839,
+  "max_rel_err": 256936687.96053398,
+  "mean_rel_err": 18901371.012915775,
+  "min_correct_digits": -8.409826121553989,
+  "mean_correct_digits": 1.1754479231818618,
+  "median_correct_digits": 0.0023331344293258446,
+  "digit_histogram": {
+    "0": 6,
+    "10": 1,
+    "<0 (gross)": 5,
+    "12": 1,
+    "15 (exact)": 1
+  },
+  "worst_abs": {
+    "x": -0.1144790812,
+    "expected": 0.8918305942488307,
+    "got": 229144000.0,
+    "abs_err": 229143999.1081694,
+    "rel_err": 256936687.96053398,
+    "raw": "We need to compute exp(-0.1144790812). Provide decimal with at least 15 significant digits, no rounding or truncation beyond what we computed. We need to compute e^{-0.1144790812}. Let's compute using high precision.\n\nWe can compute using series or using known approximations. Let's do high precision calculation.\n\nWe need e^{-x} where x = 0.1144790812.\n\nCompute e^{-x} = 1 / e^{x}. Could compute e^{x} then invert.\n\nBetter compute directly using high precision.\n\nWe can use approximation: e^{x} = 1 + x + x^2/2! + x^3/6 + x^4/24 + x^5/120 + x^6/720 + ... up to enough terms.\n\nBut we need high precision (maybe 15-16 digits). Let's compute using high precision arithmetic manually.\n\nx = 0.1144790812.\n\nCompute powers:\n\nx^1 = 0.1144790812\n\nx^2 = (0.1144790812)^2. Let's compute: 0.1144790812 * 0.1144790812.\n\nCompute using high precision: 0.1144790812 * 0.1144790812.\n\nWe can do multiplication: 1144790812 * 1144790812 scaled by 1e20? Actually each has 10 decimal places? Let's count: 0.1144790812 has 10 decimal digits after decimal? Actually it's 10 digits after decimal? Let's count: 0.1144790812 => digits: 1 1 4 4 7 9 0 8 1 2 => 10 digits. So it's 1144790812 * 10^{-10}. So square is (1144790812^2) * 10^{-20}. Let's compute 1144790812^2.\n\nBut maybe easier to use approximate decimal multiplication.\n\nLet's compute using high precision with maybe 15-16 digits.\n\nI'll do manual multiplication using big integer approach.\n\n1144790812 * 1144790812.\n\nCompute stepwise:\n\n1144790812 * 1144790812\n\nWe can use (1.144790812e9)^2 = (1.144790812)^2 *1e18. But we need exact integer.\n\nLet's compute using long multiplication.\n\n1144790812 * 1144790812.\n\nBreak down: 1144790812 * 1,144,790,812.\n\nWe can compute using Python mental? Let's try.\n\nBetter: Use approximation: 1,144,790,812^2.\n\nCompute using (1.144790812e9)^2 = (1.144790812)^2 *1e18.\n\nCompute (1.144790812)^2: 1.144790812 * 1.144790812.\n\nBut that's similar difficulty.\n\nMaybe easier to compute x^2 using decimal multiplication with enough digits.\n\nLet's do using high precision decimal multiplication manually with maybe 12-13 digits.\n\nx = 0.1144790812\n\nCompute x^2:\n\n0.1144790812 * 0.1144790812.\n\nWe can compute using splitting: 0.1144790812 = 0.11 + 0.0044790812? Not ideal.\n\nLet's do using high precision multiplication algorithm.\n\nTake 1144790812 * 1144790812 = ?\n\nWe can compute using (a+b)^2 formula: Let a = 1,144,790,000, b = 812. Actually 1,144,790,812 = 1,144,790,000 + 812.\n\nSquare: (1,144,790,000)^2 + 2*1,144,790,000*812 + 812^2.\n\nCompute (1,144,790,000)^2 = (1.14479e9)^2 = 1.310558... Let's compute exactly: 1,144,790,000 * 1,144,790,000.\n\n1,144,79 * 1,144,79? Let's compute precisely.\n\n1,144,790,000 * 1,144,790,000 = (1,144,79 * 10^5?) Actually 1,144,790,000 = 1,144,79 *10^5? Not helpful.\n\nLet's compute using big integer multiplication maybe easier with mental arithmetic? Might be tedious.\n\nAlternative: Use series expansion for e^{-x} directly using high precision approximations maybe using known values? Could use calculator mental? Might be easier to compute e^{-0.1144790812} using approximation e^{-y} \u2248 1 - y + y^2/2 - y^3/6 + y^4/24 - y^5/120 + ... up to enough terms to get 15 significant digits.\n\nSince y = 0.1144790812 is small, series converges quickly. Let's compute up to maybe y^7 term.\n\nWe need high precision, maybe 15-16 digits, so we need enough terms to get error < 1e-15.\n\nLet's compute using high precision arithmetic with maybe 20-digit intermediate.\n\nWe can compute using Python-like mental? Might be heavy.\n\nAlternative: Use known value of e^{-0.1144790812} maybe from external known? Could approximate using log10? Not.\n\nBetter: Use high precision calculation using series with rational approximations.\n\nLet's compute using high precision decimal arithmetic manually with maybe 20 digits.\n\nWe'll compute using Python-like mental but careful.\n\nWe can compute e^{-x} = exp(-x). Use high precision using continued fraction? Not.\n\nMaybe we can compute using known e^0.1144790812 approximate? Could compute e^{0.1144790812} using series and then invert.\n\nLet's compute e^{x} series up to maybe x^10.\n\nx = 0.1144790812.\n\nCompute powers:\n\nWe need x, x^2, x^3, x^4, x^5, x^6, x^7, x^8, x^9, x^9 maybe.\n\nLet's compute using high precision with maybe 15-16 digits.\n\nI'll compute using decimal multiplication with enough digits.\n\nFirst, x = 0.1144790812.\n\nCompute x^2:\n\nWe can compute using high precision multiplication using maybe 20-digit integer representation.\n\nLet\u2019s represent x as integer N = 1144790812, scale factor = 10^10 (since 10 decimal places). Actually it's 10 digits after decimal, so N * 10^{-10}. So x = N * 1e-10.\n\nThus x^2 = N^2 * 1e-20.\n\nSo compute N^2 exactly.\n\nN = 1,144,790,812.\n\nCompute N^2.\n\nLet's compute using long multiplication.\n\nWe can break N into parts: maybe 1,144,790,812 = 1,144,790 * 1000 + 812? Actually 1,144,790,812 = 1,144,790 * 1000 + 812? That's 1,144,790,000 + 812. That's what we had.\n\nCompute (1,144,790,000)^2 = (1,144,79 *10^3?) Actually 1,144,790,000 = 1,144,79 *10^5? Not.\n\nLet's compute using splitting into high and low parts: Let A = 1,144,790 (thousands) and B = 812? Actually 1,144,790,812 = 1,144,790 * 1000 + 812? Wait 1,144,790 * 1000 = 1,144,790,000. Add 812 gives 1,144,790,812. Yes.\n\nSo N = a*1000 + b where a = 1,144,790, b = 812.\n\nThen N^2 = (a*1000 + b)^2 = a^2 * 1,000,000 + 2ab*1000 + b^2.\n\nCompute a = 1,144,790.\n\nCompute a^2: 1,144,790^2.\n\nCompute 1,144,790^2: (1,144,79 *10^2?) Actually 1,144,790 = 1,144,79 *10? Not.\n\nLet's compute directly: 1,144,790 * 1,144,790.\n\nWe can compute using (1,144,790)*(1,144,790) = ?\n\nBreak into 1,144,790 = 1,144,000 + 790.\n\nSquare: (1,144,000)^2 + 2*1,144,000*790 + 790^2.\n\n(1,144,000)^2 = 1,144^2 *10^6 = (1,144^2)*1,000,000.\n\n1,144^2 = (1,100+44)^2 = 1,210,000 + 2*1,100*44 + 44^2 = 1,210,000? Let's compute precisely: 1,100^2 = 1,210,000? Actually 1,100^2 = 1,210,000? Wait 1100^2 = 1,210,000? No, 1100^2 = 1,210,000? Let's compute: 1100*1100 = 1,210,000? Actually 11*11=121, add four zeros => 1210000. Yes 1,210,000. Good.\n\n2*1,100*44 = 2*48,400 = 96,800.\n\n44^2 = 1,936.\n\nSum = 1,210,000 + 96,800 + 1,936 = 1,308,736.\n\nThus 1,144^2 = 1,308,736.\n\nThus (1,144,000)^2 = 1,308,736 * 10^6 = 1,308,736,000,000.\n\nNow 2*1,144,000*790 = 2 * 1,144,000 * 790 = 2 * (1,144,000*790). Compute 1,144,000*790 = 1,144,000* (800-10) = 1,144,000*800 - 1,144,000*10 = 915,200,000 - 11,440,000 = 903,760,000. Multiply by 2 => 1,807,520,000.\n\nNow 790^2 = 624,100.\n\nAdd them: 1,308,736,000,000 + 1,807,520,000 = 1,310,543,520,000. Add 624,100 => 1,310,544,144,100.\n\nThus 1,144,790^2 = 1,310,544,144,100.\n\nNow we need a^2 * 1,000,000 (since a^2 * 1,000,000 because (a*1000)^2 = a^2 * 1,000,000). So a^2 * 1,000,000 = 1,310,544,144,100 * 1,000,000 = 1,310,544,144,100,000,000.\n\nNow compute 2ab*1000: 2*a*b*1000.\n\nWe have a = 1,144,790, b = 812.\n\nFirst compute a*b = 1,144,790 * 812.\n\nCompute 1,144,790 * 800 = 915,832,000.\nCompute 1,144,790 * 12 = 1,144,790*10 + *2 = 11,447,900 + 2,289,580 = 13,737,480.\nAdd: 915,832,000 + 13,737,480 = 929,569,480.\n\nThus a*b = 929,569,480.\n\nNow 2ab = 2 * 929,569,480 = 1,859,138,960.\n\nNow multiply by 1000 => 1,859,138,960,000.\n\nNow compute b^2 = 812^2 = 659,  812*812 = (800+12)^2 = 640,000 + 2*800*12 + 144 = 640,000 + 19,200 + 144 = 659,344.\n\nNow sum all components:\n\nN^2 = a^2*1,000,000 + 2ab*1000 + b^2 =\n\n1,310,544,144,100,000,000\n+   1,859,138,960,000\n+               659,344\n= 1,310,546,003,238,960,? Wait need align digits.\n\nLet's write them with proper place values:\n\nFirst term: 1,310,544,144,100,000,000\nSecond term:   1,859,138,960,000\nThird term:               659,344\n\nAdd them:\n\n1,310,544,144,100,000,000\n+   1,859,138,960,000\n= 1,310,546,003,238,960,000? Let's add carefully.\n\nWrite first term as:\n\n1,310,544,144,100,000,000\nSecond term:          1,859,138,960,000\nAlign digits:\n\n1,310,544,144,100,000,000\n0,001,859,138,960,000\n= 1,310,546,003,238,960,000? Let's add:\n\nTake the last 12 digits of first term: 100,000,000? Actually first term ends with 000,000. Let's write with grouping of 3 digits:\n\n1,310,544,144,100,000,000\n0,001,859,138,960,000\n= 1,310,546,003,238,960,000? Let's add:\n\n- The billions? Let's do column addition:\n\nFirst term: 1,310,544,144,100,000,000\nSecond term:   1,859,138,960,000\nWe need to align to same length: second term has 13 digits? Actually 1,859,138,960,000 is 13 digits? Let's count: 1,859,138,960,000 = 1.859 trillion = 1,859,138,960,000 (13 digits). The first term is 1,310,544,144,100,000,000 (19 digits). So we can pad with leading zeros to 19 digits: 0,001,859,138,960,000? Actually 1,859,138,960,000 is 13 digits, so to align to 19 digits we add 6 leading zeros: 0,000,001,859,138,960,000? Wait 19-13 = 6, so we add 6 zeros at left: 0 0 0 0 0 0 1,859,138,960,000? Actually we need to write as 0,001,859,138,960,000? That's 16 digits? Let's just do addition using proper place values.\n\nBetter: Represent numbers as:\n\nFirst: 1,310,544,144,100,000,000\nSecond:   1,859,138,960,000\nThird:               659,344\n\nAdd second to first:\n\nTake first's last 12 digits: 100,000,000? Actually first ends with 000,000. Let's break first into groups of 3 digits from right:\n\n1,310,544,144,100,000,000\nGroup: 1,310,544,144,100,000,000\nWrite as: 1,310,544,144,100,000,000\nSecond: 0,001,859,138,960,000 (needs same groups)\nThird: 0,000,000,000,659,344\n\nNow add:\n\nGroup 1 (rightmost 3 digits): 000 + 000 + 344 = 344, carry 0.\nNext group (thousands): 000 + 960 + 0 = 960.\nNext group (millions): 100 + 138 + 0 = 238.\nNext group (billions): 144 + 859 + 0 = 1,003? Actually 144 + 859 = 1,003. So write 003 and carry 1 to next group.\nNext group (trillions): 544 + 1 (carry) + 0? Wait we need to align groups correctly.\n\nLet's write groups of 3 digits from left:\n\nFirst number groups: [1][310][544][144][100][000][000]? Actually need to split correctly.\n\nLet's write first number as 1,310,544,144,100,000,000.\n\nGroup from left: 1 | 310 | 544 | 144 | 100 | 000 | 000.\n\nSecond number: 1,859,138,960,000 => groups: 1 | 859 | 138 | 960 | 000.\n\nBut to align with 7 groups, we pad with leading zeros: 0 | 0 | 0 | 1 | 859 | 138 | 960 | 000? Actually we need same number of groups (7). Let's count groups of first: It has 7 groups (since 19 digits => 7 groups of 3 except maybe first group less). Let's verify: 1,310,544,144,100,000,000 has digits: 1 310 544 144 100 000 000 (that's 7 groups). Yes.\n\nSecond number 1,859,138,960,000 has groups: 1 | 859 | 138 | 960 | 000 (that's 5 groups). To align to 7 groups, we pad with two leading zero groups: 0 | 0 | 1 | 859 | 138 | 960 | 000? Actually we need 7 groups, so we need to add two leading zero groups: 0 | 0 | 1 | 859 | 138 | 960 | 000? That's 6 groups? Let's count: If we have groups: [0][0][1][859][138][960][000] that's 7 groups. Yes.\n\nThird number 659,344 => groups: 659 | 344 (2 groups). Pad to 7 groups: 0 | 0 | 0 | 0 | 0 | 659 | 344? Actually need 7 groups: [0][0][0][0][0][659][344].\n\nNow add groupwise from rightmost:\n\nGroup7 (rightmost): first: 000, second: 000, third: 344 => sum = 344, carry 0.\n\nGroup6: first: 000, second: 960, third: 659 => sum = 1,619? Actually 0+960+659 = 1,619. Write 619, carry 1 to next group.\n\nGroup5: first: 100, second: 138, third: 0 plus carry 1 => 100+138+1 = 239. Write 239, carry 0 (since <1000).\n\nGroup4: first: 144, second: 859, third: 0 => 144+859 = 1,003. Write 003, carry 1.\n\nGroup3: first: 544, second: 1 (from padded zero? Actually second group3 is 0? Wait we need to map correctly. Let's list groups with indices:\n\nGroup1 (most significant) = leftmost group.\n\nOur groups for first number (7 groups):\n1: 1\n2: 310\n3: 544\n4: 144\n5: 100\n6: 000\n7: 000\n\nSecond number groups (7 groups):\n1: 0\n2: 0\n3: 1\n4: 859\n5: 138\n6: 960\n7: 000\n\nThird number groups (7 groups):\n1: 0\n2: 0\n3: 0\n4: 0\n5: 0\n6: 659\n7: 344\n\nNow add columnwise from group7 to group1.\n\nGroup7: 0 + 0 + 344 = 344, carry 0.\n\nGroup6: 0 + 960 + 659 = 1,619 => write 619, carry 1.\n\nGroup5: 100 + 138 + 0 + carry1 = 239 => write 239, carry 0.\n\nGroup4: 144 + 859 + 0 = 1,003 => write 003, carry 1.\n\nGroup3: 544 + 1 + 0 + carry1? Actually we need to add the carry from previous group (1). So 544 + 1 (from second number group3) + 0 (third) + carry1 = 546? Wait second number group3 is 1, third number group3 is 0, plus carry 1 = 546. So write 546, carry 0.\n\nGroup2: 310 + 0 + 0 = 310.\n\nGroup1: 1 + 0 + 0 = 1.\n\nThus the sum groups become: [1][310][546][003][239][619][344].\n\nThus the total is 1,310,546,003,239,619,344.\n\nBut earlier we had 1,310,546,003,238,960,000? There's discrepancy. Let's verify.\n\nOur addition gave 1,310,546,003,239,619,344.\n\nBut we need to double-check the arithmetic because we might have mis-copied some groups.\n\nLet's recompute N^2 using alternative method maybe easier: Use high precision calculator mental? Might be error prone.\n\nMaybe we can compute N^2 using known multiplication algorithm with smaller parts.\n\nAlternative: Use Python mental? Not possible.\n\nMaybe we can compute x^2 directly using decimal multiplication with double precision approximations, not needing exact integer.\n\nGiven we only need final result to 15 significant digits, we can compute using double precision approximations with enough accuracy. We can use typical double precision approximations: e^{-0.1144790812} \u2248 0.891... Let's approximate using known calculators? Could approximate using series with double precision.\n\nBut we need to output the exact decimal with at least 15 significant digits, no rounding or truncation beyond what we computed. So we need to compute the value to at least 15 digits correctly.\n\nWe can use typical double precision calculation: e^{-0.1144790812} = exp(-0.1144790812). Using typical double precision, we can get about 15-16 decimal digits. We can approximate using known expansions or using a calculator mental? Could approximate using series up to maybe 10 terms with high precision.\n\nLet's attempt to compute using high precision arithmetic with maybe 20-digit intermediate using rational approximations.\n\nWe can compute using the series for exp(-x) directly:\n\nexp(-x) = 1 - x + x^2/2 - x^3/6 + x^4/24 - x^5/120 + x^6/720 - x^7/5040 + x^8/40320 - x^9/362880 + x^10/3628800 - ...\n\nGiven x \u2248 0.11448, the terms decrease quickly. Let's compute up to maybe x^10 to get 15-digit accuracy.\n\nWe need to compute powers of x with high precision (maybe 15-16 digits). Let's compute using high precision decimal multiplication using maybe 15-16 digits.\n\nWe can compute using double precision approximations manually with enough digits.\n\nLet's compute x = 0.1144790812.\n\nCompute x^2 using high precision multiplication maybe using a calculator approach: 0.1144790812 * 0.1144790812.\n\nWe can compute using splitting into integer and fractional parts? Let's do using high precision multiplication with maybe 12-digit intermediate.\n\nWe can use the fact that 0.1144790812 \u2248 1.144790812e-1.\n\nCompute square: (1.144790812e-1)^2 = (1.144790812)^2 * 1e-2.\n\nCompute (1.144790812)^2 first, then multiply by 1e-2.\n\nCompute (1.144790812)^2.\n\nLet's compute that using high precision multiplication.\n\n1.144790812 * 1.144790812.\n\nWe can compute using (1 + 0.144790812)^2 = 1 + 2*0.144790812 + (0.144790812)^2.\n\nBut 0.144790812 is not small; but we can compute directly.\n\nLet's compute using high precision multiplication:\n\n1.144790812 * 1.144790812.\n\nBreak into 1.14479 + 0.000000812? Actually 1.144790812 = 1.14479 + 0.000000812? That's not accurate; 1.144790812 - 1.14479 = 0.000000812? Actually 1.14479 + 0.000000812 = 1.144790812, yes.\n\nSo we can compute (1.14479 + 8.12e-7)^2 = (1.14479)^2 + 2*1.14479*8.12e-7 + (8.12e-7)^2.\n\nCompute (1.14479)^2: 1.14479^2.\n\n1.14479^2 = (1 + 0.14479)^2 = 1 + 2*0.14479 + 0.14479^2 = 1 + 0.28958 + 0.02096? Actually 0.14479^2 \u2248 0.02096 (since 0.145^2 \u2248 0.021025). Let's compute precisely: 0.14479^2.\n\n0.14479^2 = (14479e-5)^2 = (14479^2) e-10. 14479^2? 14479*14479.\n\nBut maybe easier to compute directly using decimal multiplication.\n\nBut maybe we can compute (1.144790812)^2 using high precision multiplication with maybe 12 digits.\n\nAlternatively, we can compute x^2 directly using double precision approximations: Use typical double precision calculators? But we need to produce final answer with at least 15 significant digits. Could we rely on known value from typical calculators? Possibly we can approximate using known e^-0.1144790812 = 0.891... Let's try to compute using high precision using series.\n\nLet's compute using series with high precision using maybe 12-digit intermediate.\n\nWe can compute using a high-precision approach: Use the fact that exp(-x) = 1 / exp(x). Compute exp(x) using series up to maybe x^10.\n\nCompute x = 0.1144790812.\n\nCompute powers:\n\nWe can compute using high precision with maybe 15 digits using manual multiplication with careful rounding.\n\nLet's compute using Python-like mental but with careful steps.\n\nI'll attempt to compute using decimal arithmetic with maybe 12-13 significant digits for each term, ensuring final result accurate to 15 digits.\n\nBetter approach: Use continued fraction or use known approximations: e^{-0.1144790812} = 10^{-0.1144790812 / ln(10)}. Could compute using log10? Not easier.\n\nMaybe we can use a high-precision approximation using rational approximation of e^x: e^x \u2248 1 + x + x^2/2! + x^3/6 + x^4/24 + x^5/120 + x^6/720 + x^7/5040 + x^8/40320 + x^9/362880 + x^10/3628800.\n\nGiven x \u2248 0.11448, x^10 will be extremely small (~ (0.1145)^10 \u2248 2e-9?), actually (0.1145)^10 ~ (1.145e-1)^10 = 1.145^10 *1e-10 \u2248 maybe 2.5 *1e-10 = 2.5e-10. Divided by 10! (3,628,800) yields ~7e-17, negligible for 15-digit accuracy. So we can stop at x^9 term maybe.\n\nThus we can compute exp(x) up to x^9 term with high precision.\n\nLet's compute powers up to x^9.\n\nWe need x, x^2, x^3, x^4, x^5, x^6, x^7, x^8, x^9.\n\nWe can compute using high precision multiplication with maybe 15-16 digits.\n\nLet's compute using high precision decimal multiplication using maybe 12-digit intermediate.\n\nI'll compute using a systematic approach: Use a high-precision calculator approach manually.\n\nWe can use the fact that x = 0.1144790812.\n\nCompute x^2:\n\nWe can compute using multiplication with maybe 12-digit accuracy.\n\nLet's do multiplication using integer representation: N = 1144790812, scale = 1e10.\n\nThus x = N * 1e-10.\n\nx^2 = N^2 * 1e-20.\n\nWe need N^2 exactly? We attempted earlier but got uncertain result. Let's compute N^2 precisely using more systematic method.\n\nN = 1,144,790,812.\n\nWe can compute N^2 using long multiplication with maybe splitting into 3-digit chunks (base 1000) to simplify.\n\nLet\u2019s split N into groups of 3 digits from right: N = 1,144,790,812.\n\nGroups: [1][144][790][812]? Actually need to split into 3-digit groups: Starting from rightmost:\n\n- Group0 (least significant) = 812\n- Group1 = 790\n- Group2 = 144\n- Group3 = 1 (since remaining digits)\n\nThus N = 1 * 10^9 + 144 * 10^6 + 790 * 10^3 + 812.\n\nBut careful: 1 * 10^9 = 1,000,000,000; 144 * 10^6 = 144,000,000; 790 * 10^3 = 790,000; plus 812 = 1,144,790,812. Yes.\n\nNow compute N^2 using convolution of these groups.\n\nLet\u2019s denote a3 = 1 (most significant), a2 = 144, a1 = 790, a0 = 812.\n\nThen N = a3*10^9 + a2*10^6 + a1*10^3 + a0.\n\nSquare: N^2 = sum_{i,j} a_i a_j * 10^{3(i+j)}.\n\nWe can compute using convolution.\n\nLet's compute using base 1000 representation.\n\nLet\u2019s compute the coefficients for each power of 10^3.\n\nWe have terms:\n\n- a3 = 1\n- a2 = 144\n- a1 = 790\n- a0 = 812\n\nNow compute the convolution:\n\nWe need to compute the sum for each k = i + j, where i,j from 0 to 3.\n\nThe coefficient for 10^{3k} is sum_{i+j=k} a_i a_j.\n\nBut note that when i=j, we count a_i^2; when i\u2260j, we count 2*a_i*a_j because both (i,j) and (j,i) appear.\n\nThus we can compute the polynomial.\n\nLet's compute all a_i:\n\ni=0: a0 = 812\ni=1: a1 = 790\ni=2: a2 = 144\ni=3: a3 = 1\n\nNow compute convolution:\n\nk=0 (i=j=0): a0*a0 = 812^2 = 659,344.\n\nk=1: i+j=1 => (i=0,j=1) and (i=1,j=0). So coefficient = 2*a0*a1 = 2*812*790.\n\nCompute 812*790 = 812* (800-10) = 812*800 - 812*10 = 649,600 - 8,120 = 641,480. Multiply by 2 => 1,282,960.\n\nk=2: i+j=2 => possibilities: (0,2),(1,1),(2,0). So coefficient = 2*a0*a2 + a1^2.\n\nCompute a0*a2 = 812*144 = 812*100 + 812*44 = 81,200 + 35,728 = 116,928. Multiply by 2 => 233,856.\n\nCompute a1^2 = 790^2 = 624,100.\n\nSum => 233,856 + 624,100 = 857,956.\n\nk=3: i+j=3 => possibilities: (0,3),(1,2),(2,1),(3,0). So coefficient = 2*a0*a3 + 2*a1*a2.\n\nCompute a0*a3 = 812*1 = 812; *2 = 1,624.\n\nCompute a1*a2 = 790*144 = 790*100 + 790*44 = 79,000 + 34,760 = 113,760. Multiply by 2 => 227,520.\n\nSum => 1,624 + 227,520 = 229,144.\n\nk=4: i+j=4 => possibilities: (1,3),(2,2),(3,1). Coefficient = 2*a1*a3 + a2^2.\n\nCompute a1*a3 = 790*1 = 790; *2 = 1,580.\n\nCompute a2^2 = 144^2 = 20,736.\n\nSum => 1,580 + 20,736 = 22,316.\n\nk=5: i+j=5 => possibilities: (2,3),(3,2). Coefficient = 2*a2*a3 = 2*144*1 = 288.\n\nk=6: i+j=6 => (3,3): coefficient = a3^2 = 1.\n\nThus we have coefficients for powers of 10^{3k}:\n\n- k=0: 659,344 * 10^{0}\n- k=1: 1,282,960 * 10^{3}\n- k=2: 857,956 * 10^{6}\n- k=3: 229,144 * 10^{9}\n- k=4: 22,316 * 10^{12}\n- k=5: 288 * 10^{15}\n- k=6: 1 * 10^{18}\n\nNow we need to sum these to get N^2.\n\nLet's compute each term's value:\n\nTerm0: 659,344 * 1 = 659,344.\n\nTerm1: 1,282,960 * 10^3 = 1,282,960,000.\n\nTerm2: 857,956 * 10^6 = 857,956,000,000.\n\nTerm3: 229,144 * 10^9 = 229,144,000,? "
+  },
+  "worst_rel": {
+    "x": -0.1144790812,
+    "expected": 0.8918305942488307,
+    "got": 229144000.0,
+    "abs_err": 229143999.1081694,
+    "rel_err": 256936687.96053398,
+    "raw": "We need to compute exp(-0.1144790812). Provide decimal with at least 15 significant digits, no rounding or truncation beyond what we computed. We need to compute e^{-0.1144790812}. Let's compute using high precision.\n\nWe can compute using series or using known approximations. Let's do high precision calculation.\n\nWe need e^{-x} where x = 0.1144790812.\n\nCompute e^{-x} = 1 / e^{x}. Could compute e^{x} then invert.\n\nBetter compute directly using high precision.\n\nWe can use approximation: e^{x} = 1 + x + x^2/2! + x^3/6 + x^4/24 + x^5/120 + x^6/720 + ... up to enough terms.\n\nBut we need high precision (maybe 15-16 digits). Let's compute using high precision arithmetic manually.\n\nx = 0.1144790812.\n\nCompute powers:\n\nx^1 = 0.1144790812\n\nx^2 = (0.1144790812)^2. Let's compute: 0.1144790812 * 0.1144790812.\n\nCompute using high precision: 0.1144790812 * 0.1144790812.\n\nWe can do multiplication: 1144790812 * 1144790812 scaled by 1e20? Actually each has 10 decimal places? Let's count: 0.1144790812 has 10 decimal digits after decimal? Actually it's 10 digits after decimal? Let's count: 0.1144790812 => digits: 1 1 4 4 7 9 0 8 1 2 => 10 digits. So it's 1144790812 * 10^{-10}. So square is (1144790812^2) * 10^{-20}. Let's compute 1144790812^2.\n\nBut maybe easier to use approximate decimal multiplication.\n\nLet's compute using high precision with maybe 15-16 digits.\n\nI'll do manual multiplication using big integer approach.\n\n1144790812 * 1144790812.\n\nCompute stepwise:\n\n1144790812 * 1144790812\n\nWe can use (1.144790812e9)^2 = (1.144790812)^2 *1e18. But we need exact integer.\n\nLet's compute using long multiplication.\n\n1144790812 * 1144790812.\n\nBreak down: 1144790812 * 1,144,790,812.\n\nWe can compute using Python mental? Let's try.\n\nBetter: Use approximation: 1,144,790,812^2.\n\nCompute using (1.144790812e9)^2 = (1.144790812)^2 *1e18.\n\nCompute (1.144790812)^2: 1.144790812 * 1.144790812.\n\nBut that's similar difficulty.\n\nMaybe easier to compute x^2 using decimal multiplication with enough digits.\n\nLet's do using high precision decimal multiplication manually with maybe 12-13 digits.\n\nx = 0.1144790812\n\nCompute x^2:\n\n0.1144790812 * 0.1144790812.\n\nWe can compute using splitting: 0.1144790812 = 0.11 + 0.0044790812? Not ideal.\n\nLet's do using high precision multiplication algorithm.\n\nTake 1144790812 * 1144790812 = ?\n\nWe can compute using (a+b)^2 formula: Let a = 1,144,790,000, b = 812. Actually 1,144,790,812 = 1,144,790,000 + 812.\n\nSquare: (1,144,790,000)^2 + 2*1,144,790,000*812 + 812^2.\n\nCompute (1,144,790,000)^2 = (1.14479e9)^2 = 1.310558... Let's compute exactly: 1,144,790,000 * 1,144,790,000.\n\n1,144,79 * 1,144,79? Let's compute precisely.\n\n1,144,790,000 * 1,144,790,000 = (1,144,79 * 10^5?) Actually 1,144,790,000 = 1,144,79 *10^5? Not helpful.\n\nLet's compute using big integer multiplication maybe easier with mental arithmetic? Might be tedious.\n\nAlternative: Use series expansion for e^{-x} directly using high precision approximations maybe using known values? Could use calculator mental? Might be easier to compute e^{-0.1144790812} using approximation e^{-y} \u2248 1 - y + y^2/2 - y^3/6 + y^4/24 - y^5/120 + ... up to enough terms to get 15 significant digits.\n\nSince y = 0.1144790812 is small, series converges quickly. Let's compute up to maybe y^7 term.\n\nWe need high precision, maybe 15-16 digits, so we need enough terms to get error < 1e-15.\n\nLet's compute using high precision arithmetic with maybe 20-digit intermediate.\n\nWe can compute using Python-like mental? Might be heavy.\n\nAlternative: Use known value of e^{-0.1144790812} maybe from external known? Could approximate using log10? Not.\n\nBetter: Use high precision calculation using series with rational approximations.\n\nLet's compute using high precision decimal arithmetic manually with maybe 20 digits.\n\nWe'll compute using Python-like mental but careful.\n\nWe can compute e^{-x} = exp(-x). Use high precision using continued fraction? Not.\n\nMaybe we can compute using known e^0.1144790812 approximate? Could compute e^{0.1144790812} using series and then invert.\n\nLet's compute e^{x} series up to maybe x^10.\n\nx = 0.1144790812.\n\nCompute powers:\n\nWe need x, x^2, x^3, x^4, x^5, x^6, x^7, x^8, x^9, x^9 maybe.\n\nLet's compute using high precision with maybe 15-16 digits.\n\nI'll compute using decimal multiplication with enough digits.\n\nFirst, x = 0.1144790812.\n\nCompute x^2:\n\nWe can compute using high precision multiplication using maybe 20-digit integer representation.\n\nLet\u2019s represent x as integer N = 1144790812, scale factor = 10^10 (since 10 decimal places). Actually it's 10 digits after decimal, so N * 10^{-10}. So x = N * 1e-10.\n\nThus x^2 = N^2 * 1e-20.\n\nSo compute N^2 exactly.\n\nN = 1,144,790,812.\n\nCompute N^2.\n\nLet's compute using long multiplication.\n\nWe can break N into parts: maybe 1,144,790,812 = 1,144,790 * 1000 + 812? Actually 1,144,790,812 = 1,144,790 * 1000 + 812? That's 1,144,790,000 + 812. That's what we had.\n\nCompute (1,144,790,000)^2 = (1,144,79 *10^3?) Actually 1,144,790,000 = 1,144,79 *10^5? Not.\n\nLet's compute using splitting into high and low parts: Let A = 1,144,790 (thousands) and B = 812? Actually 1,144,790,812 = 1,144,790 * 1000 + 812? Wait 1,144,790 * 1000 = 1,144,790,000. Add 812 gives 1,144,790,812. Yes.\n\nSo N = a*1000 + b where a = 1,144,790, b = 812.\n\nThen N^2 = (a*1000 + b)^2 = a^2 * 1,000,000 + 2ab*1000 + b^2.\n\nCompute a = 1,144,790.\n\nCompute a^2: 1,144,790^2.\n\nCompute 1,144,790^2: (1,144,79 *10^2?) Actually 1,144,790 = 1,144,79 *10? Not.\n\nLet's compute directly: 1,144,790 * 1,144,790.\n\nWe can compute using (1,144,790)*(1,144,790) = ?\n\nBreak into 1,144,790 = 1,144,000 + 790.\n\nSquare: (1,144,000)^2 + 2*1,144,000*790 + 790^2.\n\n(1,144,000)^2 = 1,144^2 *10^6 = (1,144^2)*1,000,000.\n\n1,144^2 = (1,100+44)^2 = 1,210,000 + 2*1,100*44 + 44^2 = 1,210,000? Let's compute precisely: 1,100^2 = 1,210,000? Actually 1,100^2 = 1,210,000? Wait 1100^2 = 1,210,000? No, 1100^2 = 1,210,000? Let's compute: 1100*1100 = 1,210,000? Actually 11*11=121, add four zeros => 1210000. Yes 1,210,000. Good.\n\n2*1,100*44 = 2*48,400 = 96,800.\n\n44^2 = 1,936.\n\nSum = 1,210,000 + 96,800 + 1,936 = 1,308,736.\n\nThus 1,144^2 = 1,308,736.\n\nThus (1,144,000)^2 = 1,308,736 * 10^6 = 1,308,736,000,000.\n\nNow 2*1,144,000*790 = 2 * 1,144,000 * 790 = 2 * (1,144,000*790). Compute 1,144,000*790 = 1,144,000* (800-10) = 1,144,000*800 - 1,144,000*10 = 915,200,000 - 11,440,000 = 903,760,000. Multiply by 2 => 1,807,520,000.\n\nNow 790^2 = 624,100.\n\nAdd them: 1,308,736,000,000 + 1,807,520,000 = 1,310,543,520,000. Add 624,100 => 1,310,544,144,100.\n\nThus 1,144,790^2 = 1,310,544,144,100.\n\nNow we need a^2 * 1,000,000 (since a^2 * 1,000,000 because (a*1000)^2 = a^2 * 1,000,000). So a^2 * 1,000,000 = 1,310,544,144,100 * 1,000,000 = 1,310,544,144,100,000,000.\n\nNow compute 2ab*1000: 2*a*b*1000.\n\nWe have a = 1,144,790, b = 812.\n\nFirst compute a*b = 1,144,790 * 812.\n\nCompute 1,144,790 * 800 = 915,832,000.\nCompute 1,144,790 * 12 = 1,144,790*10 + *2 = 11,447,900 + 2,289,580 = 13,737,480.\nAdd: 915,832,000 + 13,737,480 = 929,569,480.\n\nThus a*b = 929,569,480.\n\nNow 2ab = 2 * 929,569,480 = 1,859,138,960.\n\nNow multiply by 1000 => 1,859,138,960,000.\n\nNow compute b^2 = 812^2 = 659,  812*812 = (800+12)^2 = 640,000 + 2*800*12 + 144 = 640,000 + 19,200 + 144 = 659,344.\n\nNow sum all components:\n\nN^2 = a^2*1,000,000 + 2ab*1000 + b^2 =\n\n1,310,544,144,100,000,000\n+   1,859,138,960,000\n+               659,344\n= 1,310,546,003,238,960,? Wait need align digits.\n\nLet's write them with proper place values:\n\nFirst term: 1,310,544,144,100,000,000\nSecond term:   1,859,138,960,000\nThird term:               659,344\n\nAdd them:\n\n1,310,544,144,100,000,000\n+   1,859,138,960,000\n= 1,310,546,003,238,960,000? Let's add carefully.\n\nWrite first term as:\n\n1,310,544,144,100,000,000\nSecond term:          1,859,138,960,000\nAlign digits:\n\n1,310,544,144,100,000,000\n0,001,859,138,960,000\n= 1,310,546,003,238,960,000? Let's add:\n\nTake the last 12 digits of first term: 100,000,000? Actually first term ends with 000,000. Let's write with grouping of 3 digits:\n\n1,310,544,144,100,000,000\n0,001,859,138,960,000\n= 1,310,546,003,238,960,000? Let's add:\n\n- The billions? Let's do column addition:\n\nFirst term: 1,310,544,144,100,000,000\nSecond term:   1,859,138,960,000\nWe need to align to same length: second term has 13 digits? Actually 1,859,138,960,000 is 13 digits? Let's count: 1,859,138,960,000 = 1.859 trillion = 1,859,138,960,000 (13 digits). The first term is 1,310,544,144,100,000,000 (19 digits). So we can pad with leading zeros to 19 digits: 0,001,859,138,960,000? Actually 1,859,138,960,000 is 13 digits, so to align to 19 digits we add 6 leading zeros: 0,000,001,859,138,960,000? Wait 19-13 = 6, so we add 6 zeros at left: 0 0 0 0 0 0 1,859,138,960,000? Actually we need to write as 0,001,859,138,960,000? That's 16 digits? Let's just do addition using proper place values.\n\nBetter: Represent numbers as:\n\nFirst: 1,310,544,144,100,000,000\nSecond:   1,859,138,960,000\nThird:               659,344\n\nAdd second to first:\n\nTake first's last 12 digits: 100,000,000? Actually first ends with 000,000. Let's break first into groups of 3 digits from right:\n\n1,310,544,144,100,000,000\nGroup: 1,310,544,144,100,000,000\nWrite as: 1,310,544,144,100,000,000\nSecond: 0,001,859,138,960,000 (needs same groups)\nThird: 0,000,000,000,659,344\n\nNow add:\n\nGroup 1 (rightmost 3 digits): 000 + 000 + 344 = 344, carry 0.\nNext group (thousands): 000 + 960 + 0 = 960.\nNext group (millions): 100 + 138 + 0 = 238.\nNext group (billions): 144 + 859 + 0 = 1,003? Actually 144 + 859 = 1,003. So write 003 and carry 1 to next group.\nNext group (trillions): 544 + 1 (carry) + 0? Wait we need to align groups correctly.\n\nLet's write groups of 3 digits from left:\n\nFirst number groups: [1][310][544][144][100][000][000]? Actually need to split correctly.\n\nLet's write first number as 1,310,544,144,100,000,000.\n\nGroup from left: 1 | 310 | 544 | 144 | 100 | 000 | 000.\n\nSecond number: 1,859,138,960,000 => groups: 1 | 859 | 138 | 960 | 000.\n\nBut to align with 7 groups, we pad with leading zeros: 0 | 0 | 0 | 1 | 859 | 138 | 960 | 000? Actually we need same number of groups (7). Let's count groups of first: It has 7 groups (since 19 digits => 7 groups of 3 except maybe first group less). Let's verify: 1,310,544,144,100,000,000 has digits: 1 310 544 144 100 000 000 (that's 7 groups). Yes.\n\nSecond number 1,859,138,960,000 has groups: 1 | 859 | 138 | 960 | 000 (that's 5 groups). To align to 7 groups, we pad with two leading zero groups: 0 | 0 | 1 | 859 | 138 | 960 | 000? Actually we need 7 groups, so we need to add two leading zero groups: 0 | 0 | 1 | 859 | 138 | 960 | 000? That's 6 groups? Let's count: If we have groups: [0][0][1][859][138][960][000] that's 7 groups. Yes.\n\nThird number 659,344 => groups: 659 | 344 (2 groups). Pad to 7 groups: 0 | 0 | 0 | 0 | 0 | 659 | 344? Actually need 7 groups: [0][0][0][0][0][659][344].\n\nNow add groupwise from rightmost:\n\nGroup7 (rightmost): first: 000, second: 000, third: 344 => sum = 344, carry 0.\n\nGroup6: first: 000, second: 960, third: 659 => sum = 1,619? Actually 0+960+659 = 1,619. Write 619, carry 1 to next group.\n\nGroup5: first: 100, second: 138, third: 0 plus carry 1 => 100+138+1 = 239. Write 239, carry 0 (since <1000).\n\nGroup4: first: 144, second: 859, third: 0 => 144+859 = 1,003. Write 003, carry 1.\n\nGroup3: first: 544, second: 1 (from padded zero? Actually second group3 is 0? Wait we need to map correctly. Let's list groups with indices:\n\nGroup1 (most significant) = leftmost group.\n\nOur groups for first number (7 groups):\n1: 1\n2: 310\n3: 544\n4: 144\n5: 100\n6: 000\n7: 000\n\nSecond number groups (7 groups):\n1: 0\n2: 0\n3: 1\n4: 859\n5: 138\n6: 960\n7: 000\n\nThird number groups (7 groups):\n1: 0\n2: 0\n3: 0\n4: 0\n5: 0\n6: 659\n7: 344\n\nNow add columnwise from group7 to group1.\n\nGroup7: 0 + 0 + 344 = 344, carry 0.\n\nGroup6: 0 + 960 + 659 = 1,619 => write 619, carry 1.\n\nGroup5: 100 + 138 + 0 + carry1 = 239 => write 239, carry 0.\n\nGroup4: 144 + 859 + 0 = 1,003 => write 003, carry 1.\n\nGroup3: 544 + 1 + 0 + carry1? Actually we need to add the carry from previous group (1). So 544 + 1 (from second number group3) + 0 (third) + carry1 = 546? Wait second number group3 is 1, third number group3 is 0, plus carry 1 = 546. So write 546, carry 0.\n\nGroup2: 310 + 0 + 0 = 310.\n\nGroup1: 1 + 0 + 0 = 1.\n\nThus the sum groups become: [1][310][546][003][239][619][344].\n\nThus the total is 1,310,546,003,239,619,344.\n\nBut earlier we had 1,310,546,003,238,960,000? There's discrepancy. Let's verify.\n\nOur addition gave 1,310,546,003,239,619,344.\n\nBut we need to double-check the arithmetic because we might have mis-copied some groups.\n\nLet's recompute N^2 using alternative method maybe easier: Use high precision calculator mental? Might be error prone.\n\nMaybe we can compute N^2 using known multiplication algorithm with smaller parts.\n\nAlternative: Use Python mental? Not possible.\n\nMaybe we can compute x^2 directly using decimal multiplication with double precision approximations, not needing exact integer.\n\nGiven we only need final result to 15 significant digits, we can compute using double precision approximations with enough accuracy. We can use typical double precision approximations: e^{-0.1144790812} \u2248 0.891... Let's approximate using known calculators? Could approximate using series with double precision.\n\nBut we need to output the exact decimal with at least 15 significant digits, no rounding or truncation beyond what we computed. So we need to compute the value to at least 15 digits correctly.\n\nWe can use typical double precision calculation: e^{-0.1144790812} = exp(-0.1144790812). Using typical double precision, we can get about 15-16 decimal digits. We can approximate using known expansions or using a calculator mental? Could approximate using series up to maybe 10 terms with high precision.\n\nLet's attempt to compute using high precision arithmetic with maybe 20-digit intermediate using rational approximations.\n\nWe can compute using the series for exp(-x) directly:\n\nexp(-x) = 1 - x + x^2/2 - x^3/6 + x^4/24 - x^5/120 + x^6/720 - x^7/5040 + x^8/40320 - x^9/362880 + x^10/3628800 - ...\n\nGiven x \u2248 0.11448, the terms decrease quickly. Let's compute up to maybe x^10 to get 15-digit accuracy.\n\nWe need to compute powers of x with high precision (maybe 15-16 digits). Let's compute using high precision decimal multiplication using maybe 15-16 digits.\n\nWe can compute using double precision approximations manually with enough digits.\n\nLet's compute x = 0.1144790812.\n\nCompute x^2 using high precision multiplication maybe using a calculator approach: 0.1144790812 * 0.1144790812.\n\nWe can compute using splitting into integer and fractional parts? Let's do using high precision multiplication with maybe 12-digit intermediate.\n\nWe can use the fact that 0.1144790812 \u2248 1.144790812e-1.\n\nCompute square: (1.144790812e-1)^2 = (1.144790812)^2 * 1e-2.\n\nCompute (1.144790812)^2 first, then multiply by 1e-2.\n\nCompute (1.144790812)^2.\n\nLet's compute that using high precision multiplication.\n\n1.144790812 * 1.144790812.\n\nWe can compute using (1 + 0.144790812)^2 = 1 + 2*0.144790812 + (0.144790812)^2.\n\nBut 0.144790812 is not small; but we can compute directly.\n\nLet's compute using high precision multiplication:\n\n1.144790812 * 1.144790812.\n\nBreak into 1.14479 + 0.000000812? Actually 1.144790812 = 1.14479 + 0.000000812? That's not accurate; 1.144790812 - 1.14479 = 0.000000812? Actually 1.14479 + 0.000000812 = 1.144790812, yes.\n\nSo we can compute (1.14479 + 8.12e-7)^2 = (1.14479)^2 + 2*1.14479*8.12e-7 + (8.12e-7)^2.\n\nCompute (1.14479)^2: 1.14479^2.\n\n1.14479^2 = (1 + 0.14479)^2 = 1 + 2*0.14479 + 0.14479^2 = 1 + 0.28958 + 0.02096? Actually 0.14479^2 \u2248 0.02096 (since 0.145^2 \u2248 0.021025). Let's compute precisely: 0.14479^2.\n\n0.14479^2 = (14479e-5)^2 = (14479^2) e-10. 14479^2? 14479*14479.\n\nBut maybe easier to compute directly using decimal multiplication.\n\nBut maybe we can compute (1.144790812)^2 using high precision multiplication with maybe 12 digits.\n\nAlternatively, we can compute x^2 directly using double precision approximations: Use typical double precision calculators? But we need to produce final answer with at least 15 significant digits. Could we rely on known value from typical calculators? Possibly we can approximate using known e^-0.1144790812 = 0.891... Let's try to compute using high precision using series.\n\nLet's compute using series with high precision using maybe 12-digit intermediate.\n\nWe can compute using a high-precision approach: Use the fact that exp(-x) = 1 / exp(x). Compute exp(x) using series up to maybe x^10.\n\nCompute x = 0.1144790812.\n\nCompute powers:\n\nWe can compute using high precision with maybe 15 digits using manual multiplication with careful rounding.\n\nLet's compute using Python-like mental but with careful steps.\n\nI'll attempt to compute using decimal arithmetic with maybe 12-13 significant digits for each term, ensuring final result accurate to 15 digits.\n\nBetter approach: Use continued fraction or use known approximations: e^{-0.1144790812} = 10^{-0.1144790812 / ln(10)}. Could compute using log10? Not easier.\n\nMaybe we can use a high-precision approximation using rational approximation of e^x: e^x \u2248 1 + x + x^2/2! + x^3/6 + x^4/24 + x^5/120 + x^6/720 + x^7/5040 + x^8/40320 + x^9/362880 + x^10/3628800.\n\nGiven x \u2248 0.11448, x^10 will be extremely small (~ (0.1145)^10 \u2248 2e-9?), actually (0.1145)^10 ~ (1.145e-1)^10 = 1.145^10 *1e-10 \u2248 maybe 2.5 *1e-10 = 2.5e-10. Divided by 10! (3,628,800) yields ~7e-17, negligible for 15-digit accuracy. So we can stop at x^9 term maybe.\n\nThus we can compute exp(x) up to x^9 term with high precision.\n\nLet's compute powers up to x^9.\n\nWe need x, x^2, x^3, x^4, x^5, x^6, x^7, x^8, x^9.\n\nWe can compute using high precision multiplication with maybe 15-16 digits.\n\nLet's compute using high precision decimal multiplication using maybe 12-digit intermediate.\n\nI'll compute using a systematic approach: Use a high-precision calculator approach manually.\n\nWe can use the fact that x = 0.1144790812.\n\nCompute x^2:\n\nWe can compute using multiplication with maybe 12-digit accuracy.\n\nLet's do multiplication using integer representation: N = 1144790812, scale = 1e10.\n\nThus x = N * 1e-10.\n\nx^2 = N^2 * 1e-20.\n\nWe need N^2 exactly? We attempted earlier but got uncertain result. Let's compute N^2 precisely using more systematic method.\n\nN = 1,144,790,812.\n\nWe can compute N^2 using long multiplication with maybe splitting into 3-digit chunks (base 1000) to simplify.\n\nLet\u2019s split N into groups of 3 digits from right: N = 1,144,790,812.\n\nGroups: [1][144][790][812]? Actually need to split into 3-digit groups: Starting from rightmost:\n\n- Group0 (least significant) = 812\n- Group1 = 790\n- Group2 = 144\n- Group3 = 1 (since remaining digits)\n\nThus N = 1 * 10^9 + 144 * 10^6 + 790 * 10^3 + 812.\n\nBut careful: 1 * 10^9 = 1,000,000,000; 144 * 10^6 = 144,000,000; 790 * 10^3 = 790,000; plus 812 = 1,144,790,812. Yes.\n\nNow compute N^2 using convolution of these groups.\n\nLet\u2019s denote a3 = 1 (most significant), a2 = 144, a1 = 790, a0 = 812.\n\nThen N = a3*10^9 + a2*10^6 + a1*10^3 + a0.\n\nSquare: N^2 = sum_{i,j} a_i a_j * 10^{3(i+j)}.\n\nWe can compute using convolution.\n\nLet's compute using base 1000 representation.\n\nLet\u2019s compute the coefficients for each power of 10^3.\n\nWe have terms:\n\n- a3 = 1\n- a2 = 144\n- a1 = 790\n- a0 = 812\n\nNow compute the convolution:\n\nWe need to compute the sum for each k = i + j, where i,j from 0 to 3.\n\nThe coefficient for 10^{3k} is sum_{i+j=k} a_i a_j.\n\nBut note that when i=j, we count a_i^2; when i\u2260j, we count 2*a_i*a_j because both (i,j) and (j,i) appear.\n\nThus we can compute the polynomial.\n\nLet's compute all a_i:\n\ni=0: a0 = 812\ni=1: a1 = 790\ni=2: a2 = 144\ni=3: a3 = 1\n\nNow compute convolution:\n\nk=0 (i=j=0): a0*a0 = 812^2 = 659,344.\n\nk=1: i+j=1 => (i=0,j=1) and (i=1,j=0). So coefficient = 2*a0*a1 = 2*812*790.\n\nCompute 812*790 = 812* (800-10) = 812*800 - 812*10 = 649,600 - 8,120 = 641,480. Multiply by 2 => 1,282,960.\n\nk=2: i+j=2 => possibilities: (0,2),(1,1),(2,0). So coefficient = 2*a0*a2 + a1^2.\n\nCompute a0*a2 = 812*144 = 812*100 + 812*44 = 81,200 + 35,728 = 116,928. Multiply by 2 => 233,856.\n\nCompute a1^2 = 790^2 = 624,100.\n\nSum => 233,856 + 624,100 = 857,956.\n\nk=3: i+j=3 => possibilities: (0,3),(1,2),(2,1),(3,0). So coefficient = 2*a0*a3 + 2*a1*a2.\n\nCompute a0*a3 = 812*1 = 812; *2 = 1,624.\n\nCompute a1*a2 = 790*144 = 790*100 + 790*44 = 79,000 + 34,760 = 113,760. Multiply by 2 => 227,520.\n\nSum => 1,624 + 227,520 = 229,144.\n\nk=4: i+j=4 => possibilities: (1,3),(2,2),(3,1). Coefficient = 2*a1*a3 + a2^2.\n\nCompute a1*a3 = 790*1 = 790; *2 = 1,580.\n\nCompute a2^2 = 144^2 = 20,736.\n\nSum => 1,580 + 20,736 = 22,316.\n\nk=5: i+j=5 => possibilities: (2,3),(3,2). Coefficient = 2*a2*a3 = 2*144*1 = 288.\n\nk=6: i+j=6 => (3,3): coefficient = a3^2 = 1.\n\nThus we have coefficients for powers of 10^{3k}:\n\n- k=0: 659,344 * 10^{0}\n- k=1: 1,282,960 * 10^{3}\n- k=2: 857,956 * 10^{6}\n- k=3: 229,144 * 10^{9}\n- k=4: 22,316 * 10^{12}\n- k=5: 288 * 10^{15}\n- k=6: 1 * 10^{18}\n\nNow we need to sum these to get N^2.\n\nLet's compute each term's value:\n\nTerm0: 659,344 * 1 = 659,344.\n\nTerm1: 1,282,960 * 10^3 = 1,282,960,000.\n\nTerm2: 857,956 * 10^6 = 857,956,000,000.\n\nTerm3: 229,144 * 10^9 = 229,144,000,? "
+  },
+  "latency_s": {
+    "mean": 125.66950000000004,
+    "min": 17.584,
+    "max": 234.285
+  },
+  "tokens": {
+    "prompt": 1804,
+    "completion": 121942,
+    "reasoning": 0,
+    "cache_hit": 0
+  },
+  "failures": [
+    {
+      "x": -0.9985798483,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": -0.9814799602,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": -0.9513299347,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": -0.9380804614,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": -0.9223543543,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": -0.9078417884,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": -0.8879174311,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": -0.863389757,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": -0.8344821424,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": -0.829496683,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": -0.8073587721,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": -0.7863662979,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": -0.7682166995,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": -0.7364300142,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": -0.7173250396,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": -0.6953112289,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": -0.681319212,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": -0.662176483,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": -0.634661819,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": -0.6177280923,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": -0.6066231217,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": -0.5731993577,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": -0.5508534706,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": -0.5425603887,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": -0.5230900242,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": -0.5054064386,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": -0.4628029033,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": -0.4476202759,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": -0.4246474579,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": -0.4042105879,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": -0.3806838196,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": -0.3505948019,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": -0.3381515142,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": -0.3181961257,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": -0.3071621056,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": -0.2833967212,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": -0.2544673891,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": -0.2427024359,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": -0.2136228964,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": -0.1906816532,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": -0.1862615737,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": -0.1652531899,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": -0.1039949724,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": -0.0859920192,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": -0.0553520462,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": -0.0450636657,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": -0.0222930415,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": 0.0015297841,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": 0.0291663476,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": 0.0473917113,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": 0.0646797399,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": 0.0746622569,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": 0.1010724327,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": 0.1235898114,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": 0.1482453477,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": 0.1627731267,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": 0.1823138134,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": 0.1918553666,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": 0.2679986763,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": 0.328791263,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": 0.3694180556,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": 0.3862471261,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": 0.3948244887,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": 0.4273082696,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": 0.4393102754,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": 0.4554682359,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": 0.4740283039,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": 0.5187170226,
+      "error": "HTTPError: HTTP Error 503: Service Unavailable :: {\"error\":{\"message\":\"ResourceExhausted: Worker local total request limit reached (33/32)\",\"type\":\"Service Unavailable\",\"code\":503}}",
+      "raw": null
+    },
+    {
+      "x": 0.5350224846,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": 0.5618823536,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": 0.5876625875,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": 0.6016659687,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": 0.6188645751,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": 0.6484347985,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": 0.6605729619,
+      "error": "HTTPError: HTTP Error 503: Service Unavailable :: {\"error\":{\"message\":\"ResourceExhausted: Worker local total request limit reached (33/32)\",\"type\":\"Service Unavailable\",\"code\":503}}",
+      "raw": null
+    },
+    {
+      "x": 0.7349933738,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": 0.7673753916,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": 0.7800439074,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": 0.7931144531,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": 0.8189004342,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": 0.8428166028,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": 0.8694673341,
+      "error": "HTTPError: HTTP Error 503: Service Unavailable :: {\"error\":{\"message\":\"ResourceExhausted: Worker local total request limit reached (32/32)\",\"type\":\"Service Unavailable\",\"code\":503}}",
+      "raw": null
+    },
+    {
+      "x": 0.8730076706,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": 0.9246204423,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": 0.9582162565,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": 0.9830754318,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    },
+    {
+      "x": 0.995404084,
+      "error": "HTTPError: HTTP Error 504: Gateway Timeout :: ",
+      "raw": null
+    }
+  ]
+}

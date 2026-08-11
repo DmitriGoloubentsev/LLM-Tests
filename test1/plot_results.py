@@ -119,8 +119,10 @@ def fig_accuracy(rows, s, c, out):
     a1.set_title(f"{fn}(x) accuracy per point — {s['meta']['model']}, "
                  f"{len(rows)} independent API calls",
                  loc="left", color=c["ink"], pad=26)
-    a1.text(0, 1.015, f"{s['answered']}/{s['points']} answered · {s['exact_float_matches']} exact doubles · "
-                      f"worst {s['min_correct_digits']:.2f} digits · max abs err {s['max_abs_err']:.1e}",
+    # A run where nothing parsed leaves these None — report the shape of the failure instead.
+    acc = (f"worst {s['min_correct_digits']:.2f} digits · max abs err {s['max_abs_err']:.1e}"
+           if s["min_correct_digits"] is not None else "no point produced a parseable answer")
+    a1.text(0, 1.015, f"{s['answered']}/{s['points']} answered · {s['exact_float_matches']} exact doubles · " + acc,
             transform=a1.transAxes, fontsize=9, color=c["ink2"])
 
     # A non-reasoning model reports 0 reasoning tokens for every point — plot what it did
@@ -233,8 +235,14 @@ def main():
     made = [
         fig_accuracy(rows, s, c, os.path.join(outdir, f"1_accuracy_vs_x{sfx}.png")),
         fig_histogram(rows, s, c, os.path.join(outdir, f"2_digit_histogram{sfx}.png")),
-        fig_effort(rows, s, c, os.path.join(outdir, f"3_effort_vs_accuracy{sfx}.png")),
     ]
+    # Figures 1 and 2 still say something when every point failed (the failure markers and an
+    # empty histogram are the result). Figure 3 plots digits against tokens, so with no answered
+    # point there is nothing to place — skip it rather than emit an empty axes.
+    if any(r["digits"] is not None for r in rows):
+        made.append(fig_effort(rows, s, c, os.path.join(outdir, f"3_effort_vs_accuracy{sfx}.png")))
+    else:
+        made.append(f"(skipped 3_effort_vs_accuracy{sfx}.png: no point produced an answer)")
     for m in made:
         print(m)
 

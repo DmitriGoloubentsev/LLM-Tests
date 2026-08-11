@@ -1,0 +1,82 @@
+{
+  "meta": {
+    "test": "test1v2",
+    "func": "exp",
+    "model": "poolside/laguna-s-2.1:free",
+    "base_url": "https://openrouter.ai/api/v1",
+    "api": "openai",
+    "temperature": 0.0,
+    "reasoning_effort": null,
+    "concurrency": 1,
+    "recall_proof": true,
+    "seed": "test1v2",
+    "jitter": 0.0095,
+    "sigdigits_requested": 15,
+    "antitruncation_clause": true,
+    "grid": {
+      "lo": -1.0,
+      "hi": 1.0,
+      "step": 0.02,
+      "points": 3,
+      "sampled_from": 101
+    },
+    "wall_s": 373.1,
+    "utc": "20260811_095104",
+    "system_prompt": "You are a numerical calculator. Answer with the numeric result only: a single decimal number, no words, no units, no formatting, no explanation.",
+    "user_prompt_example": "Compute exp(-0.7863662979), the exponential function e raised to the power -0.7863662979. Give the value as a plain decimal number with at least 15 significant digits. Give every digit you are confident in \u2014 do not round or truncate the result to fewer digits than you computed. Output only the number."
+  },
+  "points": 3,
+  "answered": 1,
+  "unparsed_or_failed": 2,
+  "exact_float_matches": 0,
+  "max_abs_err": 6.881859563545589e-05,
+  "mean_abs_err": 6.881859563545589e-05,
+  "rms_abs_err": 6.881859563545589e-05,
+  "max_rel_err": 3.113583917407836e-05,
+  "mean_rel_err": 3.113583917407836e-05,
+  "min_correct_digits": 4.506739424666839,
+  "mean_correct_digits": 4.506739424666839,
+  "median_correct_digits": 4.506739424666839,
+  "digit_histogram": {
+    "4": 1
+  },
+  "worst_abs": {
+    "x": 0.7931144531,
+    "expected": 2.2102694984611078,
+    "got": 2.210338317056743,
+    "abs_err": 6.881859563545589e-05,
+    "rel_err": 3.113583917407836e-05,
+    "raw": "2.210338317056743"
+  },
+  "worst_rel": {
+    "x": 0.7931144531,
+    "expected": 2.2102694984611078,
+    "got": 2.210338317056743,
+    "abs_err": 6.881859563545589e-05,
+    "rel_err": 3.113583917407836e-05,
+    "raw": "2.210338317056743"
+  },
+  "latency_s": {
+    "mean": 5.25,
+    "min": 5.25,
+    "max": 5.25
+  },
+  "tokens": {
+    "prompt": 254,
+    "completion": 10496,
+    "reasoning": 10478,
+    "cache_hit": 0
+  },
+  "failures": [
+    {
+      "x": -0.7863662979,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.662176483,
+      "error": "HTTPError: HTTP Error 502: Bad Gateway :: {\"error\":{\"message\":\"Provider returned error\",\"code\":502,\"metadata\":{\"raw\":\"error code: 502\\n\",\"provider_name\":\"Poolside\",\"is_byok\":false}},\"user_id\":\"user_3HjY9zTxvIfT9XrdKPrrq3s2ZVw\"}",
+      "raw": null
+    }
+  ]
+}

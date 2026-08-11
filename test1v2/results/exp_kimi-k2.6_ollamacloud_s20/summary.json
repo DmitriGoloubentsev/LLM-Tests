@@ -1,0 +1,112 @@
+{
+  "meta": {
+    "test": "test1v2",
+    "func": "exp",
+    "model": "kimi-k2.6",
+    "base_url": "https://ollama.com/v1",
+    "api": "openai",
+    "temperature": 0.0,
+    "reasoning_effort": null,
+    "concurrency": 3,
+    "recall_proof": true,
+    "seed": "test1v2",
+    "jitter": 0.0095,
+    "sigdigits_requested": 15,
+    "antitruncation_clause": true,
+    "grid": {
+      "lo": -1.0,
+      "hi": 1.0,
+      "step": 0.02,
+      "points": 20,
+      "sampled_from": 101
+    },
+    "wall_s": 2688.7,
+    "utc": "20260811_145911",
+    "system_prompt": "You are a numerical calculator. Answer with the numeric result only: a single decimal number, no words, no units, no formatting, no explanation.",
+    "user_prompt_example": "Compute exp(-0.9985798483), the exponential function e raised to the power -0.9985798483. Give the value as a plain decimal number with at least 15 significant digits. Give every digit you are confident in \u2014 do not round or truncate the result to fewer digits than you computed. Output only the number."
+  },
+  "points": 20,
+  "answered": 13,
+  "unparsed_or_failed": 7,
+  "exact_float_matches": 1,
+  "max_abs_err": 1.2368776669546833e-08,
+  "mean_abs_err": 9.935729034387792e-10,
+  "rms_abs_err": 3.4323098964922766e-09,
+  "max_rel_err": 4.9064705002769836e-09,
+  "mean_rel_err": 4.0002194723388837e-10,
+  "min_correct_digits": 8.309230807968921,
+  "mean_correct_digits": 12.88060142476795,
+  "median_correct_digits": 13.67894944366991,
+  "digit_histogram": {
+    "15 (exact)": 4,
+    "14": 1,
+    "13": 3,
+    "12": 2,
+    "9": 2,
+    "8": 1
+  },
+  "worst_abs": {
+    "x": 0.9246204423,
+    "expected": 2.5209112474738373,
+    "got": 2.520911259842614,
+    "abs_err": 1.2368776669546833e-08,
+    "rel_err": 4.9064705002769836e-09,
+    "raw": "2.520911259842614"
+  },
+  "worst_rel": {
+    "x": 0.9246204423,
+    "expected": 2.5209112474738373,
+    "got": 2.520911259842614,
+    "abs_err": 1.2368776669546833e-08,
+    "rel_err": 4.9064705002769836e-09,
+    "raw": "2.520911259842614"
+  },
+  "latency_s": {
+    "mean": 308.91792307692305,
+    "min": 132.917,
+    "max": 856.489
+  },
+  "tokens": {
+    "prompt": 2216,
+    "completion": 1144188,
+    "reasoning": 0,
+    "cache_hit": 0
+  },
+  "failures": [
+    {
+      "x": -0.863389757,
+      "error": null,
+      "raw": ""
+    },
+    {
+      "x": -0.7863662979,
+      "error": null,
+      "raw": ""
+    },
+    {
+      "x": -0.662176483,
+      "error": null,
+      "raw": ""
+    },
+    {
+      "x": -0.4042105879,
+      "error": null,
+      "raw": ""
+    },
+    {
+      "x": -0.2136228964,
+      "error": null,
+      "raw": ""
+    },
+    {
+      "x": 0.1918553666,
+      "error": null,
+      "raw": ""
+    },
+    {
+      "x": 0.7931144531,
+      "error": null,
+      "raw": ""
+    }
+  ]
+}

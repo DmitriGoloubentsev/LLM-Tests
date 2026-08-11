@@ -1,0 +1,72 @@
+{
+  "meta": {
+    "test": "test1v2",
+    "func": "exp",
+    "model": "mistral-large-3:675b",
+    "base_url": "https://ollama.com/v1",
+    "api": "openai",
+    "temperature": 0.0,
+    "reasoning_effort": null,
+    "concurrency": 1,
+    "recall_proof": true,
+    "seed": "test1v2",
+    "jitter": 0.0095,
+    "sigdigits_requested": 15,
+    "antitruncation_clause": true,
+    "grid": {
+      "lo": -1.0,
+      "hi": 1.0,
+      "step": 0.02,
+      "points": 3,
+      "sampled_from": 101
+    },
+    "wall_s": 5.3,
+    "utc": "20260811_123209",
+    "system_prompt": "You are a numerical calculator. Answer with the numeric result only: a single decimal number, no words, no units, no formatting, no explanation.",
+    "user_prompt_example": "Compute exp(-0.7863662979), the exponential function e raised to the power -0.7863662979. Give the value as a plain decimal number with at least 15 significant digits. Give every digit you are confident in \u2014 do not round or truncate the result to fewer digits than you computed. Output only the number."
+  },
+  "points": 3,
+  "answered": 3,
+  "unparsed_or_failed": 0,
+  "exact_float_matches": 0,
+  "max_abs_err": 0.0003534810684775458,
+  "mean_abs_err": 0.00020384528956764644,
+  "rms_abs_err": 0.0002406177138840177,
+  "max_rel_err": 0.0004761985897923269,
+  "mean_rel_err": 0.0002386370637231887,
+  "min_correct_digits": 3.3222118950426838,
+  "mean_correct_digits": 3.7387882385903572,
+  "median_correct_digits": 3.796079071421014,
+  "digit_histogram": {
+    "3": 2,
+    "4": 1
+  },
+  "worst_abs": {
+    "x": 0.7931144531,
+    "expected": 2.2102694984611078,
+    "got": 2.20991601739263,
+    "abs_err": 0.0003534810684775458,
+    "rel_err": 0.00015992668257135871,
+    "raw": "2.20991601739263"
+  },
+  "worst_rel": {
+    "x": -0.7863662979,
+    "expected": 0.4554969319363902,
+    "got": 0.455713838933033,
+    "abs_err": 0.00021690699664284052,
+    "rel_err": 0.0004761985897923269,
+    "raw": "0.455713838933033"
+  },
+  "latency_s": {
+    "mean": 1.7526666666666666,
+    "min": 1.407,
+    "max": 2.408
+  },
+  "tokens": {
+    "prompt": 352,
+    "completion": 53,
+    "reasoning": 0,
+    "cache_hit": 0
+  },
+  "failures": []
+}

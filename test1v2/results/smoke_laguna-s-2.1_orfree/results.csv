@@ -1,0 +1,4 @@
+x,expected,got,abs_err,rel_err,correct_digits,latency_s,completion_tokens,reasoning_tokens,error
+-0.7863662979,0.45549693193639018,,,,,347.59,10478,10478,
+-0.662176483,0.51572763964360357,,,,,,0,0,HTTPError: HTTP Error 502: Bad Gateway :: {"error":{"message":"Provider returned error" "code":502 "metadata":{"raw":"error code: 502\n" "provider_name":"Poolside" "is_byok":false}} "user_id":"user_3HjY9zTxvIfT9XrdKPrrq3s2ZVw"}
+0.7931144531,2.2102694984611078,2.210338317056743,6.881860e-05,3.113584e-05,4.51,5.25,18,0,
