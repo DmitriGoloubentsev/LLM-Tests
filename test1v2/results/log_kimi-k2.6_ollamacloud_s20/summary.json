@@ -1,0 +1,112 @@
+{
+  "meta": {
+    "test": "test1v2",
+    "func": "log",
+    "model": "kimi-k2.6",
+    "base_url": "https://ollama.com/v1",
+    "api": "openai",
+    "temperature": 0.0,
+    "temperature_sent": true,
+    "reasoning_effort": null,
+    "concurrency": 3,
+    "recall_proof": true,
+    "seed": "test1v2",
+    "jitter": 0.0095,
+    "sigdigits_requested": 15,
+    "antitruncation_clause": true,
+    "grid": {
+      "lo": -1.0,
+      "hi": 1.0,
+      "step": 0.02,
+      "points": 20,
+      "sampled_from": 101
+    },
+    "wall_s": 4870.6,
+    "utc": "20260812_181633",
+    "system_prompt": "You are a numerical calculator. Answer with the numeric result only: a single decimal number, no words, no units, no formatting, no explanation.",
+    "user_prompt_example": "Compute ln(0.136710243), the natural logarithm of 0.136710243. Give the value as a plain decimal number with at least 15 significant digits. Give every digit you are confident in \u2014 do not round or truncate the result to fewer digits than you computed. Output only the number."
+  },
+  "points": 20,
+  "answered": 13,
+  "unparsed_or_failed": 7,
+  "exact_float_matches": 0,
+  "max_abs_err": 1.3599343873238467e-11,
+  "mean_abs_err": 2.3641174488139207e-12,
+  "rms_abs_err": 4.579164319609856e-12,
+  "max_rel_err": 3.37061035443929e-11,
+  "mean_rel_err": 4.997355601398762e-12,
+  "min_correct_digits": 10.472291449406523,
+  "mean_correct_digits": 12.667407815230488,
+  "median_correct_digits": 12.558361712842656,
+  "digit_histogram": {
+    "15 (exact)": 3,
+    "11": 3,
+    "12": 4,
+    "10": 2,
+    "13": 1
+  },
+  "worst_abs": {
+    "x": 0.2137337021,
+    "expected": -1.5430244215576348,
+    "got": -1.543024421571234,
+    "abs_err": 1.3599343873238467e-11,
+    "rel_err": 8.813433982794877e-12,
+    "raw": "-1.543024421571234"
+  },
+  "worst_rel": {
+    "x": 0.8348468101,
+    "expected": -0.1805070319203856,
+    "got": -0.1805070319264698,
+    "abs_err": 6.084188708399552e-12,
+    "rel_err": 3.37061035443929e-11,
+    "raw": "-0.18050703192646981533969687510651977717460060715505"
+  },
+  "latency_s": {
+    "mean": 638.1713076923077,
+    "min": 532.178,
+    "max": 749.835
+  },
+  "tokens": {
+    "prompt": 2158,
+    "completion": 1209024,
+    "reasoning": 0,
+    "cache_hit": 0
+  },
+  "failures": [
+    {
+      "x": 0.5275106673,
+      "error": null,
+      "raw": ""
+    },
+    {
+      "x": 1.3863471261,
+      "error": null,
+      "raw": ""
+    },
+    {
+      "x": 1.5351224846,
+      "error": null,
+      "raw": ""
+    },
+    {
+      "x": 1.5877625875,
+      "error": null,
+      "raw": ""
+    },
+    {
+      "x": 1.6939073077,
+      "error": null,
+      "raw": ""
+    },
+    {
+      "x": 1.7248429906,
+      "error": null,
+      "raw": ""
+    },
+    {
+      "x": 1.7674753916,
+      "error": null,
+      "raw": ""
+    }
+  ]
+}
