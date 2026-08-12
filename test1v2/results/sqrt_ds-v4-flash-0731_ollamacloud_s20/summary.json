@@ -1,0 +1,154 @@
+{
+  "meta": {
+    "test": "test1v2",
+    "func": "sqrt",
+    "model": "deepseek-v4-flash:0731",
+    "base_url": "https://ollama.com/v1",
+    "api": "openai",
+    "temperature": 0.0,
+    "temperature_sent": true,
+    "reasoning_effort": null,
+    "concurrency": 3,
+    "recall_proof": true,
+    "seed": "test1v2",
+    "jitter": 0.0095,
+    "sigdigits_requested": 15,
+    "antitruncation_clause": true,
+    "grid": {
+      "lo": -1.0,
+      "hi": 1.0,
+      "step": 0.02,
+      "points": 20,
+      "sampled_from": 101
+    },
+    "wall_s": 1607.1,
+    "utc": "20260812_093209",
+    "system_prompt": "You are a numerical calculator. Answer with the numeric result only: a single decimal number, no words, no units, no formatting, no explanation.",
+    "user_prompt_example": "Compute sqrt(0.136710243), the square root of 0.136710243. Give the value as a plain decimal number with at least 15 significant digits. Give every digit you are confident in \u2014 do not round or truncate the result to fewer digits than you computed. Output only the number."
+  },
+  "points": 20,
+  "answered": 4,
+  "unparsed_or_failed": 16,
+  "exact_float_matches": 2,
+  "max_abs_err": 6.555866960411549e-13,
+  "mean_abs_err": 1.6395218516152e-13,
+  "rms_abs_err": 3.2779336682198294e-13,
+  "max_rel_err": 7.7439124814505e-13,
+  "mean_rel_err": 1.936513576660319e-13,
+  "min_correct_digits": 12.11103956389154,
+  "mean_correct_digits": 14.277759890972884,
+  "median_correct_digits": 15.0,
+  "digit_histogram": {
+    "15 (exact)": 3,
+    "12": 1
+  },
+  "worst_abs": {
+    "x": 0.7167032788,
+    "expected": 0.8465832970239845,
+    "got": 0.8465832970233289,
+    "abs_err": 6.555866960411549e-13,
+    "rel_err": 7.7439124814505e-13,
+    "raw": "0.84658329702332894"
+  },
+  "worst_rel": {
+    "x": 0.7167032788,
+    "expected": 0.8465832970239845,
+    "got": 0.8465832970233289,
+    "abs_err": 6.555866960411549e-13,
+    "rel_err": 7.7439124814505e-13,
+    "raw": "0.84658329702332894"
+  },
+  "latency_s": {
+    "mean": 65.61824999999999,
+    "min": 30.033,
+    "max": 97.249
+  },
+  "tokens": {
+    "prompt": 1998,
+    "completion": 1116294,
+    "reasoning": 0,
+    "cache_hit": 0
+  },
+  "failures": [
+    {
+      "x": 0.136710243,
+      "error": null,
+      "raw": ""
+    },
+    {
+      "x": 0.2137337021,
+      "error": null,
+      "raw": ""
+    },
+    {
+      "x": 0.5275106673,
+      "error": null,
+      "raw": ""
+    },
+    {
+      "x": 0.5372970967,
+      "error": null,
+      "raw": ""
+    },
+    {
+      "x": 0.5754525421,
+      "error": null,
+      "raw": ""
+    },
+    {
+      "x": 0.5958894121,
+      "error": null,
+      "raw": ""
+    },
+    {
+      "x": 0.8348468101,
+      "error": null,
+      "raw": ""
+    },
+    {
+      "x": 1.3863471261,
+      "error": null,
+      "raw": ""
+    },
+    {
+      "x": 1.5053254264,
+      "error": null,
+      "raw": ""
+    },
+    {
+      "x": 1.5877625875,
+      "error": null,
+      "raw": ""
+    },
+    {
+      "x": 1.6606729619,
+      "error": null,
+      "raw": ""
+    },
+    {
+      "x": 1.6939073077,
+      "error": null,
+      "raw": ""
+    },
+    {
+      "x": 1.7248429906,
+      "error": null,
+      "raw": ""
+    },
+    {
+      "x": 1.7674753916,
+      "error": null,
+      "raw": ""
+    },
+    {
+      "x": 1.7932144531,
+      "error": null,
+      "raw": ""
+    },
+    {
+      "x": 1.9450889901,
+      "error": null,
+      "raw": ""
+    }
+  ]
+}
