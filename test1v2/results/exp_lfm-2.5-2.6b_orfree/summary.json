@@ -1,0 +1,88 @@
+{
+  "meta": {
+    "test": "test1v2",
+    "func": "exp",
+    "model": "liquid/lfm-2.5-2.6b:free",
+    "base_url": "https://openrouter.ai/api/v1",
+    "api": "openai",
+    "temperature": 0.0,
+    "temperature_sent": true,
+    "reasoning_effort": null,
+    "concurrency": 2,
+    "recall_proof": true,
+    "seed": "test1v2",
+    "jitter": 0.0095,
+    "sigdigits_requested": 15,
+    "antitruncation_clause": true,
+    "grid": {
+      "lo": -1.0,
+      "hi": 1.0,
+      "step": 0.02,
+      "points": 101,
+      "sampled_from": null
+    },
+    "wall_s": 1066.5,
+    "utc": "20260812_223202",
+    "system_prompt": "You are a numerical calculator. Answer with the numeric result only: a single decimal number, no words, no units, no formatting, no explanation.",
+    "user_prompt_example": "Compute exp(-0.9985798483), the exponential function e raised to the power -0.9985798483. Give the value as a plain decimal number with at least 15 significant digits. Give every digit you are confident in \u2014 do not round or truncate the result to fewer digits than you computed. Output only the number."
+  },
+  "points": 101,
+  "answered": 99,
+  "unparsed_or_failed": 2,
+  "exact_float_matches": 0,
+  "max_abs_err": 2.5058174979588608,
+  "mean_abs_err": 1.0413697272763258,
+  "rms_abs_err": 1.147950382680239,
+  "max_rel_err": 3.710569301623319,
+  "mean_rel_err": 1.1166725179381674,
+  "min_correct_digits": -0.5694405472391908,
+  "mean_correct_digits": 0.25434578046882467,
+  "median_correct_digits": 0.07156796876985247,
+  "digit_histogram": {
+    "<0 (gross)": 31,
+    "0": 64,
+    "3": 1,
+    "9": 1,
+    "6": 1,
+    "5": 1
+  },
+  "worst_abs": {
+    "x": 0.995404084,
+    "expected": 2.705817497958861,
+    "got": 0.2,
+    "abs_err": 2.5058174979588608,
+    "rel_err": 0.9260851849206864,
+    "raw": "<|tool_call_start|>[python(code='import math\n\nresult = math.exp(0.995404084)\nprint(f\"{result:.20f}\")')]<|tool_call_end|>"
+  },
+  "worst_rel": {
+    "x": -0.9985798483,
+    "expected": 0.36840225693619627,
+    "got": -0.9985798483,
+    "abs_err": 1.3669821052361963,
+    "rel_err": 3.710569301623319,
+    "raw": "<|tool_call_start|>[python(code='import math\n\nresult = math.exp(-0.9985798483)\nprint(result)')]<|tool_call_end|>"
+  },
+  "latency_s": {
+    "mean": 14.127909090909089,
+    "min": 4.197,
+    "max": 285.802
+  },
+  "tokens": {
+    "prompt": 11597,
+    "completion": 38846,
+    "reasoning": 35040,
+    "cache_hit": 0
+  },
+  "failures": [
+    {
+      "x": 0.0473917113,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.684086953,
+      "error": null,
+      "raw": null
+    }
+  ]
+}

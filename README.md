@@ -219,7 +219,26 @@ Mistral shortcuts at **24B (3.46 digits)** and at **675B (4.29)** — a 28× par
 
 **The split also runs inside vendors, not just between them.** Google ships a 5.23-digit
 shortcutter (Gemini-2.5-pro) alongside Gemini-3.5-flash, which derives to a 9.55 median — but with
-a **−13.51** worst point, i.e. an answer off by thirteen orders of magnitude.
+a **−13.51** worst point, i.e. an answer off by thirteen orders of magnitude. NVIDIA's
+`nemotron-nano-9b-v2` (4.35) beats its own generation's **550B** model (3.69), a 60× size ratio
+pointing the wrong way.
+
+**But there is a floor, and it is low.** Size stops being irrelevant somewhere below 14B. At
+**2.6B** (`liquid/lfm-2.5-2.6b`) the model neither computes nor recalls — it *echoes the argument
+back*:
+
+| x | expected | returned |
+|---|---|---|
+| −0.7863662979 | 0.455497 | **−0.7863662979** |
+| 0.7931144531 | 2.210269 | **0.7931144531** |
+
+Over the full 101-point grid it answers **99/101** and scores a median of **0.07 digits**, and
+**62 of those 99 answers are the argument echoed back verbatim** — after spending ~350 reasoning
+tokens per point. It is not refusing and not approximating; it returns `x` when asked for `exp(x)`.
+
+So the claim is: **size predicts nothing across 14B→675B** — a 48× range where every model
+shortcuts at ~18 tok/pt and 2.9–4.9 digits — **and below that range models fall out of the band
+entirely.**
 
 ### 2. The clean generational result: it changed between GPT-5.4 and GPT-5.5
 
@@ -330,20 +349,52 @@ is not predictable at all.**
 
 ### 7. What the band actually measures: approximability, not model size
 
-Run four functions through the same four shortcutters and the ordering is **identical in every
-column**:
+Run **five functions** through **five shortcutters** — every cell a full 101-point grid — and the
+ordering is **identical in every column**:
 
-| function | mistral-675B | gemma4:31b | qwen3-coder | devstral |
-|---|---|---|---|---|
-| **sqrt** (algebraic) | **7.36** (18t) | 6.71 (**2,612t**) | **6.54** (17t) | **4.24** (15t) |
-| exp | 4.29 (18t) | 4.76 (18t) | 3.72 (18t) | 3.46 (16t) |
-| log | 3.91 (18t) | 4.24 (18t) | 3.02 (19t) | 2.47 (17t) |
-| sin | 3.27 (19t) | 4.09 (19t) | 2.77 (18t) | 2.38 (17t) |
+| function | mistral-675B | gemma4:31b | qwen3-coder | qwen2.5-coder | devstral |
+|---|---|---|---|---|---|
+| **sqrt** (algebraic) | **7.36** | **6.71** (2,612t) | **6.54** | **4.72** | **4.24** |
+| exp | 4.29 | 4.76 | 3.72 | 2.93 | 3.46 |
+| cos | 3.46 | 4.34 | 3.23 | 2.46 | 2.48 |
+| log | 3.91 | 4.24 | 3.02 | 2.29 | 2.47 |
+| sin | 3.27 | 4.09 | 2.77 | 2.34 | 2.38 |
 
-`sqrt > exp > log > sin`, across 24B→675B and three vendors, at a flat ~18 tokens. So the band is
-not a fixed "3–5 digits" property of small models — it tracks **how well the function yields to a
-short local expansion**. `√(1+u) ≈ 1 + u/2 − u²/8` is good to ~7 digits on this domain; `sin` and
-`log` are not, and land at ~2.5–4.
+`sqrt` first in all five columns, `sin` last in four — across 14B→675B, three vendors, at a flat
+~18 tokens per point. So the band is not a fixed "3–5 digits" property of small models; it tracks
+**how well the function yields to a short local expansion**. `√(1+u) ≈ 1 + u/2 − u²/8` is good to
+~7 digits on this domain; `sin` and `log` are not, and land at ~2.5–4.
+
+**Three independent lines of evidence, not one correlation:**
+
+**(a) Remove recall and the ordering survives.** Re-run with round arguments (`--jitter 0`) and
+compare. If `sqrt` scored well because it was better *memorised*, jittering should cost it as much
+as it costs `exp`. It doesn't — the recall advantage is an **`exp` phenomenon**:
+
+| qwen3-coder | round | jittered | recall gap |
+|---|---|---|---|
+| exp | 5.93 | 3.72 | **+2.21** |
+| sqrt | 7.24 | 6.54 | +0.70 |
+| log | 3.21 | 3.02 | +0.19 |
+| cos | 3.32 | 3.23 | +0.09 |
+| sin | 2.84 | 2.77 | +0.07 |
+
+`exp`'s gap is 3× the next largest and ~30× the smallest. That fits **corpus frequency** — `e`,
+`e^0.5`, `e²` are famous numbers; `sin(0.5)` as a decimal expansion is not. (This refuted the
+prediction that the gap would scale inversely with approximability, which would have put `sin` and
+`log` on top.)
+
+**(b) The model with the most to lose loses it only on `exp`.** gemma4 is nearly a lookup table for
+`exp` — round arguments score **10.59**, jittered **4.76**, a −5.83 collapse. On `sqrt` the same
+model, same prompt, same ~18 tokens, loses **0.80**. That rules out the confound that the small
+`sqrt` gaps elsewhere just reflect models with nothing memorised.
+
+**(c) A model that actually derives shows a different ordering.** kimi-k2.6 across the same five
+functions: `sqrt` 15.00 · `sin` 14.14 · `exp` 13.68 · `cos` 13.52 · `log` 12.56 — order
+`sqrt > sin > exp > cos > log`, where `sin` is **second** rather than last. Its spread is **2.44
+digits** against the shortcutters' **5.0**. Deriving compresses the differences between functions
+to nearly nothing; recalling is dominated by them. **So the ordering is a property of recall, not
+intrinsic task difficulty** — if `sin` were simply harder, Kimi would struggle with it too.
 
 `sqrt` also rules out the obvious objection that these models simply *can't* compute. Four Newton
 iterations (`y ← (y + x/y)/2`) reach 15 digits with nothing but division — no constant, no series.
