@@ -1,0 +1,168 @@
+{
+  "meta": {
+    "test": "test1v2",
+    "func": "log",
+    "model": "glm-5.2",
+    "base_url": "https://ollama.com/v1",
+    "api": "openai",
+    "temperature": 0.0,
+    "temperature_sent": true,
+    "reasoning_effort": null,
+    "concurrency": 3,
+    "recall_proof": true,
+    "seed": "test1v2",
+    "jitter": 0.0095,
+    "sigdigits_requested": 15,
+    "antitruncation_clause": true,
+    "grid": {
+      "lo": -1.0,
+      "hi": 1.0,
+      "step": 0.02,
+      "points": 20,
+      "sampled_from": 101
+    },
+    "wall_s": 2420.3,
+    "utc": "20260812_121138",
+    "system_prompt": "You are a numerical calculator. Answer with the numeric result only: a single decimal number, no words, no units, no formatting, no explanation.",
+    "user_prompt_example": "Compute ln(0.136710243), the natural logarithm of 0.136710243. Give the value as a plain decimal number with at least 15 significant digits. Give every digit you are confident in \u2014 do not round or truncate the result to fewer digits than you computed. Output only the number."
+  },
+  "points": 20,
+  "answered": 1,
+  "unparsed_or_failed": 19,
+  "exact_float_matches": 0,
+  "max_abs_err": 2.9956811347098267e-06,
+  "mean_abs_err": 2.9956811347098267e-06,
+  "rms_abs_err": 2.9956811347098267e-06,
+  "max_rel_err": 1.9414346868766863e-06,
+  "mean_rel_err": 1.9414346868766863e-06,
+  "min_correct_digits": 5.711877215267906,
+  "mean_correct_digits": 5.711877215267906,
+  "median_correct_digits": 5.711877215267906,
+  "digit_histogram": {
+    "5": 1
+  },
+  "worst_abs": {
+    "x": 0.2137337021,
+    "expected": -1.5430244215576348,
+    "got": -1.5430214258765,
+    "abs_err": 2.9956811347098267e-06,
+    "rel_err": 1.9414346868766863e-06,
+    "raw": "-1.5430214258765"
+  },
+  "worst_rel": {
+    "x": 0.2137337021,
+    "expected": -1.5430244215576348,
+    "got": -1.5430214258765,
+    "abs_err": 2.9956811347098267e-06,
+    "rel_err": 1.9414346868766863e-06,
+    "raw": "-1.5430214258765"
+  },
+  "latency_s": {
+    "mean": 296.385,
+    "min": 296.385,
+    "max": 296.385
+  },
+  "tokens": {
+    "prompt": 2171,
+    "completion": 1243483,
+    "reasoning": 0,
+    "cache_hit": 0
+  },
+  "failures": [
+    {
+      "x": 0.136710243,
+      "error": null,
+      "raw": ""
+    },
+    {
+      "x": 0.5275106673,
+      "error": null,
+      "raw": ""
+    },
+    {
+      "x": 0.5372970967,
+      "error": null,
+      "raw": ""
+    },
+    {
+      "x": 0.5754525421,
+      "error": null,
+      "raw": ""
+    },
+    {
+      "x": 0.5958894121,
+      "error": null,
+      "raw": ""
+    },
+    {
+      "x": 0.6194161804,
+      "error": null,
+      "raw": ""
+    },
+    {
+      "x": 0.7167032788,
+      "error": null,
+      "raw": ""
+    },
+    {
+      "x": 0.8348468101,
+      "error": null,
+      "raw": ""
+    },
+    {
+      "x": 1.0747622569,
+      "error": null,
+      "raw": ""
+    },
+    {
+      "x": 1.3863471261,
+      "error": null,
+      "raw": ""
+    },
+    {
+      "x": 1.5053254264,
+      "error": null,
+      "raw": ""
+    },
+    {
+      "x": 1.5351224846,
+      "error": null,
+      "raw": ""
+    },
+    {
+      "x": 1.5877625875,
+      "error": null,
+      "raw": ""
+    },
+    {
+      "x": 1.6606729619,
+      "error": null,
+      "raw": ""
+    },
+    {
+      "x": 1.6939073077,
+      "error": null,
+      "raw": ""
+    },
+    {
+      "x": 1.7248429906,
+      "error": null,
+      "raw": ""
+    },
+    {
+      "x": 1.7674753916,
+      "error": null,
+      "raw": ""
+    },
+    {
+      "x": 1.7932144531,
+      "error": null,
+      "raw": ""
+    },
+    {
+      "x": 1.9450889901,
+      "error": null,
+      "raw": ""
+    }
+  ]
+}
