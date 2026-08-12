@@ -1,0 +1,80 @@
+{
+  "meta": {
+    "test": "test1v2",
+    "func": "sqrt",
+    "model": "qwen3-coder:latest",
+    "base_url": "http://127.0.0.1:11434/v1",
+    "api": "openai",
+    "temperature": 0.0,
+    "temperature_sent": true,
+    "reasoning_effort": null,
+    "concurrency": 2,
+    "recall_proof": true,
+    "seed": "test1v2",
+    "jitter": 0.0,
+    "sigdigits_requested": 15,
+    "antitruncation_clause": true,
+    "grid": {
+      "lo": -1.0,
+      "hi": 1.0,
+      "step": 0.02,
+      "points": 101,
+      "sampled_from": null
+    },
+    "wall_s": 1155.3,
+    "utc": "20260812_143318",
+    "system_prompt": "You are a numerical calculator. Answer with the numeric result only: a single decimal number, no words, no units, no formatting, no explanation.",
+    "user_prompt_example": "Compute sqrt(0.0001), the square root of 0.0001. Give the value as a plain decimal number with at least 15 significant digits. Give every digit you are confident in \u2014 do not round or truncate the result to fewer digits than you computed. Output only the number."
+  },
+  "points": 101,
+  "answered": 101,
+  "unparsed_or_failed": 0,
+  "exact_float_matches": 6,
+  "max_abs_err": 0.00020409252225284114,
+  "mean_abs_err": 8.148198874008747e-06,
+  "rms_abs_err": 2.902443112659007e-05,
+  "max_rel_err": 0.00020829021009950507,
+  "mean_rel_err": 9.28628881408393e-06,
+  "min_correct_digits": 3.68133114195662,
+  "mean_correct_digits": 7.339467685341102,
+  "median_correct_digits": 7.23965099098889,
+  "digit_histogram": {
+    "15 (exact)": 6,
+    "7": 26,
+    "10": 1,
+    "8": 15,
+    "3": 3,
+    "5": 8,
+    "4": 11,
+    "9": 6,
+    "6": 25
+  },
+  "worst_abs": {
+    "x": 0.9601,
+    "expected": 0.9798469268207152,
+    "got": 0.980051019342968,
+    "abs_err": 0.00020409252225284114,
+    "rel_err": 0.00020829021009950507,
+    "raw": "0.980051019342968"
+  },
+  "worst_rel": {
+    "x": 0.9601,
+    "expected": 0.9798469268207152,
+    "got": 0.980051019342968,
+    "abs_err": 0.00020409252225284114,
+    "rel_err": 0.00020829021009950507,
+    "raw": "0.980051019342968"
+  },
+  "latency_s": {
+    "mean": 5.0045049504950505,
+    "min": 2.046,
+    "max": 27.707
+  },
+  "tokens": {
+    "prompt": 10900,
+    "completion": 1751,
+    "reasoning": 0,
+    "cache_hit": 0
+  },
+  "failures": []
+}

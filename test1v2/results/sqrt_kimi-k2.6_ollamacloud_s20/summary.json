@@ -1,0 +1,108 @@
+{
+  "meta": {
+    "test": "test1v2",
+    "func": "sqrt",
+    "model": "kimi-k2.6",
+    "base_url": "https://ollama.com/v1",
+    "api": "openai",
+    "temperature": 0.0,
+    "temperature_sent": true,
+    "reasoning_effort": null,
+    "concurrency": 3,
+    "recall_proof": true,
+    "seed": "test1v2",
+    "jitter": 0.0095,
+    "sigdigits_requested": 15,
+    "antitruncation_clause": true,
+    "grid": {
+      "lo": -1.0,
+      "hi": 1.0,
+      "step": 0.02,
+      "points": 20,
+      "sampled_from": 101
+    },
+    "wall_s": 1774.4,
+    "utc": "20260812_133217",
+    "system_prompt": "You are a numerical calculator. Answer with the numeric result only: a single decimal number, no words, no units, no formatting, no explanation.",
+    "user_prompt_example": "Compute sqrt(0.136710243), the square root of 0.136710243. Give the value as a plain decimal number with at least 15 significant digits. Give every digit you are confident in \u2014 do not round or truncate the result to fewer digits than you computed. Output only the number."
+  },
+  "points": 20,
+  "answered": 13,
+  "unparsed_or_failed": 7,
+  "exact_float_matches": 10,
+  "max_abs_err": 2.220446049250313e-16,
+  "mean_abs_err": 2.9890619893754213e-17,
+  "rms_abs_err": 7.055344190012775e-17,
+  "max_rel_err": 2.1418251907757205e-16,
+  "mean_rel_err": 3.7371176370851865e-17,
+  "min_correct_digits": 15.0,
+  "mean_correct_digits": 15.0,
+  "median_correct_digits": 15.0,
+  "digit_histogram": {
+    "15 (exact)": 13
+  },
+  "worst_abs": {
+    "x": 1.0747622569,
+    "expected": 1.0367074114233001,
+    "got": 1.0367074114233004,
+    "abs_err": 2.220446049250313e-16,
+    "rel_err": 2.1418251907757205e-16,
+    "raw": "1.03670741142330028198"
+  },
+  "worst_rel": {
+    "x": 1.0747622569,
+    "expected": 1.0367074114233001,
+    "got": 1.0367074114233004,
+    "abs_err": 2.220446049250313e-16,
+    "rel_err": 2.1418251907757205e-16,
+    "raw": "1.03670741142330028198"
+  },
+  "latency_s": {
+    "mean": 215.56946153846155,
+    "min": 75.612,
+    "max": 587.702
+  },
+  "tokens": {
+    "prompt": 2138,
+    "completion": 912303,
+    "reasoning": 0,
+    "cache_hit": 0
+  },
+  "failures": [
+    {
+      "x": 0.5372970967,
+      "error": null,
+      "raw": ""
+    },
+    {
+      "x": 0.6194161804,
+      "error": null,
+      "raw": ""
+    },
+    {
+      "x": 1.5877625875,
+      "error": null,
+      "raw": ""
+    },
+    {
+      "x": 1.6606729619,
+      "error": null,
+      "raw": ""
+    },
+    {
+      "x": 1.6939073077,
+      "error": null,
+      "raw": ""
+    },
+    {
+      "x": 1.7248429906,
+      "error": null,
+      "raw": ""
+    },
+    {
+      "x": 1.7932144531,
+      "error": null,
+      "raw": ""
+    }
+  ]
+}
