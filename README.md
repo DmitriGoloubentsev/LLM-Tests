@@ -133,7 +133,7 @@ it says whether the model **derived** the answer or **recalled** it.
 | **nvidia/nemotron-3-ultra** (Ollama) | exp | 3/3 | 4.50 | 4.13 | 12,894 |
 | **openai/o3-mini** | exp | 3/3 | 3.91 | 2.96 | 4,588 |
 
-### 3 — Shortcutters · ~18 tokens, 3–5 digits, never fail and never improve
+### 3 — Shortcutters · ~18 tokens, 3–7 digits, never fail and never improve
 
 | model | size | answered | median | tok/pt |
 |---|---|---|---|---|
@@ -168,9 +168,17 @@ it says whether the model **derived** the answer or **recalled** it.
 
 **And one category of its own — the Nemotron family is broken on this task at every size.**
 `nemotron-3-nano-30b` scored a median of **0.00** correct digits over 101 points (one reply was
-`229144000.0` where the answer is `0.89`); `nemotron-3-ultra-550b` managed 3.69; the
-*reasoning-tuned* `nemotron-3-nano-omni-30b` scored **−0.00** after burning 32,768 tokens per
-point. Three models, three sizes, two endpoints, one result.
+`229144000.0` where the answer is `0.89`); `nemotron-3-ultra-550b` managed 3.69 (4.50 on Ollama);
+the *reasoning-tuned* `nemotron-3-nano-omni-30b` scored **−0.00** after burning 32,768 tokens per
+point; and `nemotron-3-super-120b` answered **1/20 at 6.32** on a working endpoint. Four models,
+four sizes, three endpoints, one result.
+
+> **A survivorship warning, from this family.** An early `nemotron-3-super-120b` run on NVIDIA NIM
+> scored a **15.00 median** — a deriver-grade number — from **8 of 101 points, with 93 lost to
+> HTTP 504**, at 783 tok/pt. Re-run on OpenRouter's free tier it answers **1/20 at 6.32 digits and
+> 6,924 tok/pt**. The 15.00 was the handful of fast points that escaped the timeouts, not the
+> model. **When most of a run fails, the median describes the survivors** — always read it next to
+> the answered count.
 
 `sub` = Claude Code subscription (not a per-token bill) · `free` = Ollama Cloud free tier.
 Sampled runs (`n/3`, `n/20`) use `--sample`, a deterministic subset of the same grid, so every
@@ -305,15 +313,52 @@ Every shortcutter tested on both functions holds its rank and its ~18 tok/pt, lo
 | devstral:24b | 3.46 | 2.38 | −1.08 |
 | qwen2.5-coder:14b | 2.93 | 2.34 | −0.59 |
 
-Five models, four vendors, 14B→675B, max swing **1.08 digits**. Derivers on the same two functions:
-Claude Opus 5 `effort=max` **15.00 → 3.43**, Claude Fable 5 **14.44 → 3.77** — swings of *eleven*
-digits. (Not universal: kimi-k2.6 goes 13.68 → **14.14** and gpt-5.5 holds a 12.18 floor on `sin`,
-so the collapse is Anthropic-specific rather than a property of deriving.)
+Five models, four vendors, 14B→675B, max swing **1.08 digits**. Derivers on the same two functions
+are all over the place — some collapse, some don't, and it is **not** a clean vendor split:
+
+| deriver | exp | sin | Δ |
+|---|---|---|---|
+| gpt-5.5 | 15.00 | 15.00 | **0.00** |
+| kimi-k2.6 | 13.68 | 14.14 | **+0.46** |
+| kimi-k2.7-code | 15.00 | 9.64 | −5.36 |
+| Claude Fable 5 | 14.44 | 3.77 | **−10.67** |
+| Claude Opus 5 `effort=max` | 15.00 | 3.43 | **−11.57** |
+
+Two hold, three drop, and the two Kimi builds fall on opposite sides — so this is a per-model
+property, not a vendor one. **A shortcutter's score is predictable from the function; a deriver's
+is not predictable at all.**
+
+### 7. What the band actually measures: approximability, not model size
+
+Run four functions through the same four shortcutters and the ordering is **identical in every
+column**:
+
+| function | mistral-675B | gemma4:31b | qwen3-coder | devstral |
+|---|---|---|---|---|
+| **sqrt** (algebraic) | **7.36** (18t) | 6.71 (**2,612t**) | **6.54** (17t) | **4.24** (15t) |
+| exp | 4.29 (18t) | 4.76 (18t) | 3.72 (18t) | 3.46 (16t) |
+| log | 3.91 (18t) | 4.24 (18t) | 3.02 (19t) | 2.47 (17t) |
+| sin | 3.27 (19t) | 4.09 (19t) | 2.77 (18t) | 2.38 (17t) |
+
+`sqrt > exp > log > sin`, across 24B→675B and three vendors, at a flat ~18 tokens. So the band is
+not a fixed "3–5 digits" property of small models — it tracks **how well the function yields to a
+short local expansion**. `√(1+u) ≈ 1 + u/2 − u²/8` is good to ~7 digits on this domain; `sin` and
+`log` are not, and land at ~2.5–4.
+
+`sqrt` also rules out the obvious objection that these models simply *can't* compute. Four Newton
+iterations (`y ← (y + x/y)/2`) reach 15 digits with nothing but division — no constant, no series.
+They score 4–7 on **18 tokens**, which cannot hold a single iteration. They are not computing
+badly; they are not computing.
+
+**And the anomaly in that table is the whole thesis in one row.** `gemma4:31b` broke its own pattern
+on `sqrt` and actually attempted something — **2,612 tok/pt, 145× its usual 18** — scoring 6.71.
+`mistral-large-3` answered the same 101 points in **18 tokens** and scored **7.36**.
+**145× the effort, a worse answer.**
 
 **The models that try hard are the ones whose results you cannot predict.** A shortcutter is
 reliably mediocre; a deriver is excellent until it suddenly isn't.
 
-### 7. Shortcut answers are where every model fails
+### 8. Shortcut answers are where every model fails
 
 The worst point of almost every run is also its cheapest. DeepSeek's 6.18-digit answer took 128
 tokens; GLM's 3.29-digit answer took 13; Claude Opus 5's 4.33-digit answer took **9**.
@@ -337,7 +382,7 @@ So the two failure modes are distinct, and only now separable: **every other mod
 declining to derive; GPT-5.5 fails while deriving.** That is laziness versus fallibility, and only
 the first is fixable by prompting (see finding 3).
 
-### 8. Throttling thinking trades silence for silent errors
+### 9. Throttling thinking trades silence for silent errors
 
 `reasoning_effort=low` lifts DeepSeek's answered rate 54 → 98 at half the cost, median still 15
 digits — but the tail collapses. The worst `sin` point came back as `+0.5423228246946903` where the

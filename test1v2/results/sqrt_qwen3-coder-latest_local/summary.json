@@ -1,0 +1,90 @@
+{
+  "meta": {
+    "test": "test1v2",
+    "func": "sqrt",
+    "model": "qwen3-coder:latest",
+    "base_url": "http://127.0.0.1:11434/v1",
+    "api": "openai",
+    "temperature": 0.0,
+    "temperature_sent": true,
+    "reasoning_effort": null,
+    "concurrency": 2,
+    "recall_proof": true,
+    "seed": "test1v2",
+    "jitter": 0.0095,
+    "sigdigits_requested": 15,
+    "antitruncation_clause": true,
+    "grid": {
+      "lo": -1.0,
+      "hi": 1.0,
+      "step": 0.02,
+      "points": 101,
+      "sampled_from": null
+    },
+    "wall_s": 2933.1,
+    "utc": "20260812_062322",
+    "system_prompt": "You are a numerical calculator. Answer with the numeric result only: a single decimal number, no words, no units, no formatting, no explanation.",
+    "user_prompt_example": "Compute sqrt(0.0015201517), the square root of 0.0015201517. Give the value as a plain decimal number with at least 15 significant digits. Give every digit you are confident in \u2014 do not round or truncate the result to fewer digits than you computed. Output only the number."
+  },
+  "points": 101,
+  "answered": 99,
+  "unparsed_or_failed": 2,
+  "exact_float_matches": 0,
+  "max_abs_err": 0.0055409316071218795,
+  "mean_abs_err": 9.054102035852781e-05,
+  "rms_abs_err": 0.0005946299178367322,
+  "max_rel_err": 0.006158802360032554,
+  "mean_rel_err": 9.77251007166314e-05,
+  "min_correct_digits": 2.2105037324780983,
+  "mean_correct_digits": 6.435497524032952,
+  "median_correct_digits": 6.542334043429862,
+  "digit_histogram": {
+    "4": 12,
+    "8": 12,
+    "7": 26,
+    "5": 15,
+    "3": 4,
+    "6": 27,
+    "2": 2,
+    "9": 1
+  },
+  "worst_abs": {
+    "x": 0.8094183468,
+    "expected": 0.8996768013014451,
+    "got": 0.905217732908567,
+    "abs_err": 0.0055409316071218795,
+    "rel_err": 0.006158802360032554,
+    "raw": "0.905217732908567"
+  },
+  "worst_rel": {
+    "x": 0.8094183468,
+    "expected": 0.8996768013014451,
+    "got": 0.905217732908567,
+    "abs_err": 0.0055409316071218795,
+    "rel_err": 0.006158802360032554,
+    "raw": "0.905217732908567"
+  },
+  "latency_s": {
+    "mean": 4.504060606060607,
+    "min": 3.269,
+    "max": 10.447
+  },
+  "tokens": {
+    "prompt": 11842,
+    "completion": 1764,
+    "reasoning": 0,
+    "cache_hit": 0
+  },
+  "failures": [
+    {
+      "x": 1.6189645751,
+      "error": "TimeoutError: timed out",
+      "raw": null
+    },
+    {
+      "x": 1.6485347985,
+      "error": "TimeoutError: timed out",
+      "raw": null
+    }
+  ]
+}
