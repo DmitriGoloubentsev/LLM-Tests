@@ -5,7 +5,7 @@
     "model": "openai/gpt-5.6-sol",
     "base_url": "https://openrouter.ai/api/v1",
     "api": "openai",
-    "temperature": 0.0,
+    "temperature": null,
     "reasoning_effort": null,
     "concurrency": 3,
     "recall_proof": true,
@@ -23,7 +23,9 @@
     "wall_s": 172.8,
     "utc": "20260810_235035",
     "system_prompt": "You are a numerical calculator. Answer with the numeric result only: a single decimal number, no words, no units, no formatting, no explanation.",
-    "user_prompt_example": "Compute sin(-0.7863662979), the sine of -0.7863662979 RADIANS (not degrees). Give the value as a plain decimal number with at least 15 significant digits. Give every digit you are confident in \u2014 do not round or truncate the result to fewer digits than you computed. Output only the number."
+    "user_prompt_example": "Compute sin(-0.7863662979), the sine of -0.7863662979 RADIANS (not degrees). Give the value as a plain decimal number with at least 15 significant digits. Give every digit you are confident in \u2014 do not round or truncate the result to fewer digits than you computed. Output only the number.",
+    "temperature_sent": false,
+    "temperature_note": "run with --no-temperature: the field was omitted from the request and the provider default (typically 1.0) applied; the previous record of 0.0 was the unused CLI default"
   },
   "points": 5,
   "answered": 5,

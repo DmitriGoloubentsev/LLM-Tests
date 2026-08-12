@@ -475,7 +475,12 @@ def main():
 
     meta = {"test": "test1v2", "func": args.func, "model": args.model, "base_url": args.base_url,
             "api": args.api,
-            "temperature": args.temperature, "reasoning_effort": args.reasoning_effort,
+            # null, not 0.0, when --no-temperature: the field is omitted from the request entirely
+            # and the provider default (typically 1.0) applies. Recording the unused arg default
+            # here would make the run unreproducible from its own metadata.
+            "temperature": None if args.no_temperature else args.temperature,
+            "temperature_sent": not args.no_temperature,
+            "reasoning_effort": args.reasoning_effort,
             "concurrency": args.concurrency, "recall_proof": True, "seed": args.seed,
             "jitter": args.jitter, "sigdigits_requested": args.sigdigits,
             "antitruncation_clause": not args.no_antitrunc,
