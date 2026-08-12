@@ -324,14 +324,21 @@ def summarize(rows, meta):
     ok = [r for r in rows if r["got"] is not None]
     fails = [r for r in rows if r["got"] is None]
     abs_err = [abs(r["got"] - r["expected"]) for r in ok]
-    rel_err = [abs(r["got"] - r["expected"]) / abs(r["expected"]) for r in ok]
+    # sin(0) == 0 exactly, and --jitter 0 puts x=0 on the grid, so relative error is undefined
+    # there. Keep these lists aligned with `ok` (None for the undefined point) — worst() indexes
+    # them positionally — and drop the Nones only when aggregating.
+    rel_err = [None if r["expected"] == 0 else abs(r["got"] - r["expected"]) / abs(r["expected"])
+               for r in ok]
     digits = [correct_digits(r["expected"], r["got"]) for r in ok]
+    rel_ok = [e for e in rel_err if e is not None]
+    digits_ok = [d for d in digits if d is not None]
     lat = [r["latency_s"] for r in ok if r["latency_s"] is not None]
 
     def worst(keys):
-        if not ok:
+        cand = [j for j in range(len(ok)) if keys[j] is not None]
+        if not cand:
             return None
-        i = max(range(len(ok)), key=lambda j: keys[j])
+        i = max(cand, key=lambda j: keys[j])
         return {"x": ok[i]["x"], "expected": ok[i]["expected"], "got": ok[i]["got"],
                 "abs_err": abs_err[i], "rel_err": rel_err[i], "raw": ok[i]["raw"]}
 
@@ -340,11 +347,11 @@ def summarize(rows, meta):
          "max_abs_err": max(abs_err) if abs_err else None,
          "mean_abs_err": sum(abs_err) / len(abs_err) if abs_err else None,
          "rms_abs_err": math.sqrt(sum(e * e for e in abs_err) / len(abs_err)) if abs_err else None,
-         "max_rel_err": max(rel_err) if rel_err else None,
-         "mean_rel_err": sum(rel_err) / len(rel_err) if rel_err else None,
-         "min_correct_digits": min(digits) if digits else None,
-         "mean_correct_digits": sum(digits) / len(digits) if digits else None,
-         "median_correct_digits": sorted(digits)[len(digits) // 2] if digits else None,
+         "max_rel_err": max(rel_ok) if rel_ok else None,
+         "mean_rel_err": sum(rel_ok) / len(rel_ok) if rel_ok else None,
+         "min_correct_digits": min(digits_ok) if digits_ok else None,
+         "mean_correct_digits": sum(digits_ok) / len(digits_ok) if digits_ok else None,
+         "median_correct_digits": sorted(digits_ok)[len(digits_ok) // 2] if digits_ok else None,
          "digit_histogram": {},
          "worst_abs": worst(abs_err), "worst_rel": worst(rel_err),
          "latency_s": {"mean": sum(lat) / len(lat) if lat else None,
@@ -354,7 +361,7 @@ def summarize(rows, meta):
                     "reasoning": sum(r["reasoning_tokens"] for r in rows),
                     "cache_hit": sum(r["cache_hit_tokens"] for r in rows)},
          "failures": [{"x": r["x"], "error": r["error"], "raw": r["raw"]} for r in fails]}
-    for d in digits:
+    for d in digits_ok:
         b = "15 (exact)" if d >= 15 else (f"{int(d)}" if d >= 0 else "<0 (gross)")
         s["digit_histogram"][b] = s["digit_histogram"].get(b, 0) + 1
     return s
@@ -497,7 +504,8 @@ def main():
                 "completion_tokens,reasoning_tokens,error\n")
         for r in rows:
             ae = "" if r["got"] is None else f'{abs(r["got"]-r["expected"]):.6e}'
-            re_ = "" if r["got"] is None else f'{abs(r["got"]-r["expected"])/abs(r["expected"]):.6e}'
+            re_ = ("" if r["got"] is None or r["expected"] == 0
+                   else f'{abs(r["got"]-r["expected"])/abs(r["expected"]):.6e}')
             cd = correct_digits(r["expected"], r["got"])
             f.write(f'{r["x"]},{r["expected"]:.17g},{"" if r["got"] is None else repr(r["got"])},'
                     f'{ae},{re_},{"" if cd is None else f"{cd:.2f}"},{r["latency_s"] or ""},'
