@@ -322,13 +322,32 @@ Median accuracy hides an order-of-magnitude spread in what a correct digit costs
 |---|---|---|---|---|---|
 | **DeepSeek-V4-Flash `effort=low`** | **101** | **$0.75** | **$0.75** | 82 | **$0.009** |
 | DeepSeek-V4-Flash, default | **101** | $1.46 | $1.46 | 54 | $0.027 |
-| gpt-5.6-sol | 5 | $0.64 | ~$12.93 | 101 | $0.128 |
-| Claude Opus 5 (OpenRouter) | 10 | $4.17 | ~$42.12 | 101 | $0.417 |
-| Claude Sonnet 5 | 10 | $2.26 | ~$22.83 | 50 | $0.452 |
-| Claude Opus 4.8 `effort=high` | 10 | $1.04 | ~$10.50 | 20 | $0.520 |
+| gpt-5.6-sol | 5 | $0.64 | ~$13 | 101 | ~$0.13 |
+| Claude Opus 5 (OpenRouter) | 10 | $4.17 | ~$42 | 101 | ~$0.42 |
+| Claude Sonnet 5 | 10 | $2.26 | ~$23 | 50 | ~$0.45 |
+| Claude Opus 4.8 `effort=high` | 10 | $1.04 | ~$10 | 20 | ~$0.52 |
+
+**How reliable is the scaling?** Measured, not assumed. Bootstrapping 4,000 resamples of each
+*full* 101-point grid, drawing n points and scaling to 101:
+
+| run type | n=5 error (80% CI) | n=10 |
+|---|---|---|
+| deriver (gpt-5.5) | ±15% | ±10% |
+| deriver (DeepSeek `effort=low`) | **±29%** | ±19% |
+| middle (qwen3.5:397b) | ±27% | ±19% |
+| shortcutter (mistral-large-3) | **±2%** | ±1% |
+
+Per-point token spend varies 2–10× within a single deriver run, so a 5-point sample lands within
+roughly **±25%** of the true total; a shortcutter is near-exact because it always spends ~18 tokens.
+**The `~` figures are good to about one significant figure — which is ample for an ordering that
+spans 46×, and not enough to compare two models a few percent apart.** The `$ actually paid` column
+is always the measured number.
 
 **DeepSeek-V4-Flash at `effort=low` is the standout: a 12-significant-digit answer for about one
-cent — ~14× cheaper than the next best, ~46× cheaper than Opus 5 for the same median.**
+cent — ~14× cheaper than the next best, ~46× cheaper than Opus 5 for the same median.** Both
+DeepSeek rows are measured over full 101-point grids; the models they are compared against are
+5- and 10-point extrapolations, so the *ratio* is robust (46× ≫ ±25%) even though the competitors'
+totals are projections rather than receipts.
 
 ---
 
