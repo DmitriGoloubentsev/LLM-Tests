@@ -271,14 +271,27 @@ def ask(args, key, x):
                         "stop_reason": resp.get("stop_reason"), "error": err}
             msg = (resp.get("choices") or [{}])[0].get("message", {}) or {}
             usage = resp.get("usage", {}) or {}
+            ptok = usage.get("prompt_tokens", 0)
+            ctok = usage.get("completion_tokens", 0)
+            rtok = (usage.get("completion_tokens_details") or {}).get("reasoning_tokens", 0)
+            ttok = usage.get("total_tokens", 0)
+            # Some hosts bill thinking inside total_tokens but expose neither reasoning_tokens
+            # nor a completion_tokens that includes it (near.ai + Gemini: 113 + 18 visible,
+            # total 15,126). Recover the hidden spend from the total rather than under-reporting
+            # the point by ~800x, and record it so the inference is visible in the data.
+            hidden = ttok - ptok - ctok if ttok else 0
+            if hidden > 0 and rtok == 0:
+                rtok = hidden
+                ctok += hidden
             return {"x": x, "expected": ref(x), "got": parse_number(msg.get("content")),
                     "raw": msg.get("content"),
                     "reasoning": msg.get("reasoning_content") or msg.get("reasoning"),
                     "latency_s": round(dt, 3), "attempt": attempt,
-                    "prompt_tokens": usage.get("prompt_tokens", 0),
-                    "completion_tokens": usage.get("completion_tokens", 0),
-                    "reasoning_tokens": ((usage.get("completion_tokens_details") or {})
-                                         .get("reasoning_tokens", 0)),
+                    "prompt_tokens": ptok,
+                    "completion_tokens": ctok,
+                    "reasoning_tokens": rtok,
+                    "total_tokens": ttok,
+                    "hidden_reasoning_tokens": max(hidden, 0),
                     "cache_hit_tokens": usage.get("prompt_cache_hit_tokens", 0),
                     "error": None}
         except Exception as e:                                   # noqa: BLE001 - record, retry

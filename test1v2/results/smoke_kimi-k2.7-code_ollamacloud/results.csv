@@ -1,0 +1,5 @@
+x,expected,got,abs_err,rel_err,correct_digits,latency_s,completion_tokens,reasoning_tokens,error
+-0.7863662979,0.45549693193639018,,,,,,0,0,HTTPError: HTTP Error 503: Service Unavailable :: {"error":{"message":"model 'kimi-k2.7-code' is temporarily overloaded  please retry shortly or try a different model (ref: ab7c987c-ce2f-421f-883e-d454415c6d71)" "type":"api_error" "param":null "code":null}}
+
+-0.662176483,0.51572763964360357,0.5157276396436039,3.330669e-16,6.458194e-16,15.00,332.853,50227,0,
+0.7931144531,2.2102694984611078,,,,,1532.444,65536,0,

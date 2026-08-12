@@ -20,7 +20,7 @@ grader can tell to a fraction of a digit.
 
 ## The headline
 
-**90 runs · 45+ models · 8 endpoints · one prompt · one stateless call per point.**
+**100+ runs · 50+ models · 8 endpoints · one prompt · one stateless call per point.**
 
 Asked the identical question, models split into two populations with almost nothing in between:
 
@@ -106,6 +106,7 @@ it says whether the model **derived** the answer or **recalled** it.
 | Claude Opus 5 (CLI) `effort=max` | exp | 20/20 | **15.00** | 5.56 | 15,690 | sub |
 | z-ai/glm-5.2 | exp | 18/101 | **15.00** | 8.37 | 30,181 | free |
 | Claude Fable 5 (CLI) | exp | 62/101 | **14.68** | 10.49 | 5,503 | sub |
+| **moonshotai/kimi-k2.7-code** | exp | 7/20 | **15.00** | **12.14** | 55,391 | free |
 | Claude Opus 5 (CLI) | sin | 101/101 | **14.38** | 8.32 | 7,924 | sub |
 | **moonshotai/kimi-k2.6** | sin | 15/20 | **14.14** | 7.89 | 54,103 | free |
 | **moonshotai/kimi-k2.6** | exp | 13/20 | **13.68** | 8.31 | 57,209 | free |
@@ -115,33 +116,41 @@ it says whether the model **derived** the answer or **recalled** it.
 | model | fn | answered | median | worst | tok/pt |
 |---|---|---|---|---|---|
 | anthropic/claude-sonnet-5 | exp | 10/10 | 12.10 | 9.30 | 22,630 |
-| **meta/muse-glimmer-30b** | exp | 3/3 | 11.46 | 9.82 | 27,817 |
 | **openai/o3** | exp | 1/3 | 11.88 | 11.88 | 31,987 |
+| **meta/muse-glimmer-30b** | exp | 3/3 | 11.46 | 9.82 | 27,817 |
+| **deepseek-v4-flash:preview** | exp | 3/3 | 11.44 | 9.50 | 49,470 |
 | **qwen/qwen3.7-max** | exp | 3/3 | 11.40 | 11.32 | 11,843 |
 | anthropic/claude-opus-4.8 `effort=high` | exp | 10/10 | 11.13 | 9.20 | 4,141 |
 | **openai/o4-mini** | exp | 3/3 | 10.96 | 9.82 | 15,557 |
 | **thinkingmachines/inkling-small** | exp | 3/3 | 10.01 | 6.18 | 25,808 |
 | gpt-oss:120b | exp | 98/101 | 9.55 | 3.18 | 9,105 |
-| **google/gemini-3.5-flash** | exp | 20/20 | 9.55 | **−13.51** | ⚠ unreliable |
-| poolside/laguna-xs-2.1 | exp | 2/3 | 6.57 | 6.14 | 24,345 |
+| **google/gemini-3.5-flash** | exp | 20/20 | 9.24 | 6.14 | 22,401 |
+| poolside/laguna-xs-2.1 | exp | 61/101 | 7.60 | 3.08 | 25,599 |
 | gpt-oss:20b | exp | 93/101 | 6.37 | 2.44 | 26,420 |
+| **anthropic/claude-sonnet-4-6** (near.ai) | exp | 3/3 | 6.33 | 4.76 | 1,292 |
 | qwen/qwen3.7-flash | exp | 80/101 | 5.63 | 2.84 | 27,579 |
 | **qwen3.5:397b** | exp | **101/101** | 5.19 | 3.95 | 6,015 |
+| **nvidia/nemotron-3-ultra** (Ollama) | exp | 3/3 | 4.50 | 4.13 | 12,894 |
+| **openai/o3-mini** | exp | 3/3 | 3.91 | 2.96 | 4,588 |
 
 ### 3 — Shortcutters · ~18 tokens, 3–5 digits, never fail and never improve
 
 | model | size | answered | median | tok/pt |
 |---|---|---|---|---|
+| google/gemini-2.5-pro | — | 3/3 | 5.23 | 22 |
 | google/gemma-4-26b-a4b (MoE) | 26B | 3/3 | 4.91 | 19 |
 | gemma4:31b (dense) | 31B | 101/101 | 4.76 | 18 |
 | anthropic/claude-opus-4.8 (default) | — | 10/10 | 4.66 | **9** |
 | upstage/solar-pro4 | — | 101/101 | 4.41 | 18 |
+| openai/gpt-5.4 | — | 3/3 | 4.38 | 11 |
 | **mistral-large-3:675b** | **675B** | 101/101 | 4.29 | 18 |
-| google/gemini-2.5-pro | — | 3/3 | 5.23 | 22 |
 | openai/gpt-5.2 | — | 3/3 | 4.22 | 10 |
+| poolside/laguna-s-2.1 | — | 20/101 | 4.13 | 18 *(when it answers)* |
+| openai/gpt-5.1 | — | 3/3 | 4.03 | 16 |
 | qwen3-coder | ~30B | 101/101 | 3.72 | 18 |
 | openai/gpt-4.1 | — | 3/3 | 3.57 | **7** |
 | **devstral:24b** | **24B** | 101/101 | 3.46 | 16 |
+| openai/gpt-5.4-mini | — | 3/3 | 3.40 | 16 |
 | qwen2.5-coder:14b | 14B | 101/101 | 2.93 | 18 |
 
 ### 4 — Never finish · reason to the output cap, return empty content
@@ -167,9 +176,21 @@ point. Three models, three sizes, two endpoints, one result.
 Sampled runs (`n/3`, `n/20`) use `--sample`, a deterministic subset of the same grid, so every
 model is scored on identical arguments.
 
-> ⚠ **near.ai reports `reasoning_tokens = 0` for Gemini while clearly running hidden thinking** —
-> 21 visible tokens over **82 seconds** is 0.26 tok/s. Gemini rows are accuracy-only; their token
-> counts are not comparable. OpenAI models on the same endpoint bill correctly (gpt-5.5: 38 tok/s).
+> ⚠ **Two measurement traps this harness now handles — both found the hard way.**
+>
+> **1. Thinking tokens can hide in `total_tokens`.** near.ai serving Gemini returns
+> `prompt 113 · completion 18 · total 15126` — **99.9% of the spend is in neither
+> `completion_tokens` nor `reasoning_tokens`**, only in the total. Reading `completion_tokens`
+> (the obvious field) under-reported Gemini by **~800×**: 253 tok/pt instead of 22,401, which put
+> it in the wrong population entirely. The harness now reconstructs
+> `hidden = total − prompt − completion` and stores it per point. **If you fork this, check your
+> host's arithmetic adds up before trusting any token number.**
+>
+> **2. Not every model can be pinned to temperature 0.** GPT-5.x, the o-series and Gemini reject
+> `temperature=0`, so those runs use `--no-temperature` and inherit the provider default (1.0).
+> Their **medians are stable** — Gemini scored 9.55 and 9.24 on two runs of the same 20 arguments —
+> but their **tails are not**: the same two runs put its worst point at **−13.51** and **6.14**.
+> Treat single-run tail figures for those models as one draw, not a property.
 
 ---
 
@@ -235,21 +256,33 @@ the arithmetic and picks a method that cannot finish.
 
 *Reported separately from the tables above, which keep one identical prompt for every model.*
 
-### 4. The host matters more than the model — but only for models that reason
+### 4. The host matters more than the model — but only when the model nears the ceiling
 
-Same DeepSeek-V4-Flash-0731 weights, same `reasoning_effort=low`, each host's own 65,536 ceiling:
+Same DeepSeek-V4-Flash-0731 weights, same `reasoning_effort=low`, each host's own 65,536 ceiling —
+**four hosts**:
 
 | host | median tok/pt | hit the ceiling | answered |
 |---|---|---|---|
 | `api.deepseek.com` (native) | 24,370 | 3% | **97%** |
+| **near.ai** | **19,610** | **0%** | **85%** |
 | OpenRouter | 25,338 | 0% | 75% |
 | Ollama Cloud | **65,536 — the ceiling itself** | **80%** | **20%** |
 
-Ollama silently ignores `reasoning_effort` for this model, so it reasons at full depth and gets
-truncated four times in five. Native and OpenRouter agree within 4%.
+Three of four honour `reasoning_effort` and cluster at ~20–25k tokens with 75–97% answered.
+**Ollama is the lone outlier**, ignoring it and truncating four points in five. So this is one
+misbehaving host, not an industry coin-flip — but it is invisible unless you check, because the
+failure looks like the model returning empty.
 
-By contrast `gemma4:31b` scores the same locally (4.32) as on Ollama Cloud (4.76). **A serving
-layer can only break what the model actually uses.**
+**The effect needs a model that reasons near the ceiling.** Identical weights, different hosts:
+
+| model | tier | host A | host B |
+|---|---|---|---|
+| DeepSeek-V4-Flash | deriver | Ollama **20%** answered | near.ai **85%** |
+| `qwen3.5-397b` | middle | Ollama 5.19 | near.ai **5.02** |
+| `gemma4:31b` | shortcut | Ollama Cloud 4.76 | local **4.32** |
+
+A middle-tier model at ~5k tok/pt finishes everywhere and lands within 0.2 digits of itself.
+**A serving layer can only break what the model actually uses.**
 
 ### 5. Thinking volume does not buy digits — method does
 
@@ -259,7 +292,28 @@ spends ~470 and lands at **4.83**. Fourteen times the thinking, half a digit.
 The same shape across vendors: `gpt-oss:20b` spends **3× more** than the 120b and scores **3 digits
 lower**. Claude Haiku 4.5 outspends Claude Fable 5 and lands **ten digits** lower.
 
-### 6. Shortcut answers are where every model fails
+### 6. Shortcutting is stable; derivation is fragile
+
+Every shortcutter tested on both functions holds its rank and its ~18 tok/pt, losing a consistent
+**≈0.9 digits** from `exp` to `sin`:
+
+| model | exp | sin | Δ |
+|---|---|---|---|
+| gemma4:31b | 4.76 | 4.09 | −0.67 |
+| mistral-large-3:675b | 4.29 | 3.27 | −1.02 |
+| qwen3-coder | 3.72 | 2.77 | −0.95 |
+| devstral:24b | 3.46 | 2.38 | −1.08 |
+| qwen2.5-coder:14b | 2.93 | 2.34 | −0.59 |
+
+Five models, four vendors, 14B→675B, max swing **1.08 digits**. Derivers on the same two functions:
+Claude Opus 5 `effort=max` **15.00 → 3.43**, Claude Fable 5 **14.44 → 3.77** — swings of *eleven*
+digits. (Not universal: kimi-k2.6 goes 13.68 → **14.14** and gpt-5.5 holds a 12.18 floor on `sin`,
+so the collapse is Anthropic-specific rather than a property of deriving.)
+
+**The models that try hard are the ones whose results you cannot predict.** A shortcutter is
+reliably mediocre; a deriver is excellent until it suddenly isn't.
+
+### 7. Shortcut answers are where every model fails
 
 The worst point of almost every run is also its cheapest. DeepSeek's 6.18-digit answer took 128
 tokens; GLM's 3.29-digit answer took 13; Claude Opus 5's 4.33-digit answer took **9**.
@@ -283,7 +337,7 @@ So the two failure modes are distinct, and only now separable: **every other mod
 declining to derive; GPT-5.5 fails while deriving.** That is laziness versus fallibility, and only
 the first is fixable by prompting (see finding 3).
 
-### 7. Throttling thinking trades silence for silent errors
+### 8. Throttling thinking trades silence for silent errors
 
 `reasoning_effort=low` lifts DeepSeek's answered rate 54 → 98 at half the cost, median still 15
 digits — but the tail collapses. The worst `sin` point came back as `+0.5423228246946903` where the

@@ -1,0 +1,82 @@
+{
+  "meta": {
+    "test": "test1v2",
+    "func": "exp",
+    "model": "kimi-k2.7-code",
+    "base_url": "https://ollama.com/v1",
+    "api": "openai",
+    "temperature": 0.0,
+    "reasoning_effort": null,
+    "concurrency": 1,
+    "recall_proof": true,
+    "seed": "test1v2",
+    "jitter": 0.0095,
+    "sigdigits_requested": 15,
+    "antitruncation_clause": true,
+    "grid": {
+      "lo": -1.0,
+      "hi": 1.0,
+      "step": 0.02,
+      "points": 3,
+      "sampled_from": 101
+    },
+    "wall_s": 1884.5,
+    "utc": "20260812_020209",
+    "system_prompt": "You are a numerical calculator. Answer with the numeric result only: a single decimal number, no words, no units, no formatting, no explanation.",
+    "user_prompt_example": "Compute exp(-0.7863662979), the exponential function e raised to the power -0.7863662979. Give the value as a plain decimal number with at least 15 significant digits. Give every digit you are confident in \u2014 do not round or truncate the result to fewer digits than you computed. Output only the number."
+  },
+  "points": 3,
+  "answered": 1,
+  "unparsed_or_failed": 2,
+  "exact_float_matches": 0,
+  "max_abs_err": 3.3306690738754696e-16,
+  "mean_abs_err": 3.3306690738754696e-16,
+  "rms_abs_err": 3.3306690738754696e-16,
+  "max_rel_err": 6.458193856309789e-16,
+  "mean_rel_err": 6.458193856309789e-16,
+  "min_correct_digits": 15.0,
+  "mean_correct_digits": 15.0,
+  "median_correct_digits": 15.0,
+  "digit_histogram": {
+    "15 (exact)": 1
+  },
+  "worst_abs": {
+    "x": -0.662176483,
+    "expected": 0.5157276396436036,
+    "got": 0.5157276396436039,
+    "abs_err": 3.3306690738754696e-16,
+    "rel_err": 6.458193856309789e-16,
+    "raw": "0.515727639643603887"
+  },
+  "worst_rel": {
+    "x": -0.662176483,
+    "expected": 0.5157276396436036,
+    "got": 0.5157276396436039,
+    "abs_err": 3.3306690738754696e-16,
+    "rel_err": 6.458193856309789e-16,
+    "raw": "0.515727639643603887"
+  },
+  "latency_s": {
+    "mean": 332.853,
+    "min": 332.853,
+    "max": 332.853
+  },
+  "tokens": {
+    "prompt": 220,
+    "completion": 115763,
+    "reasoning": 0,
+    "cache_hit": 0
+  },
+  "failures": [
+    {
+      "x": -0.7863662979,
+      "error": "HTTPError: HTTP Error 503: Service Unavailable :: {\"error\":{\"message\":\"model 'kimi-k2.7-code' is temporarily overloaded, please retry shortly or try a different model (ref: ab7c987c-ce2f-421f-883e-d454415c6d71)\",\"type\":\"api_error\",\"param\":null,\"code\":null}}\n",
+      "raw": null
+    },
+    {
+      "x": 0.7931144531,
+      "error": null,
+      "raw": ""
+    }
+  ]
+}

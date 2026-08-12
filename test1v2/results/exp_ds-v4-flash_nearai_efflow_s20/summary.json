@@ -1,0 +1,91 @@
+{
+  "meta": {
+    "test": "test1v2",
+    "func": "exp",
+    "model": "deepseek-ai/DeepSeek-V4-Flash",
+    "base_url": "https://cloud-api.near.ai/v1",
+    "api": "openai",
+    "temperature": 0.0,
+    "reasoning_effort": "low",
+    "concurrency": 3,
+    "recall_proof": true,
+    "seed": "test1v2",
+    "jitter": 0.0095,
+    "sigdigits_requested": 15,
+    "antitruncation_clause": true,
+    "grid": {
+      "lo": -1.0,
+      "hi": 1.0,
+      "step": 0.02,
+      "points": 20,
+      "sampled_from": 101
+    },
+    "wall_s": 6172.0,
+    "utc": "20260812_003215",
+    "system_prompt": "You are a numerical calculator. Answer with the numeric result only: a single decimal number, no words, no units, no formatting, no explanation.",
+    "user_prompt_example": "Compute exp(-0.9985798483), the exponential function e raised to the power -0.9985798483. Give the value as a plain decimal number with at least 15 significant digits. Give every digit you are confident in \u2014 do not round or truncate the result to fewer digits than you computed. Output only the number."
+  },
+  "points": 20,
+  "answered": 17,
+  "unparsed_or_failed": 3,
+  "exact_float_matches": 2,
+  "max_abs_err": 2.259098463852638e-11,
+  "mean_abs_err": 1.9127412072517766e-12,
+  "rms_abs_err": 5.928146601911404e-12,
+  "max_rel_err": 4.870431434411242e-11,
+  "mean_rel_err": 4.227461629079637e-12,
+  "min_correct_digits": 10.312432566242236,
+  "mean_correct_digits": 14.174525888254347,
+  "median_correct_digits": 15.0,
+  "digit_histogram": {
+    "15 (exact)": 12,
+    "10": 2,
+    "11": 1,
+    "14": 1,
+    "13": 1
+  },
+  "worst_abs": {
+    "x": -0.7682166995,
+    "expected": 0.4638394964132633,
+    "got": 0.4638394963906723,
+    "abs_err": 2.259098463852638e-11,
+    "rel_err": 4.870431434411242e-11,
+    "raw": "0.4638394963906723"
+  },
+  "worst_rel": {
+    "x": -0.7682166995,
+    "expected": 0.4638394964132633,
+    "got": 0.4638394963906723,
+    "abs_err": 2.259098463852638e-11,
+    "rel_err": 4.870431434411242e-11,
+    "raw": "0.4638394963906723"
+  },
+  "latency_s": {
+    "mean": 414.85670588235297,
+    "min": 192.531,
+    "max": 584.978
+  },
+  "tokens": {
+    "prompt": 1764,
+    "completion": 347585,
+    "reasoning": 0,
+    "cache_hit": 0
+  },
+  "failures": [
+    {
+      "x": 0.1918553666,
+      "error": "RemoteDisconnected: Remote end closed connection without response",
+      "raw": null
+    },
+    {
+      "x": 0.3948244887,
+      "error": "RemoteDisconnected: Remote end closed connection without response",
+      "raw": null
+    },
+    {
+      "x": 0.4393102754,
+      "error": "RemoteDisconnected: Remote end closed connection without response",
+      "raw": null
+    }
+  ]
+}
