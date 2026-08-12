@@ -1,0 +1,76 @@
+{
+  "meta": {
+    "test": "test1v2",
+    "func": "log",
+    "model": "qwen2.5-coder:14b",
+    "base_url": "http://127.0.0.1:11434/v1",
+    "api": "openai",
+    "temperature": 0.0,
+    "temperature_sent": true,
+    "reasoning_effort": null,
+    "concurrency": 2,
+    "recall_proof": true,
+    "seed": "test1v2",
+    "jitter": 0.0095,
+    "sigdigits_requested": 15,
+    "antitruncation_clause": true,
+    "grid": {
+      "lo": -1.0,
+      "hi": 1.0,
+      "step": 0.02,
+      "points": 101,
+      "sampled_from": null
+    },
+    "wall_s": 535.3,
+    "utc": "20260812_161134",
+    "system_prompt": "You are a numerical calculator. Answer with the numeric result only: a single decimal number, no words, no units, no formatting, no explanation.",
+    "user_prompt_example": "Compute ln(0.0015201517), the natural logarithm of 0.0015201517. Give the value as a plain decimal number with at least 15 significant digits. Give every digit you are confident in \u2014 do not round or truncate the result to fewer digits than you computed. Output only the number."
+  },
+  "points": 101,
+  "answered": 101,
+  "unparsed_or_failed": 0,
+  "exact_float_matches": 0,
+  "max_abs_err": 0.06367269252157293,
+  "mean_abs_err": 0.005933793060163979,
+  "rms_abs_err": 0.011652543467720674,
+  "max_rel_err": 0.12755179235763872,
+  "mean_rel_err": 0.009835045065550689,
+  "min_correct_digits": 0.8943134343057557,
+  "mean_correct_digits": 2.2865632080975096,
+  "median_correct_digits": 2.2900427005268678,
+  "digit_histogram": {
+    "3": 7,
+    "1": 27,
+    "2": 65,
+    "4": 1,
+    "0": 1
+  },
+  "worst_abs": {
+    "x": 0.0186200398,
+    "expected": -3.983516869648927,
+    "got": -4.0471895621705,
+    "abs_err": 0.06367269252157293,
+    "rel_err": 0.015984039883627878,
+    "raw": "-4.0471895621705"
+  },
+  "worst_rel": {
+    "x": 1.3695180556,
+    "expected": 0.3144588937158682,
+    "got": 0.274349098199609,
+    "abs_err": 0.040109795516259206,
+    "rel_err": 0.12755179235763872,
+    "raw": "0.274349098199609"
+  },
+  "latency_s": {
+    "mean": 10.540059405940593,
+    "min": 5.064,
+    "max": 12.299
+  },
+  "tokens": {
+    "prompt": 12306,
+    "completion": 1849,
+    "reasoning": 0,
+    "cache_hit": 0
+  },
+  "failures": []
+}
