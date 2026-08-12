@@ -1,0 +1,79 @@
+{
+  "meta": {
+    "test": "test1v2",
+    "func": "exp",
+    "model": "google/gemini-3.5-flash",
+    "base_url": "https://cloud-api.near.ai/v1",
+    "api": "openai",
+    "temperature": 0.0,
+    "reasoning_effort": null,
+    "concurrency": 3,
+    "recall_proof": true,
+    "seed": "test1v2",
+    "jitter": 0.0095,
+    "sigdigits_requested": 15,
+    "antitruncation_clause": true,
+    "grid": {
+      "lo": -1.0,
+      "hi": 1.0,
+      "step": 0.02,
+      "points": 20,
+      "sampled_from": 101
+    },
+    "wall_s": 564.9,
+    "utc": "20260811_205508",
+    "system_prompt": "You are a numerical calculator. Answer with the numeric result only: a single decimal number, no words, no units, no formatting, no explanation.",
+    "user_prompt_example": "Compute exp(-0.9985798483), the exponential function e raised to the power -0.9985798483. Give the value as a plain decimal number with at least 15 significant digits. Give every digit you are confident in \u2014 do not round or truncate the result to fewer digits than you computed. Output only the number."
+  },
+  "points": 20,
+  "answered": 20,
+  "unparsed_or_failed": 0,
+  "exact_float_matches": 0,
+  "max_abs_err": 71871990679997.8,
+  "mean_abs_err": 3593599534000.038,
+  "rms_abs_err": 16071065683870.64,
+  "max_rel_err": 32517297429131.793,
+  "mean_rel_err": 1625864871456.6885,
+  "min_correct_digits": -13.512114443429155,
+  "mean_correct_digits": 7.920987713891229,
+  "median_correct_digits": 9.548071790619066,
+  "digit_histogram": {
+    "14": 2,
+    "10": 3,
+    "8": 6,
+    "5": 1,
+    "0": 2,
+    "12": 1,
+    "9": 3,
+    "11": 1,
+    "<0 (gross)": 1
+  },
+  "worst_abs": {
+    "x": 0.7931144531,
+    "expected": 2.2102694984611078,
+    "got": 71871990680000.0,
+    "abs_err": 71871990679997.8,
+    "rel_err": 32517297429131.793,
+    "raw": "00000000$ (8 zeros, because $10^4$ squared is $10^8$).\nWait, $7931140000$ has 4 zeros. $4 \\times 2 = 8$ zeros.\nSo $7931140000^2 = 629030016996 \\times 10^8$.\nAnd $2 \\times 7931140000 \\times 4531 = 7187199068 \\times 10^4$.\nSo:\n$7931140000^2 = 62903001699600000000$ (20 digits).\n$2 \\times 7931140000 \\times 4531 = 71871990680000$ (14 digits).\nYes, the alignment is:\n  62903001699600000000\n+       71871990680000\n----------------------\n  62903073571590680000\nThis is $6.290307357159068 \\times 10^{19}$!\nBut wait!\n$7931144531$ has 10 digits.\nSo $0.7931144531 = 7931144531 \\times 10^{-10}$.\nIts square is $7931144531^2 \\times 10^{-20}$.\n$62903073571590680000 \\times 10^{-20} = 0.6290307357159068$.\nWait!\nIs $0.7931144531 \\approx 0.793$?\n$0.793^2 = 0.628849$.\n$0.7931144531^2 = 0.6290307...$\nWait, $0.7931144531^2$ vs $0.7931144531$:\nLet's calculate $0.7931144531 \\times 0.7931144531$ using a simple calculator method:\n$0.7931144531^2 \\approx 0.6290305357...$\nWait, why did my hand calculation give $0.62903073...$?\nAh!\n$793114^2 = 629030016996$.\nIs it?\n$793114 \\times 793114$:\n$793114 \\times 700000 = 555179800000$.\n$793114 \\times 90000 = 71380260000$.\n$793114 \\times 3000 = 2379342000$.\n$793114 \\times 100 = 79311400$.\n$793114 \\times 14 = 11103596$.\nSum:\n  555179800000\n+  71380260000 = 626560060000\n+   2379342000 = 628939402000\n+     79311400 = 629018713400\n+     11103596 = 629029817000 (approx)\nWait, $11103596 + 79311400 = 90414996$.\n$90414996 + 2379342000 = 2469756996$.\n$2469756996 + 71380260000 = 73850016996$.\n$73850016996 + 555179800000 = 629029816996$.\nYes, $629029816996$.\nBut wait, why is $793114^2 \\approx 629029.8...$?\n$793^2 = 628849$.\n$793.114^2 = 629029.816996$.\nYes.\nThen where is the error?\nAh!\n$2 \\times 7931140000 \\times 4531 = 71871990680000$."
+  },
+  "worst_rel": {
+    "x": 0.7931144531,
+    "expected": 2.2102694984611078,
+    "got": 71871990680000.0,
+    "abs_err": 71871990679997.8,
+    "rel_err": 32517297429131.793,
+    "raw": "00000000$ (8 zeros, because $10^4$ squared is $10^8$).\nWait, $7931140000$ has 4 zeros. $4 \\times 2 = 8$ zeros.\nSo $7931140000^2 = 629030016996 \\times 10^8$.\nAnd $2 \\times 7931140000 \\times 4531 = 7187199068 \\times 10^4$.\nSo:\n$7931140000^2 = 62903001699600000000$ (20 digits).\n$2 \\times 7931140000 \\times 4531 = 71871990680000$ (14 digits).\nYes, the alignment is:\n  62903001699600000000\n+       71871990680000\n----------------------\n  62903073571590680000\nThis is $6.290307357159068 \\times 10^{19}$!\nBut wait!\n$7931144531$ has 10 digits.\nSo $0.7931144531 = 7931144531 \\times 10^{-10}$.\nIts square is $7931144531^2 \\times 10^{-20}$.\n$62903073571590680000 \\times 10^{-20} = 0.6290307357159068$.\nWait!\nIs $0.7931144531 \\approx 0.793$?\n$0.793^2 = 0.628849$.\n$0.7931144531^2 = 0.6290307...$\nWait, $0.7931144531^2$ vs $0.7931144531$:\nLet's calculate $0.7931144531 \\times 0.7931144531$ using a simple calculator method:\n$0.7931144531^2 \\approx 0.6290305357...$\nWait, why did my hand calculation give $0.62903073...$?\nAh!\n$793114^2 = 629030016996$.\nIs it?\n$793114 \\times 793114$:\n$793114 \\times 700000 = 555179800000$.\n$793114 \\times 90000 = 71380260000$.\n$793114 \\times 3000 = 2379342000$.\n$793114 \\times 100 = 79311400$.\n$793114 \\times 14 = 11103596$.\nSum:\n  555179800000\n+  71380260000 = 626560060000\n+   2379342000 = 628939402000\n+     79311400 = 629018713400\n+     11103596 = 629029817000 (approx)\nWait, $11103596 + 79311400 = 90414996$.\n$90414996 + 2379342000 = 2469756996$.\n$2469756996 + 71380260000 = 73850016996$.\n$73850016996 + 555179800000 = 629029816996$.\nYes, $629029816996$.\nBut wait, why is $793114^2 \\approx 629029.8...$?\n$793^2 = 628849$.\n$793.114^2 = 629029.816996$.\nYes.\nThen where is the error?\nAh!\n$2 \\times 7931140000 \\times 4531 = 71871990680000$."
+  },
+  "latency_s": {
+    "mean": 77.59875000000001,
+    "min": 36.229,
+    "max": 109.153
+  },
+  "tokens": {
+    "prompt": 2256,
+    "completion": 5051,
+    "reasoning": 0,
+    "cache_hit": 0
+  },
+  "failures": []
+}

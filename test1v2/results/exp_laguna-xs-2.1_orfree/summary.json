@@ -1,0 +1,280 @@
+{
+  "meta": {
+    "test": "test1v2",
+    "func": "exp",
+    "model": "poolside/laguna-xs-2.1:free",
+    "base_url": "https://openrouter.ai/api/v1",
+    "api": "openai",
+    "temperature": 0.0,
+    "reasoning_effort": null,
+    "concurrency": 2,
+    "recall_proof": true,
+    "seed": "test1v2",
+    "jitter": 0.0095,
+    "sigdigits_requested": 15,
+    "antitruncation_clause": true,
+    "grid": {
+      "lo": -1.0,
+      "hi": 1.0,
+      "step": 0.02,
+      "points": 101,
+      "sampled_from": null
+    },
+    "wall_s": 15331.0,
+    "utc": "20260811_163218",
+    "system_prompt": "You are a numerical calculator. Answer with the numeric result only: a single decimal number, no words, no units, no formatting, no explanation.",
+    "user_prompt_example": "Compute exp(-0.9985798483), the exponential function e raised to the power -0.9985798483. Give the value as a plain decimal number with at least 15 significant digits. Give every digit you are confident in \u2014 do not round or truncate the result to fewer digits than you computed. Output only the number."
+  },
+  "points": 101,
+  "answered": 61,
+  "unparsed_or_failed": 40,
+  "exact_float_matches": 0,
+  "max_abs_err": 0.0006876460092843928,
+  "mean_abs_err": 1.1694324154874326e-05,
+  "rms_abs_err": 8.805320750700216e-05,
+  "max_rel_err": 0.0008321026722322354,
+  "mean_rel_err": 1.425011207751201e-05,
+  "min_correct_digits": 3.079823083285193,
+  "mean_correct_digits": 7.602606612259267,
+  "median_correct_digits": 7.597623627546653,
+  "digit_histogram": {
+    "10": 2,
+    "7": 19,
+    "5": 6,
+    "6": 12,
+    "8": 9,
+    "9": 10,
+    "4": 1,
+    "3": 1,
+    "11": 1
+  },
+  "worst_abs": {
+    "x": -0.1906816532,
+    "expected": 0.8263956266835236,
+    "got": 0.827083272692808,
+    "abs_err": 0.0006876460092843928,
+    "rel_err": 0.0008321026722322354,
+    "raw": "0.827083272692808"
+  },
+  "worst_rel": {
+    "x": -0.1906816532,
+    "expected": 0.8263956266835236,
+    "got": 0.827083272692808,
+    "abs_err": 0.0006876460092843928,
+    "rel_err": 0.0008321026722322354,
+    "raw": "0.827083272692808"
+  },
+  "latency_s": {
+    "mean": 255.90237704918027,
+    "min": 81.188,
+    "max": 474.323
+  },
+  "tokens": {
+    "prompt": 12557,
+    "completion": 2585512,
+    "reasoning": 2584148,
+    "cache_hit": 0
+  },
+  "failures": [
+    {
+      "x": -0.9223543543,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.863389757,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.7682166995,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.681319212,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.634661819,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.5508534706,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.4628029033,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.3806838196,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.3505948019,
+      "error": "HTTPError: HTTP Error 429: Too Many Requests :: {\"error\":{\"message\":\"Provider returned error\",\"code\":429,\"metadata\":{\"raw\":\"poolside/laguna-xs-2.1:free is temporarily rate-limited upstream. Please retry shortly, or add your own key to accumulate your rate limits: https://openrouter.ai/settings/integrations\",\"provider_name\":\"Poolside\",\"is_byok\":fa",
+      "raw": null
+    },
+    {
+      "x": -0.3381515142,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.3181961257,
+      "error": "HTTPError: HTTP Error 429: Too Many Requests :: {\"error\":{\"message\":\"Provider returned error\",\"code\":429,\"metadata\":{\"raw\":\"poolside/laguna-xs-2.1:free is temporarily rate-limited upstream. Please retry shortly, or add your own key to accumulate your rate limits: https://openrouter.ai/settings/integrations\",\"provider_name\":\"Poolside\",\"is_byok\":fa",
+      "raw": null
+    },
+    {
+      "x": -0.3071621056,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.1862615737,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.1652531899,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.1039949724,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.0450636657,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.0222930415,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.0015297841,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.0291663476,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.0473917113,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.0646797399,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.1482453477,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.1627731267,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.1918553666,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.2294190616,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.2483288406,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.2861848676,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.3365311812,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.3862471261,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.3948244887,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.5052254264,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.6016659687,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.6188645751,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.6605729619,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.6938073077,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.8428166028,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.9034060419,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.9246204423,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.9582162565,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.9830754318,
+      "error": null,
+      "raw": null
+    }
+  ]
+}

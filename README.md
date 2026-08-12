@@ -20,7 +20,7 @@ grader can tell to a fraction of a digit.
 
 ## The headline
 
-**80 runs · 40+ models · 8 endpoints · one prompt · one stateless call per point.**
+**90 runs · 45+ models · 8 endpoints · one prompt · one stateless call per point.**
 
 Asked the identical question, models split into two populations with almost nothing in between:
 
@@ -32,8 +32,9 @@ Asked the identical question, models split into two populations with almost noth
 A 1,300× difference in effort, and a 10-digit difference in the answer.
 
 **And which side a model lands on is not predicted by its size, its vendor, or its price.**
-Mistral shortcuts at 24B *and* at 675B. Google ships a 5.2-digit shortcutter and a 14.4-digit
-deriver. OpenAI's own ladder crosses the line between GPT-5.2 and GPT-5.5.
+Mistral shortcuts at 24B *and* at 675B. Poolside's *smaller* model beats its larger sibling.
+And OpenAI's own ladder crosses the line in **a single version step** — GPT-4.1 through 5.4 all
+shortcut at ~10 tokens; GPT-5.5 derives at 8,201.
 
 ![Four configurations of the same 101-point exp(x) grid](docs/hero_recall_ablation.png)
 
@@ -96,8 +97,9 @@ it says whether the model **derived** the answer or **recalled** it.
 
 | model | fn | answered | median | worst | tok/pt | cost |
 |---|---|---|---|---|---|---|
+| **openai/gpt-5.5** | exp | **101/101** | **15.00** | 3.08 | 8,201 | — |
+| **openai/gpt-5.5** | sin | 20/20 | **15.00** | **12.18** | 9,344 | — |
 | openai/gpt-5.6-sol | exp | 5/5 | **15.00** | 14.17 | 4,254 | $0.64 |
-| **openai/gpt-5.5** (near.ai) | exp | 3/3 | **15.00** | 6.18 | 7,949 | — |
 | anthropic/claude-opus-5 | exp | 10/10 | **15.00** | 13.38 | 16,688 | $4.17 |
 | deepseek-v4-flash | exp | 54/101 | **15.00** | 13.17 | 51,695 | $1.46 |
 | **deepseek-v4-flash `effort=low`** | exp | **98/101** | **15.00** | 5.04 | 26,520 | **$0.75** |
@@ -105,7 +107,7 @@ it says whether the model **derived** the answer or **recalled** it.
 | z-ai/glm-5.2 | exp | 18/101 | **15.00** | 8.37 | 30,181 | free |
 | Claude Fable 5 (CLI) | exp | 62/101 | **14.68** | 10.49 | 5,503 | sub |
 | Claude Opus 5 (CLI) | sin | 101/101 | **14.38** | 8.32 | 7,924 | sub |
-| **google/gemini-3.5-flash** | exp | 2/3 | **14.35** | 13.40 | ⚠ see note | — |
+| **moonshotai/kimi-k2.6** | sin | 15/20 | **14.14** | 7.89 | 54,103 | free |
 | **moonshotai/kimi-k2.6** | exp | 13/20 | **13.68** | 8.31 | 57,209 | free |
 
 ### 2 — The sparse middle · genuinely derive, still fall short
@@ -114,9 +116,13 @@ it says whether the model **derived** the answer or **recalled** it.
 |---|---|---|---|---|---|
 | anthropic/claude-sonnet-5 | exp | 10/10 | 12.10 | 9.30 | 22,630 |
 | **meta/muse-glimmer-30b** | exp | 3/3 | 11.46 | 9.82 | 27,817 |
+| **openai/o3** | exp | 1/3 | 11.88 | 11.88 | 31,987 |
+| **qwen/qwen3.7-max** | exp | 3/3 | 11.40 | 11.32 | 11,843 |
 | anthropic/claude-opus-4.8 `effort=high` | exp | 10/10 | 11.13 | 9.20 | 4,141 |
+| **openai/o4-mini** | exp | 3/3 | 10.96 | 9.82 | 15,557 |
 | **thinkingmachines/inkling-small** | exp | 3/3 | 10.01 | 6.18 | 25,808 |
 | gpt-oss:120b | exp | 98/101 | 9.55 | 3.18 | 9,105 |
+| **google/gemini-3.5-flash** | exp | 20/20 | 9.55 | **−13.51** | ⚠ unreliable |
 | poolside/laguna-xs-2.1 | exp | 2/3 | 6.57 | 6.14 | 24,345 |
 | gpt-oss:20b | exp | 93/101 | 6.37 | 2.44 | 26,420 |
 | qwen/qwen3.7-flash | exp | 80/101 | 5.63 | 2.84 | 27,579 |
@@ -172,23 +178,35 @@ model is scored on identical arguments.
 ### 1. Size, vendor and architecture predict almost nothing
 
 Mistral shortcuts at **24B (3.46 digits)** and at **675B (4.29)** — a 28× parameter increase buys
-0.8 digits and changes nothing structurally. Google scores 4.76 dense and 4.91 as an MoE. Poolside's
-*smaller* `laguna-xs` (6.57) beats its larger sibling `laguna-s` (4.13).
+0.8 digits and changes nothing structurally. Google scores 4.76 dense and 4.91 as an MoE.
 
-**The split runs inside vendors, not between them.** Google ships both a 5.23-digit shortcutter
-(Gemini-2.5-pro) and a 14.35-digit deriver (Gemini-3.5-flash).
+**Poolside's *smaller* model beats its larger sibling**, and not marginally — both on full
+101-point grids:
 
-### 2. The clean generational result: it changed between GPT-5.2 and GPT-5.5
+| | answered | median | tok/pt |
+|---|---|---|---|
+| `laguna-xs-2.1` (smaller) | **61/101** | **7.60** | 25,599 |
+| `laguna-s-2.1` (larger) | 20/101 | 4.13 | 15,807 |
+
+**The split also runs inside vendors, not just between them.** Google ships a 5.23-digit
+shortcutter (Gemini-2.5-pro) alongside Gemini-3.5-flash, which derives to a 9.55 median — but with
+a **−13.51** worst point, i.e. an answer off by thirteen orders of magnitude.
+
+### 2. The clean generational result: it changed between GPT-5.4 and GPT-5.5
 
 Same endpoint, same prompt, same arguments — no serving-config confound:
 
 | model | median digits | tok/pt | wall (3 pts) |
 |---|---|---|---|
 | gpt-4.1 | 3.57 | 7 | 3s |
+| gpt-5.1 | 4.03 | 16 | 4s |
 | gpt-5.2 | 4.22 | 10 | 6s |
-| **gpt-5.5** | **15.00** | **7,949** | **622s** |
+| gpt-5.4 | 4.38 | 11 | 3s |
+| **gpt-5.5** | **15.00** | **8,201** | **622s** |
 
-A step change, not a gradient.
+**Four consecutive releases shortcut at ~10 tokens and 3.5–4.4 digits. The fifth derives.** A ~900×
+jump in effort and eleven digits, across a single version step — not a gradient, and not a
+size story.
 
 ### 3. One sentence of prompting moved a model from 0/101 to 15.00 digits
 
@@ -249,6 +267,22 @@ tokens; GLM's 3.29-digit answer took 13; Claude Opus 5's 4.33-digit answer took 
 **A model that decides not to derive is a model about to be wrong** — at every tier, every vendor,
 every effort setting measured here. Nothing eliminates it.
 
+**…except GPT-5.5, whose failures cost full price.** It is the one model whose bad points are not
+cheap:
+
+| gpt-5.5, 101 points | count | median tokens |
+|---|---|---|
+| points at 15.00 digits | 88 | **8,299** |
+| points below 12 digits | 8 | **8,040** |
+
+Its worst point (3.08 digits) spent 8,299 tokens — *identical* to the median of its perfect points.
+It never shortcuts: 101/101 answered, no cheap replies, a tight 5k–12.5k token band. It derives
+every time and slips the arithmetic about 8% of the time.
+
+So the two failure modes are distinct, and only now separable: **every other model fails by
+declining to derive; GPT-5.5 fails while deriving.** That is laziness versus fallibility, and only
+the first is fixable by prompting (see finding 3).
+
 ### 7. Throttling thinking trades silence for silent errors
 
 `reasoning_effort=low` lifts DeepSeek's answered rate 54 → 98 at half the cost, median still 15
@@ -305,10 +339,19 @@ conclusions in this study were wrong — both were a 32k cap sitting below the m
 which looks exactly like a host misconfiguration. **If a run's *median* token count equals your
 cap, you measured the cap.**
 
-**A 3-point smoke sets direction, not values.** `laguna-s` looked like a clean shortcutter from its
-smoke (18 tokens, 4.51 digits); its full grid answered **20/101** — the answers really are 18-token
-shortcuts, but the other 81 grind to the cap and die. `minimax-m2.7` smoked at 9.86 digits and
-scored **0/20** at n=20. Every headline number here is from a full grid or an explicit `--sample`.
+**Samples set direction, not values — and n=20 is not enough for a tail.** Four times in this study
+a sample pointed the wrong way:
+
+| model | small sample | full grid |
+|---|---|---|
+| `laguna-s` | 4.51 digits, 18 tok (n=3) | **20/101 answered**, 81 grind to the cap |
+| `minimax-m2.7` | 9.86 digits (n=3) | **0/20** answered |
+| `gemini-3.5-flash` | 14.35 digits (n=3) | 9.55 median, **worst −13.51** (n=20) |
+| `gpt-5.5` | **20/20 at exactly 15.00**, worst 15.00 (n=20) | worst **3.08** (n=101) |
+
+The last one is the cautionary case: a model with an ~8% failure rate looked *flawless* at n=20, and
+a claim that it had eliminated the shortcut tail would have been published on that basis. **Medians
+stabilise quickly; tails do not.**
 
 **Also: always cap paid endpoints.** An uncapped `effort=high` sweep on Opus 4.6 billed 655,360
 tokens for **zero** answers. The same model with a 32k cap finished in 6,849 tokens and answered.

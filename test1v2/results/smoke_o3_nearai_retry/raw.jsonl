@@ -1,0 +1,3 @@
+{"x": -0.7863662979, "expected": 0.4554969319363902, "got": null, "raw": "", "reasoning": null, "latency_s": 189.494, "attempt": 0, "prompt_tokens": 109, "completion_tokens": 32000, "reasoning_tokens": 0, "cache_hit_tokens": 0, "error": null}
+{"x": -0.662176483, "expected": 0.5157276396436036, "got": null, "raw": "", "reasoning": null, "latency_s": 167.292, "attempt": 0, "prompt_tokens": 107, "completion_tokens": 32000, "reasoning_tokens": 0, "cache_hit_tokens": 0, "error": null}
+{"x": 0.7931144531, "expected": 2.2102694984611078, "got": 2.210269498463993, "raw": "2.210269498463993", "reasoning": null, "latency_s": 172.147, "attempt": 0, "prompt_tokens": 109, "completion_tokens": 31962, "reasoning_tokens": 0, "cache_hit_tokens": 0, "error": null}

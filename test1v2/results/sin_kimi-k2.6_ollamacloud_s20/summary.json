@@ -1,0 +1,103 @@
+{
+  "meta": {
+    "test": "test1v2",
+    "func": "sin",
+    "model": "kimi-k2.6",
+    "base_url": "https://ollama.com/v1",
+    "api": "openai",
+    "temperature": 0.0,
+    "reasoning_effort": null,
+    "concurrency": 3,
+    "recall_proof": true,
+    "seed": "test1v2",
+    "jitter": 0.0095,
+    "sigdigits_requested": 15,
+    "antitruncation_clause": true,
+    "grid": {
+      "lo": -1.0,
+      "hi": 1.0,
+      "step": 0.02,
+      "points": 20,
+      "sampled_from": 101
+    },
+    "wall_s": 4603.3,
+    "utc": "20260811_223258",
+    "system_prompt": "You are a numerical calculator. Answer with the numeric result only: a single decimal number, no words, no units, no formatting, no explanation.",
+    "user_prompt_example": "Compute sin(-0.9985798483), the sine of -0.9985798483 RADIANS (not degrees). Give the value as a plain decimal number with at least 15 significant digits. Give every digit you are confident in \u2014 do not round or truncate the result to fewer digits than you computed. Output only the number."
+  },
+  "points": 20,
+  "answered": 15,
+  "unparsed_or_failed": 5,
+  "exact_float_matches": 4,
+  "max_abs_err": 7.936509227590705e-09,
+  "mean_abs_err": 5.421787171999703e-10,
+  "rms_abs_err": 2.0498114881636373e-09,
+  "max_rel_err": 1.2934982414133028e-08,
+  "mean_rel_err": 8.973931574564258e-10,
+  "min_correct_digits": 7.888234157395847,
+  "mean_correct_digits": 13.393569326811702,
+  "median_correct_digits": 14.143270744546433,
+  "digit_histogram": {
+    "15 (exact)": 7,
+    "14": 1,
+    "11": 1,
+    "13": 2,
+    "9": 1,
+    "12": 2,
+    "7": 1
+  },
+  "worst_abs": {
+    "x": 0.6605729619,
+    "expected": 0.6135693867599782,
+    "got": 0.613569378823469,
+    "abs_err": 7.936509227590705e-09,
+    "rel_err": 1.2934982414133028e-08,
+    "raw": "0.613569378823469"
+  },
+  "worst_rel": {
+    "x": 0.6605729619,
+    "expected": 0.6135693867599782,
+    "got": 0.613569378823469,
+    "abs_err": 7.936509227590705e-09,
+    "rel_err": 1.2934982414133028e-08,
+    "raw": "0.613569378823469"
+  },
+  "latency_s": {
+    "mean": 645.4194,
+    "min": 409.713,
+    "max": 862.957
+  },
+  "tokens": {
+    "prompt": 2236,
+    "completion": 1082063,
+    "reasoning": 0,
+    "cache_hit": 0
+  },
+  "failures": [
+    {
+      "x": -0.9985798483,
+      "error": null,
+      "raw": ""
+    },
+    {
+      "x": -0.9814799602,
+      "error": null,
+      "raw": ""
+    },
+    {
+      "x": -0.863389757,
+      "error": null,
+      "raw": ""
+    },
+    {
+      "x": 0.7349933738,
+      "error": null,
+      "raw": ""
+    },
+    {
+      "x": 0.7931144531,
+      "error": null,
+      "raw": ""
+    }
+  ]
+}

@@ -1,0 +1,72 @@
+{
+  "meta": {
+    "test": "test1v2",
+    "func": "exp",
+    "model": "openai/gpt-5.1",
+    "base_url": "https://cloud-api.near.ai/v1",
+    "api": "openai",
+    "temperature": 0.0,
+    "reasoning_effort": null,
+    "concurrency": 3,
+    "recall_proof": true,
+    "seed": "test1v2",
+    "jitter": 0.0095,
+    "sigdigits_requested": 15,
+    "antitruncation_clause": true,
+    "grid": {
+      "lo": -1.0,
+      "hi": 1.0,
+      "step": 0.02,
+      "points": 3,
+      "sampled_from": 101
+    },
+    "wall_s": 3.9,
+    "utc": "20260811_210437",
+    "system_prompt": "You are a numerical calculator. Answer with the numeric result only: a single decimal number, no words, no units, no formatting, no explanation.",
+    "user_prompt_example": "Compute exp(-0.7863662979), the exponential function e raised to the power -0.7863662979. Give the value as a plain decimal number with at least 15 significant digits. Give every digit you are confident in \u2014 do not round or truncate the result to fewer digits than you computed. Output only the number."
+  },
+  "points": 3,
+  "answered": 3,
+  "unparsed_or_failed": 0,
+  "exact_float_matches": 0,
+  "max_abs_err": 0.0001488637473605614,
+  "mean_abs_err": 0.00010708831581812683,
+  "rms_abs_err": 0.00011665275479914504,
+  "max_rel_err": 0.00025168632530983765,
+  "mean_rel_err": 0.00013752021281239824,
+  "min_correct_digits": 3.5991403800170394,
+  "mean_correct_digits": 3.93329218028317,
+  "median_correct_digits": 4.029079877661114,
+  "digit_histogram": {
+    "4": 2,
+    "3": 1
+  },
+  "worst_abs": {
+    "x": 0.7931144531,
+    "expected": 2.2102694984611078,
+    "got": 2.210120634713747,
+    "abs_err": 0.0001488637473605614,
+    "rel_err": 6.735094858984719e-05,
+    "raw": "2.210120634713747"
+  },
+  "worst_rel": {
+    "x": -0.662176483,
+    "expected": 0.5157276396436036,
+    "got": 0.515597838049121,
+    "abs_err": 0.00012980159448261475,
+    "rel_err": 0.00025168632530983765,
+    "raw": "0.515597838049121"
+  },
+  "latency_s": {
+    "mean": 2.981333333333333,
+    "min": 2.37,
+    "max": 3.943
+  },
+  "tokens": {
+    "prompt": 325,
+    "completion": 48,
+    "reasoning": 0,
+    "cache_hit": 0
+  },
+  "failures": []
+}
