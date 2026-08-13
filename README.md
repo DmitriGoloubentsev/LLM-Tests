@@ -368,7 +368,14 @@ ordering is **identical in every column**:
 | sin | 3.27 | 4.09 | 2.77 | 2.34 | 2.38 |
 
 `sqrt` first in all five columns, `sin` last in four — across 14B→675B, three vendors, at a flat
-~18 tokens per point. So the band is not a fixed "3–5 digits" property of small models; it tracks
+~18 tokens per point.
+
+![Five functions, five shortcutters](docs/function_ordering.png)
+
+*Left: `sqrt` is first for every model; the `cos`/`log`/`sin` tail reshuffles between them. Right:
+the round-vs-jittered gap — memorisation buys `exp` over two digits for a strong recaller
+(qwen3-coder) and nothing in particular for a weak one (devstral). Regenerate with
+`.venv-plot/bin/python make_function_figure.py [--dark]`.* So the band is not a fixed "3–5 digits" property of small models; it tracks
 **how well the function yields to a short local expansion**. `√(1+u) ≈ 1 + u/2 − u²/8` is good to
 ~7 digits on this domain; `sin` and `log` are not, and land at ~2.5–4.
 
