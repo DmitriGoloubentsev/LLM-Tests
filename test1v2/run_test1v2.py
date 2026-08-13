@@ -82,8 +82,20 @@ def parse_number(text):
         return None
 
 
+def fmt_x(args, x):
+    """How the argument is written in the prompt.
+
+    --pad-decimals writes a round value to full width (-0.86 -> -0.8600000000) without
+    changing it. That separates two things the round/jittered ablation otherwise confounds:
+    whether the VALUE is memorable, and how WIDE the operands are to multiply.
+    """
+    if args.pad_decimals:
+        return f"{x:.{args.pad_decimals}f}"
+    return repr(x)
+
+
 def build_user(args, x):
-    noun = FUNCS[args.func][1].format(x=repr(x))
+    noun = FUNCS[args.func][1].format(x=fmt_x(args, x))
     tail = (f"Give the value as a plain decimal number with at least {args.sigdigits} significant "
             f"digits.")
     if not args.no_antitrunc:
@@ -408,6 +420,10 @@ def main():
     p.add_argument("--hi", type=float, default=1.0)
     p.add_argument("--step", type=float, default=0.02)
     p.add_argument("--jitter", type=float, default=0.0095, help="max |offset| applied to each point")
+    p.add_argument("--pad-decimals", type=int, default=0,
+                   help="write the argument with exactly N decimals (value unchanged). With "
+                        "--jitter 0 this gives a round value at full width, separating "
+                        "memorability from operand width.")
     p.add_argument("--seed", default="test1v2", help="grid seed — same seed = same arguments")
     p.add_argument("--sample", type=int, default=0,
                    help="run a deterministic random subset of N grid points (0 = all)")
@@ -489,7 +505,8 @@ def main():
             "temperature_sent": not args.no_temperature,
             "reasoning_effort": args.reasoning_effort,
             "concurrency": args.concurrency, "recall_proof": True, "seed": args.seed,
-            "jitter": args.jitter, "sigdigits_requested": args.sigdigits,
+            "jitter": args.jitter, "pad_decimals": args.pad_decimals,
+            "sigdigits_requested": args.sigdigits,
             "antitruncation_clause": not args.no_antitrunc,
             "grid": {"lo": args.lo, "hi": args.hi, "step": args.step, "points": len(xs),
                      "sampled_from": len(base) if args.sample else None},

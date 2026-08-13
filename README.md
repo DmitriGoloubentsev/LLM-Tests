@@ -389,7 +389,19 @@ the round-vs-jittered gap — memorisation buys `exp` over two digits for a stro
 > nemotron-3.5 `exp` **+6.76** vs `cos` **+2.30**; qwen3-coder `exp` **+2.21** vs `cos` **+0.09**,
 > `sin` **+0.07** — so the direction holds on thinner evidence than originally claimed. A proper
 > control needs a round *value* written to full width (`0.5000000000` vs `0.5813299347`), which
-> separates memorability from operand width; that experiment has not been run.
+> separates memorability from operand width. **That experiment has now been run** (`--pad-decimals`),
+> on nemotron-3.5-lightning `exp`, 20 points:
+>
+> | condition | value | width | answered | median |
+> |---|---|---|---|---|
+> | A round `exp(-0.86)` | memorable | 2 dp | 17/20 | **11.45** |
+> | B round, padded `exp(-0.8600000000)` | memorable | 10 dp | 20/20 | **9.63** |
+> | C jittered `exp(-0.8613299347)` | unmemorable | 10 dp | 20/20 | **4.69** |
+>
+> **B vs C** — same width, same answer rate, only memorability differs — is **+4.94 digits**, and is
+> the first properly controlled measurement of the recall effect here. **A vs B** isolates operand
+> width at **+1.82**. So the raw +6.76 is roughly **73% memorability, 27% arithmetic width**: the
+> recall interpretation survives, and the width confound is real but secondary.
 
 **Three independent lines of evidence, not one correlation:**
 
