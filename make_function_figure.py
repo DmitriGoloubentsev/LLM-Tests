@@ -28,6 +28,8 @@ DARK = {"surface": "#14161A", "ink": "#ECEEF1", "ink2": "#B6BCC5", "muted": "#8A
 SERIES = ["#2F6FD0", "#C43B3B", "#3F8F5B", "#8A5FC0", "#C1863B"]
 
 FUNCS = ["sqrt", "exp", "cos", "log", "sin"]
+# Only these get genuinely round args under --jitter 0; sqrt/log are shifted by +1.0001.
+VALID_ABLATION = {"exp", "cos", "sin"}
 
 MODELS = [                       # label, tag suffix used under test1v2/results/
     ("mistral-large-3 675B", "mistral-large-3-675b_ollamacloud"),
@@ -96,7 +98,7 @@ def main():
         gaps = []
         for f in FUNCS:
             r, j = med(f"{f}_{base}_round"), med(f"{f}_{base}")
-            gaps.append(None if (r is None or j is None) else r - j)
+            gaps.append(None if (r is None or j is None or f not in VALID_ABLATION) else r - j)
         pos = [i + (k - 0.5) * w for i in xs]
         vals = [0 if g is None else g for g in gaps]
         ax2.bar(pos, vals, width=w, color=SERIES[k * 2], edgecolor=c["surface"],
@@ -105,10 +107,10 @@ def main():
     ax2.set_xticks(list(xs))
     ax2.set_xticklabels([f"{f}(x)" for f in FUNCS])
     ax2.set_ylabel("digits gained from round arguments")
-    ax2.set_title("Memorisation helps on exp — only if the model memorised",
+    ax2.set_title("Round-argument gain — exp/cos/sin only (see note)",
                   loc="left", color=c["ink"], pad=22)
-    ax2.text(0, 1.015, "round-argument score minus recall-proof score · "
-             "gemma4 (not shown, heaviest recaller) gains +5.83 on exp",
+    ax2.text(0, 1.015, "round minus recall-proof · sqrt/log are NOT round in this harness "
+             "(mapped t+1.0001) so their bars are void",
              transform=ax2.transAxes, fontsize=9, color=c["ink2"])
     ax2.legend(frameon=False, fontsize=9, loc="upper right")
 

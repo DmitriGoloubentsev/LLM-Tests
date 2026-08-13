@@ -379,6 +379,18 @@ the round-vs-jittered gap — memorisation buys `exp` over two digits for a stro
 **how well the function yields to a short local expansion**. `√(1+u) ≈ 1 + u/2 − u²/8` is good to
 ~7 digits on this domain; `sin` and `log` are not, and land at ~2.5–4.
 
+> ⚠️ **Correction — the `sqrt` and `log` columns of the ablation below are invalid.** The harness
+> maps those two functions off the base grid with `t + 1.0001` to keep them in-domain, so
+> `--jitter 0` produces a round *base* value and a **non-round argument**: `sqrt` and `log` round
+> runs use `0.1001, 0.2801, …`, not `0.10, 0.28, …`. They never received the treatment. Their ~0
+> gaps are explained by that, not by "memorisation doesn't help there", and the `sqrt` control
+> referenced in (b) is not a control. Only `exp`, `cos` and `sin` (identity-mapped) are valid
+> ablation targets. Among those, `exp` still shows the largest gap for strong recallers —
+> nemotron-3.5 `exp` **+6.76** vs `cos` **+2.30**; qwen3-coder `exp` **+2.21** vs `cos` **+0.09**,
+> `sin` **+0.07** — so the direction holds on thinner evidence than originally claimed. A proper
+> control needs a round *value* written to full width (`0.5000000000` vs `0.5813299347`), which
+> separates memorability from operand width; that experiment has not been run.
+
 **Three independent lines of evidence, not one correlation:**
 
 **(a) Remove recall and the ordering survives.** Re-run with round arguments (`--jitter 0`) and
