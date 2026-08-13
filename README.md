@@ -22,14 +22,21 @@ grader can tell to a fraction of a digit.
 
 **100+ runs · 50+ models · 8 endpoints · one prompt · one stateless call per point.**
 
-Asked the identical question, models split into two populations with almost nothing in between:
+Asked the identical question, models pile up at two extremes:
 
 | | tokens per point | correct digits | example |
 |---|---|---|---|
 | **Derivers** | ~24,000 | **13 – 15** | DeepSeek-V4-Flash, GPT-5.5, Kimi-K2.6 |
 | **Shortcutters** | **~18** | **3 – 5** | Mistral-Large-3 (675B), gemma4, GPT-4.1 |
 
-A 1,300× difference in effort, and a 10-digit difference in the answer.
+**A 1,300× difference in effort, and a 10-digit difference in the answer** — on the same question,
+with the same prompt.
+
+The middle is populated but thin, and it is the *interesting* part: models that genuinely spend
+thousands of tokens deriving and still land at 5–12 digits (§ Results group 2). Across 108
+full runs, **11%** land in a moderate-effort band (100–5,000 tok/pt) and **16%** in a
+moderate-accuracy band (6–12 digits) — so the extremes dominate, but the gap is a thin region,
+not an empty one.
 
 **And which side a model lands on is not predicted by its size, its vendor, or its price.**
 Mistral shortcuts at 24B *and* at 675B. Poolside's *smaller* model beats its larger sibling.
