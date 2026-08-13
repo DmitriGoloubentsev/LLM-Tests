@@ -1,0 +1,131 @@
+{
+  "meta": {
+    "test": "test1v2",
+    "func": "sqrt",
+    "model": "poolside/laguna-xs-2.1:free",
+    "base_url": "https://openrouter.ai/api/v1",
+    "api": "openai",
+    "temperature": 0.0,
+    "temperature_sent": true,
+    "reasoning_effort": null,
+    "concurrency": 2,
+    "recall_proof": true,
+    "seed": "test1v2",
+    "jitter": 0.0095,
+    "sigdigits_requested": 15,
+    "antitruncation_clause": true,
+    "grid": {
+      "lo": -1.0,
+      "hi": 1.0,
+      "step": 0.02,
+      "points": 20,
+      "sampled_from": 101
+    },
+    "wall_s": 2626.1,
+    "utc": "20260813_113214",
+    "system_prompt": "You are a numerical calculator. Answer with the numeric result only: a single decimal number, no words, no units, no formatting, no explanation.",
+    "user_prompt_example": "Compute sqrt(0.136710243), the square root of 0.136710243. Give the value as a plain decimal number with at least 15 significant digits. Give every digit you are confident in \u2014 do not round or truncate the result to fewer digits than you computed. Output only the number."
+  },
+  "points": 20,
+  "answered": 9,
+  "unparsed_or_failed": 11,
+  "exact_float_matches": 0,
+  "max_abs_err": 2.5472342235488554e-08,
+  "mean_abs_err": 7.4321891048908144e-09,
+  "rms_abs_err": 1.2296172005058158e-08,
+  "max_rel_err": 3.2365148810378576e-08,
+  "mean_rel_err": 7.319598087710201e-09,
+  "min_correct_digits": 7.489922391816831,
+  "mean_correct_digits": 8.97280451533085,
+  "median_correct_digits": 8.630021722627578,
+  "digit_histogram": {
+    "8": 2,
+    "10": 2,
+    "9": 2,
+    "7": 3
+  },
+  "worst_abs": {
+    "x": 0.6194161804,
+    "expected": 0.7870299742703578,
+    "got": 0.7870299997427,
+    "abs_err": 2.5472342235488554e-08,
+    "rel_err": 3.2365148810378576e-08,
+    "raw": "0.787029999742700"
+  },
+  "worst_rel": {
+    "x": 0.6194161804,
+    "expected": 0.7870299742703578,
+    "got": 0.7870299997427,
+    "abs_err": 2.5472342235488554e-08,
+    "rel_err": 3.2365148810378576e-08,
+    "raw": "0.787029999742700"
+  },
+  "latency_s": {
+    "mean": 196.01622222222218,
+    "min": 139.417,
+    "max": 321.917
+  },
+  "tokens": {
+    "prompt": 2335,
+    "completion": 498526,
+    "reasoning": 498367,
+    "cache_hit": 0
+  },
+  "failures": [
+    {
+      "x": 0.2137337021,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.5958894121,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.7167032788,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 1.0747622569,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 1.5053254264,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 1.5351224846,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 1.5877625875,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 1.6606729619,
+      "error": "HTTPError: HTTP Error 429: Too Many Requests :: {\"error\":{\"message\":\"Provider returned error\",\"code\":429,\"metadata\":{\"raw\":\"poolside/laguna-xs-2.1:free is temporarily rate-limited upstream. Please retry shortly, or add your own key to accumulate your rate limits: https://openrouter.ai/settings/integrations\",\"provider_name\":\"Poolside\",\"is_byok\":fa",
+      "raw": null
+    },
+    {
+      "x": 1.6939073077,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 1.7932144531,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 1.9450889901,
+      "error": null,
+      "raw": null
+    }
+  ]
+}

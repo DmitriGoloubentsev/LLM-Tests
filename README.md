@@ -418,7 +418,7 @@ becomes visible in models that did the storing.
 model, same prompt, same ~18 tokens, loses **0.80**. That rules out the confound that the small
 `sqrt` gaps elsewhere just reflect models with nothing memorised.
 
-**(c) A model that actually derives shows a different ordering.** kimi-k2.6 across the same five
+**(c) A model that actually derives shows a different ordering — but only sometimes.** kimi-k2.6 across the same five
 functions: `sqrt` 15.00 · `sin` 14.14 · `exp` 13.68 · `cos` 13.52 · `log` 12.56 — order
 `sqrt > sin > exp > cos > log`, where `sin` is **second** rather than last. Its spread is **2.44
 digits** against the shortcutters' **5.0**. Deriving compresses the differences between functions

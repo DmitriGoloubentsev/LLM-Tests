@@ -1,0 +1,123 @@
+{
+  "meta": {
+    "test": "test1v2",
+    "func": "cos",
+    "model": "poolside/laguna-xs-2.1:free",
+    "base_url": "https://openrouter.ai/api/v1",
+    "api": "openai",
+    "temperature": 0.0,
+    "temperature_sent": true,
+    "reasoning_effort": null,
+    "concurrency": 2,
+    "recall_proof": true,
+    "seed": "test1v2",
+    "jitter": 0.0095,
+    "sigdigits_requested": 15,
+    "antitruncation_clause": true,
+    "grid": {
+      "lo": -1.0,
+      "hi": 1.0,
+      "step": 0.02,
+      "points": 20,
+      "sampled_from": 101
+    },
+    "wall_s": 2966.7,
+    "utc": "20260813_121603",
+    "system_prompt": "You are a numerical calculator. Answer with the numeric result only: a single decimal number, no words, no units, no formatting, no explanation.",
+    "user_prompt_example": "Compute cos(-0.9985798483), the cosine of -0.9985798483 RADIANS (not degrees). Give the value as a plain decimal number with at least 15 significant digits. Give every digit you are confident in \u2014 do not round or truncate the result to fewer digits than you computed. Output only the number."
+  },
+  "points": 20,
+  "answered": 11,
+  "unparsed_or_failed": 9,
+  "exact_float_matches": 0,
+  "max_abs_err": 1.7837790425412337e-05,
+  "mean_abs_err": 1.786540064178817e-06,
+  "rms_abs_err": 5.386465179559836e-06,
+  "max_rel_err": 2.7448462828486103e-05,
+  "mean_rel_err": 2.7488035666697497e-06,
+  "min_correct_digits": 4.561481971935163,
+  "mean_correct_digits": 7.375201529443289,
+  "median_correct_digits": 6.758776725545727,
+  "digit_histogram": {
+    "6": 4,
+    "5": 1,
+    "4": 1,
+    "10": 2,
+    "8": 1,
+    "7": 2
+  },
+  "worst_abs": {
+    "x": -0.863389757,
+    "expected": 0.6498648225539326,
+    "got": 0.649882660344358,
+    "abs_err": 1.7837790425412337e-05,
+    "rel_err": 2.7448462828486103e-05,
+    "raw": "0.649882660344358"
+  },
+  "worst_rel": {
+    "x": -0.863389757,
+    "expected": 0.6498648225539326,
+    "got": 0.649882660344358,
+    "abs_err": 1.7837790425412337e-05,
+    "rel_err": 2.7448462828486103e-05,
+    "raw": "0.649882660344358"
+  },
+  "latency_s": {
+    "mean": 234.47472727272725,
+    "min": 105.317,
+    "max": 323.176
+  },
+  "tokens": {
+    "prompt": 2556,
+    "completion": 503186,
+    "reasoning": 502987,
+    "cache_hit": 0
+  },
+  "failures": [
+    {
+      "x": -0.7863662979,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.662176483,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.4476202759,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.4042105879,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.2544673891,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.1918553666,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.3948244887,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.4393102754,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.9246204423,
+      "error": null,
+      "raw": null
+    }
+  ]
+}

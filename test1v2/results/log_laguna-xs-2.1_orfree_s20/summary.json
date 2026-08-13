@@ -1,0 +1,118 @@
+{
+  "meta": {
+    "test": "test1v2",
+    "func": "log",
+    "model": "poolside/laguna-xs-2.1:free",
+    "base_url": "https://openrouter.ai/api/v1",
+    "api": "openai",
+    "temperature": 0.0,
+    "temperature_sent": true,
+    "reasoning_effort": null,
+    "concurrency": 2,
+    "recall_proof": true,
+    "seed": "test1v2",
+    "jitter": 0.0095,
+    "sigdigits_requested": 15,
+    "antitruncation_clause": true,
+    "grid": {
+      "lo": -1.0,
+      "hi": 1.0,
+      "step": 0.02,
+      "points": 20,
+      "sampled_from": 101
+    },
+    "wall_s": 3495.8,
+    "utc": "20260813_130533",
+    "system_prompt": "You are a numerical calculator. Answer with the numeric result only: a single decimal number, no words, no units, no formatting, no explanation.",
+    "user_prompt_example": "Compute ln(0.136710243), the natural logarithm of 0.136710243. Give the value as a plain decimal number with at least 15 significant digits. Give every digit you are confident in \u2014 do not round or truncate the result to fewer digits than you computed. Output only the number."
+  },
+  "points": 20,
+  "answered": 12,
+  "unparsed_or_failed": 8,
+  "exact_float_matches": 0,
+  "max_abs_err": 1.8738654796512932e-05,
+  "mean_abs_err": 3.2249470286021173e-06,
+  "rms_abs_err": 6.741469453542175e-06,
+  "max_rel_err": 3.016505405582498e-05,
+  "mean_rel_err": 6.188130753090109e-06,
+  "min_correct_digits": 4.520495892090476,
+  "mean_correct_digits": 7.0491046003339894,
+  "median_correct_digits": 6.807215222677047,
+  "digit_histogram": {
+    "6": 3,
+    "8": 3,
+    "4": 3,
+    "7": 1,
+    "5": 1,
+    "12": 1
+  },
+  "worst_abs": {
+    "x": 0.5372970967,
+    "expected": -0.6212040847609365,
+    "got": -0.62118534610614,
+    "abs_err": 1.8738654796512932e-05,
+    "rel_err": 3.016505405582498e-05,
+    "raw": "-0.62118534610614"
+  },
+  "worst_rel": {
+    "x": 0.5372970967,
+    "expected": -0.6212040847609365,
+    "got": -0.62118534610614,
+    "abs_err": 1.8738654796512932e-05,
+    "rel_err": 3.016505405582498e-05,
+    "raw": "-0.62118534610614"
+  },
+  "latency_s": {
+    "mean": 283.0720833333333,
+    "min": 200.861,
+    "max": 378.594
+  },
+  "tokens": {
+    "prompt": 2335,
+    "completion": 475158,
+    "reasoning": 474991,
+    "cache_hit": 0
+  },
+  "failures": [
+    {
+      "x": 0.136710243,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.5958894121,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 1.0747622569,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 1.5053254264,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 1.6939073077,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 1.7674753916,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 1.7932144531,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 1.9450889901,
+      "error": "HTTPError: HTTP Error 429: Too Many Requests :: {\"error\":{\"message\":\"Provider returned error\",\"code\":429,\"metadata\":{\"raw\":\"poolside/laguna-xs-2.1:free is temporarily rate-limited upstream. Please retry shortly, or add your own key to accumulate your rate limits: https://openrouter.ai/settings/integrations\",\"provider_name\":\"Poolside\",\"is_byok\":fa",
+      "raw": null
+    }
+  ]
+}
