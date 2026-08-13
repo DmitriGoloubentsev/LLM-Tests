@@ -400,8 +400,21 @@ the round-vs-jittered gap — memorisation buys `exp` over two digits for a stro
 >
 > **B vs C** — same width, same answer rate, only memorability differs — is **+4.94 digits**, and is
 > the first properly controlled measurement of the recall effect here. **A vs B** isolates operand
-> width at **+1.82**. So the raw +6.76 is roughly **73% memorability, 27% arithmetic width**: the
-> recall interpretation survives, and the width confound is real but secondary.
+> width at **+1.82**.
+>
+> Replicated on two shortcutters over full 101-point grids, the split turns out to **track how much
+> the model computes**:
+>
+> | model | tok/pt | memorability (B−C) | width (A−B) |
+> |---|---|---|---|
+> | nemotron-3.5 (expands a series) | 15,646 | +4.94 (73%) | +1.82 (27%) |
+> | qwen3-coder (18-token answer) | 18 | +2.06 (**93%**) | +0.16 (7%) |
+> | devstral (null control) | 16 | +0.33 | −0.06 |
+>
+> A model doing one multiplication barely notices wider operands; a model expanding a Taylor series
+> notices a lot. **So for the ~18-token shortcutters that make up most of this study, the width
+> confound is under 10% and the uncontrolled recall gaps elsewhere in this README are substantially
+> right** — including gemma4's −5.83. For models that genuinely compute, subtract roughly a quarter.
 
 **Three independent lines of evidence, not one correlation:**
 
