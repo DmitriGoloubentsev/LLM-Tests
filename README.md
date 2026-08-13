@@ -384,6 +384,21 @@ as it costs `exp`. It doesn't — the recall advantage is an **`exp` phenomenon*
 prediction that the gap would scale inversely with approximability, which would have put `sin` and
 `log` on top.)
 
+**But the effect only appears in models that memorised something.** Run the same ablation on
+`devstral`, the weakest recaller measured, and the gaps are flat noise with no ordering at all:
+
+| model | exp | sqrt | cos | log | sin |
+|---|---|---|---|---|---|
+| gemma4 (heavy recall) | **+5.83** | +0.80 | — | — | — |
+| qwen3-coder (moderate) | **+2.21** | +0.70 | +0.09 | +0.19 | +0.07 |
+| devstral (almost none) | +0.28 | +0.10 | +0.11 | **+0.36** | +0.29 |
+
+For devstral `log` edges `exp`, and everything sits in a 0.10–0.36 band. So the honest statement is
+conditional: **the `exp` recall advantage scales with how much the model memorised** — +5.83 for
+gemma4, +2.21 for qwen3-coder, indistinguishable from noise for devstral. A model with nothing
+stored has no `exp` bonus to lose. Corpus frequency explains *which* function benefits; it only
+becomes visible in models that did the storing.
+
 **(b) The model with the most to lose loses it only on `exp`.** gemma4 is nearly a lookup table for
 `exp` — round arguments score **10.59**, jittered **4.76**, a −5.83 collapse. On `sqrt` the same
 model, same prompt, same ~18 tokens, loses **0.80**. That rules out the confound that the small
