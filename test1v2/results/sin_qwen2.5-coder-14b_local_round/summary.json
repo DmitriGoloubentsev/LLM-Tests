@@ -1,0 +1,81 @@
+{
+  "meta": {
+    "test": "test1v2",
+    "func": "sin",
+    "model": "qwen2.5-coder:14b",
+    "base_url": "http://127.0.0.1:11434/v1",
+    "api": "openai",
+    "temperature": 0.0,
+    "temperature_sent": true,
+    "reasoning_effort": null,
+    "concurrency": 2,
+    "recall_proof": true,
+    "seed": "test1v2",
+    "jitter": 0.0,
+    "sigdigits_requested": 15,
+    "antitruncation_clause": true,
+    "grid": {
+      "lo": -1.0,
+      "hi": 1.0,
+      "step": 0.02,
+      "points": 101,
+      "sampled_from": null
+    },
+    "wall_s": 490.0,
+    "utc": "20260813_021823",
+    "system_prompt": "You are a numerical calculator. Answer with the numeric result only: a single decimal number, no words, no units, no formatting, no explanation.",
+    "user_prompt_example": "Compute sin(-1.0), the sine of -1.0 RADIANS (not degrees). Give the value as a plain decimal number with at least 15 significant digits. Give every digit you are confident in \u2014 do not round or truncate the result to fewer digits than you computed. Output only the number."
+  },
+  "points": 101,
+  "answered": 101,
+  "unparsed_or_failed": 0,
+  "exact_float_matches": 8,
+  "max_abs_err": 0.03986540627698387,
+  "mean_abs_err": 0.003562195780614407,
+  "rms_abs_err": 0.006659895143710185,
+  "max_rel_err": 0.05668501763112681,
+  "mean_rel_err": 0.006627048511965999,
+  "min_correct_digits": 1.2465317139457148,
+  "mean_correct_digits": 4.491279626584928,
+  "median_correct_digits": 2.4770210969065167,
+  "digit_histogram": {
+    "15 (exact)": 9,
+    "2": 49,
+    "3": 5,
+    "1": 24,
+    "14": 5,
+    "11": 1,
+    "4": 4,
+    "8": 1,
+    "13": 1,
+    "9": 1
+  },
+  "worst_abs": {
+    "x": -0.78,
+    "expected": -0.7032794192004101,
+    "got": -0.743144825477394,
+    "abs_err": 0.03986540627698387,
+    "rel_err": 0.05668501763112681,
+    "raw": "-0.743144825477394"
+  },
+  "worst_rel": {
+    "x": -0.78,
+    "expected": -0.7032794192004101,
+    "got": -0.743144825477394,
+    "abs_err": 0.03986540627698387,
+    "rel_err": 0.05668501763112681,
+    "raw": "-0.743144825477394"
+  },
+  "latency_s": {
+    "mean": 9.656683168316832,
+    "min": 4.945,
+    "max": 10.921
+  },
+  "tokens": {
+    "prompt": 11068,
+    "completion": 1899,
+    "reasoning": 0,
+    "cache_hit": 0
+  },
+  "failures": []
+}
