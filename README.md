@@ -423,10 +423,12 @@ the round-vs-jittered gap — memorisation buys `exp` over two digits for a stro
 > | qwen2.5-coder | exp | 18 | +0.80 | **−0.60** |
 > | devstral | exp | 16 | +0.33 | −0.06 |
 >
-> For a model that **expands a series**, wide operands are an arithmetic cost (+1.82). For
-> **18-token shortcutters** they are not — nothing is being multiplied — and writing
-> `-0.8600000000` instead of `-0.86` appears to act as a **precision cue** that slightly *improves*
-> the answer. **So the uncontrolled recall gaps elsewhere in this README are substantially right for
+> Adding a fourth model (nemotron-nano-9b-v2, 6.7–8.4k tok/pt: memorability **+3.51**, width
+> **+0.46**) makes the width term look **monotone in token spend** — 15.6k → +1.82, ~7k → +0.46,
+> 18 tokens → +0.16 / −0.06 / −0.60. The readable account: width is an **arithmetic cost
+> proportional to how much the model multiplies**, minus a small constant **precision-cue** benefit
+> from seeing ten decimals. High-token models pay the cost; at 18 tokens there is no cost left and
+> only the cue shows, so the term goes slightly negative. **So the uncontrolled recall gaps elsewhere in this README are substantially right for
 > the shortcutters that make up most of the study** — including gemma4's −5.83 — while models that
 > genuinely compute carry a real width component worth roughly a quarter of their gap.
 >
