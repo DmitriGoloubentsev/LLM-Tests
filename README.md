@@ -411,10 +411,27 @@ the round-vs-jittered gap — memorisation buys `exp` over two digits for a stro
 > | qwen3-coder (18-token answer) | 18 | +2.06 (**93%**) | +0.16 (7%) |
 > | devstral (null control) | 16 | +0.33 | −0.06 |
 >
-> A model doing one multiplication barely notices wider operands; a model expanding a Taylor series
-> notices a lot. **So for the ~18-token shortcutters that make up most of this study, the width
-> confound is under 10% and the uncontrolled recall gaps elsewhere in this README are substantially
-> right** — including gemma4's −5.83. For models that genuinely compute, subtract roughly a quarter.
+> Extending it to two more cells shows the width term is **not one effect but two opposing ones**,
+> and its sign flips between populations (all six runs 101/101 answered at 18 tok/pt; measured
+> seed-noise on this harness is ±0.05):
+>
+> | model | fn | tok/pt | memorability (B−C) | width (A−B) |
+> |---|---|---|---|---|
+> | nemotron-3.5 | exp | 15,646 | +4.94 | **+1.82** |
+> | qwen3-coder | exp | 18 | +2.06 | +0.16 |
+> | qwen3-coder | cos | 18 | +0.27 | **−0.18** |
+> | qwen2.5-coder | exp | 18 | +0.80 | **−0.60** |
+> | devstral | exp | 16 | +0.33 | −0.06 |
+>
+> For a model that **expands a series**, wide operands are an arithmetic cost (+1.82). For
+> **18-token shortcutters** they are not — nothing is being multiplied — and writing
+> `-0.8600000000` instead of `-0.86` appears to act as a **precision cue** that slightly *improves*
+> the answer. **So the uncontrolled recall gaps elsewhere in this README are substantially right for
+> the shortcutters that make up most of the study** — including gemma4's −5.83 — while models that
+> genuinely compute carry a real width component worth roughly a quarter of their gap.
+>
+> *Evidence: two shortcutters (one clear at −0.60, one marginal at −0.18) against one reasoning
+> model. Directional, not settled.*
 
 **Three independent lines of evidence, not one correlation:**
 
