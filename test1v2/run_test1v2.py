@@ -63,6 +63,15 @@ def recall_proof_grid(lo, hi, step, jitter, seed):
     return xs
 
 
+def coarsen(xs, decimals):
+    """Round each argument to `decimals` places, keeping the grid otherwise identical.
+
+    Gives a dose-response series between the round grid (2 dp) and the recall-proof one
+    (10 dp): how many decimals does an argument need before the model stops recognising it?
+    """
+    return [round(x, decimals) for x in xs] if decimals else xs
+
+
 def post(url, headers, payload, timeout):
     req = urllib.request.Request(
         url, data=json.dumps(payload).encode(), headers=headers, method="POST")
@@ -420,6 +429,9 @@ def main():
     p.add_argument("--hi", type=float, default=1.0)
     p.add_argument("--step", type=float, default=0.02)
     p.add_argument("--jitter", type=float, default=0.0095, help="max |offset| applied to each point")
+    p.add_argument("--arg-decimals", type=int, default=0,
+                   help="round each argument to N decimals (0 = leave at full jitter precision). "
+                        "Sweeping N gives a dose-response between round and recall-proof grids.")
     p.add_argument("--pad-decimals", type=int, default=0,
                    help="write the argument with exactly N decimals (value unchanged). With "
                         "--jitter 0 this gives a round value at full width, separating "
@@ -468,7 +480,8 @@ def main():
     if not key:
         sys.exit(f"no API key: set ${args.api_key_env} or pass --api-key")
 
-    base = recall_proof_grid(args.lo, args.hi, args.step, args.jitter, args.seed)
+    base = coarsen(recall_proof_grid(args.lo, args.hi, args.step, args.jitter, args.seed),
+                   args.arg_decimals)
     xs = [round(FUNCS[args.func][2](t), 10) for t in base]
     if args.sample and args.sample < len(xs):
         # deterministic subset: rank points by a seeded hash, take the first N,
@@ -506,6 +519,7 @@ def main():
             "reasoning_effort": args.reasoning_effort,
             "concurrency": args.concurrency, "recall_proof": True, "seed": args.seed,
             "jitter": args.jitter, "pad_decimals": args.pad_decimals,
+            "arg_decimals": args.arg_decimals,
             "sigdigits_requested": args.sigdigits,
             "antitruncation_clause": not args.no_antitrunc,
             "grid": {"lo": args.lo, "hi": args.hi, "step": args.step, "points": len(xs),

@@ -455,11 +455,23 @@ three-condition decomposition **refutes it**. Running the same split on `cos` gi
 **+2.42** and width **−0.12**: ~100% memorability, exactly like `exp` (+4.94 / +1.82), even though
 `cos(0.58) = 0.83646…` is not a famous constant by any measure.
 
-So the effect is not "the model memorised this answer." A better fit is **familiarity of the
-argument rather than the answer**: `0.58` appears constantly as an *input* in tables and worked
-examples, so a model that has seen many `cos(short decimal)` problems can pattern-match the shape
-of the task without having stored that particular output. `exp` still leads (+4.94 vs +2.42), but
-by degree, not by kind. (The ablation also refuted the
+So the effect is not "the model memorised this answer." I first proposed **familiarity of the
+argument shape** — `0.58` appears constantly as an *input*, so a model could pattern-match the task
+without storing that output — but a **dose-response sweep refutes that too**. Rounding the argument
+to N decimals (`--arg-decimals`) on nemotron-nano-9b-v2:
+
+| decimals | 2 | 3 | 4 | 6 | 10 |
+|---|---|---|---|---|---|
+| median digits | **10.61** | 8.67 | 6.95 | 6.83 | **6.65** |
+
+**92% of the loss lands in the first two extra decimals**: 2→4 costs 3.66 digits, 4→10 costs 0.30
+across six more. That is a **recognition threshold at ~3 decimal places**, not a gradient. A
+4-decimal argument like `-0.9986` looks perfectly ordinary, yet the model treats it exactly like a
+random 10-decimal string — which is what a lookup-like mechanism predicts and a shape-familiarity
+one does not. `exp` still leads `cos` (+4.94 vs +2.42), by degree rather than kind.
+
+*Practical consequence: the recall-proof grid has more headroom than it needs. Four decimals of
+jitter buys everything ten does.* (The ablation also refuted the
 prediction that the gap would scale inversely with approximability, which would have put `sin` and
 `log` on top.)
 
