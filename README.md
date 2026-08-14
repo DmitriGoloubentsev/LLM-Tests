@@ -449,8 +449,17 @@ as it costs `exp`. It doesn't — the recall advantage is an **`exp` phenomenon*
 | cos | 3.32 | 3.23 | +0.09 |
 | sin | 2.84 | 2.77 | +0.07 |
 
-`exp`'s gap is 3× the next largest and ~30× the smallest. That fits **corpus frequency** — `e`,
-`e^0.5`, `e²` are famous numbers; `sin(0.5)` as a decimal expansion is not. (This refuted the
+`exp`'s gap is 3× the next largest and ~30× the smallest. The obvious reading was **corpus
+frequency** — `e`, `e^0.5`, `e²` are famous numbers, `sin(0.5)` as a decimal is not — but the
+three-condition decomposition **refutes it**. Running the same split on `cos` gives memorability
+**+2.42** and width **−0.12**: ~100% memorability, exactly like `exp` (+4.94 / +1.82), even though
+`cos(0.58) = 0.83646…` is not a famous constant by any measure.
+
+So the effect is not "the model memorised this answer." A better fit is **familiarity of the
+argument rather than the answer**: `0.58` appears constantly as an *input* in tables and worked
+examples, so a model that has seen many `cos(short decimal)` problems can pattern-match the shape
+of the task without having stored that particular output. `exp` still leads (+4.94 vs +2.42), but
+by degree, not by kind. (The ablation also refuted the
 prediction that the gap would scale inversely with approximability, which would have put `sin` and
 `log` on top.)
 
