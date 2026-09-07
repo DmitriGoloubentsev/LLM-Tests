@@ -1,0 +1,85 @@
+{
+  "meta": {
+    "test": "test1v2",
+    "func": "exp",
+    "model": "deepseek-v4-flash",
+    "base_url": "http://192.168.1.251:8091/v1",
+    "api": "openai",
+    "temperature": 0.0,
+    "temperature_sent": true,
+    "reasoning_effort": null,
+    "concurrency": 3,
+    "recall_proof": true,
+    "seed": "test1v2",
+    "jitter": 0.0095,
+    "pad_decimals": 0,
+    "arg_decimals": 0,
+    "sigdigits_requested": 15,
+    "antitruncation_clause": true,
+    "grid": {
+      "lo": -1.0,
+      "hi": 1.0,
+      "step": 0.02,
+      "points": 3,
+      "sampled_from": 101
+    },
+    "wall_s": 408.4,
+    "utc": "20260907_092113",
+    "system_prompt": "You are a numerical calculator. Answer with the numeric result only: a single decimal number, no words, no units, no formatting, no explanation.",
+    "user_prompt_example": "Compute exp(-0.7863662979), the exponential function e raised to the power -0.7863662979. Give the value as a plain decimal number with at least 15 significant digits. Give every digit you are confident in \u2014 do not round or truncate the result to fewer digits than you computed. Output only the number."
+  },
+  "points": 3,
+  "answered": 1,
+  "unparsed_or_failed": 2,
+  "exact_float_matches": 0,
+  "max_abs_err": 6.661324825074644e-09,
+  "mean_abs_err": 6.661324825074644e-09,
+  "rms_abs_err": 6.661324825074644e-09,
+  "max_rel_err": 3.013806610330807e-09,
+  "mean_rel_err": 3.013806610330807e-09,
+  "min_correct_digits": 8.520884618896238,
+  "mean_correct_digits": 8.520884618896238,
+  "median_correct_digits": 8.520884618896238,
+  "digit_histogram": {
+    "8": 1
+  },
+  "worst_abs": {
+    "x": 0.7931144531,
+    "expected": 2.2102694984611078,
+    "got": 2.210269491799783,
+    "abs_err": 6.661324825074644e-09,
+    "rel_err": 3.013806610330807e-09,
+    "raw": "2.210269491799783"
+  },
+  "worst_rel": {
+    "x": 0.7931144531,
+    "expected": 2.2102694984611078,
+    "got": 2.210269491799783,
+    "abs_err": 6.661324825074644e-09,
+    "rel_err": 3.013806610330807e-09,
+    "raw": "2.210269491799783"
+  },
+  "latency_s": {
+    "mean": 153.306,
+    "min": 153.306,
+    "max": 153.306
+  },
+  "tokens": {
+    "prompt": 310,
+    "completion": 76635,
+    "reasoning": 0,
+    "cache_hit": 0
+  },
+  "failures": [
+    {
+      "x": -0.7863662979,
+      "error": null,
+      "raw": ""
+    },
+    {
+      "x": -0.662176483,
+      "error": null,
+      "raw": ""
+    }
+  ]
+}

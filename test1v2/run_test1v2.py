@@ -264,6 +264,20 @@ def ask(args, key, x):
             payload["max_tokens"] = args.max_tokens
         if args.reasoning_effort:
             payload["reasoning_effort"] = args.reasoning_effort
+        # A reasoning model at temperature 1.0 with vLLM's default top_p=1.0 samples the
+        # full distribution, which is poor for a task whose score is exact digits. Qwen3.8's
+        # card pairs its temperature with top_p 0.95 / top_k 20; these narrow sampling
+        # without returning to greedy, which was measured to hang this model outright.
+        if args.top_p is not None:
+            payload["top_p"] = args.top_p
+        if args.top_k is not None:
+            payload["top_k"] = args.top_k
+        # Some models expose thinking depth only through the chat template, not through the
+        # OpenAI reasoning_effort field -- Qwen3.8's template reads reasoning_effort and
+        # enable_thinking as template variables and raises on unknown values. Passing them
+        # here keeps every config comparable under the same grading path.
+        if args.chat_template_kwargs:
+            payload["chat_template_kwargs"] = json.loads(args.chat_template_kwargs)
         url = args.base_url.rstrip("/") + "/chat/completions"
         headers = {"Content-Type": "application/json", "Authorization": f"Bearer {key}"}
 
@@ -447,6 +461,16 @@ def main():
     p.add_argument("--temperature", type=float, default=0.0)
     p.add_argument("--max-tokens", type=int, default=0)
     p.add_argument("--reasoning-effort", default=None)
+    p.add_argument("--top-p", type=float, default=None,
+                   help="nucleus sampling; omitted from the request when unset")
+    p.add_argument("--top-k", type=int, default=None,
+                   help="top-k sampling; omitted from the request when unset")
+    p.add_argument("--chat-template-kwargs", default=None,
+                   metavar="JSON",
+                   help='JSON dict passed through as chat_template_kwargs, for models '
+                        'whose thinking depth is a template variable rather than the '
+                        'OpenAI reasoning_effort field, e.g. '
+                        '\'{"reasoning_effort":"low"}\' or \'{"enable_thinking":false}\'')
     p.add_argument("--concurrency", type=int, default=8)
     p.add_argument("--timeout", type=float, default=900)
     p.add_argument("--retries", type=int, default=2)
@@ -500,13 +524,50 @@ def main():
     t0 = time.time()
     rows = [None] * len(xs)
     done = 0
-    with cf.ThreadPoolExecutor(max_workers=args.concurrency) as ex:
-        futs = {ex.submit(ask, args, key, x): i for i, x in enumerate(xs)}
-        for f in cf.as_completed(futs):
-            rows[futs[f]] = f.result()
-            done += 1
-            if done % 10 == 0 or done == len(xs):
-                print(f"  {done}/{len(xs)} done ({time.time()-t0:.0f}s)", flush=True)
+    # Stream each point to disk AS IT COMPLETES, in addition to the final raw.jsonl.
+    # Without this a run is a black box until it ends: two runaway configs burned ~40 min
+    # each before anyone could see they were producing no answers, and a 100-point run
+    # cannot be inspected or plotted mid-flight. progress.jsonl is append-only and flushed
+    # per line, so it is readable by another process while the run is still going.
+    prog_path = os.path.join(outdir, "progress.jsonl")
+    prog = open(prog_path, "w", buffering=1)
+    ref = FUNCS[args.func][0]
+
+    def _digits(r):
+        """Correct digits for one row, or None. Same definition the summary uses."""
+        e, g = r.get("expected"), r.get("got")
+        if e is None or g is None:
+            return None
+        if g == e:
+            return 16.0
+        try:
+            return min(16.0, -math.log10(abs(g - e) / abs(e)))
+        except (ValueError, ZeroDivisionError):
+            return None
+
+    try:
+        with cf.ThreadPoolExecutor(max_workers=args.concurrency) as ex:
+            futs = {ex.submit(ask, args, key, x): i for i, x in enumerate(xs)}
+            for f in cf.as_completed(futs):
+                r = f.result()
+                rows[futs[f]] = r
+                done += 1
+                d = _digits(r)
+                prog.write(json.dumps({
+                    "i": futs[f], "done": done, "n": len(xs),
+                    "elapsed_s": round(time.time() - t0, 1),
+                    "x": r.get("x"), "digits": d,
+                    "completion_tokens": r.get("completion_tokens"),
+                    "latency_s": r.get("latency_s"),
+                    "error": r.get("error"),
+                }) + "\n")
+                if done % 10 == 0 or done == len(xs):
+                    ansd = [x for x in (_digits(z) for z in rows if z) if x is not None]
+                    med = f"{sorted(ansd)[len(ansd)//2]:.2f}" if ansd else "-"
+                    print(f"  {done}/{len(xs)} done ({time.time()-t0:.0f}s) "
+                          f"answered={len(ansd)} median_digits={med}", flush=True)
+    finally:
+        prog.close()
     wall = time.time() - t0
 
     meta = {"test": "test1v2", "func": args.func, "model": args.model, "base_url": args.base_url,
@@ -517,6 +578,12 @@ def main():
             "temperature": None if args.no_temperature else args.temperature,
             "temperature_sent": not args.no_temperature,
             "reasoning_effort": args.reasoning_effort,
+            "top_p": args.top_p,
+            "top_k": args.top_k,
+            # thinking depth is a template variable on some models (Qwen3.8), so a run is
+            # only reproducible from its metadata if this is recorded alongside the field
+            "chat_template_kwargs": (json.loads(args.chat_template_kwargs)
+                                     if args.chat_template_kwargs else None),
             "concurrency": args.concurrency, "recall_proof": True, "seed": args.seed,
             "jitter": args.jitter, "pad_decimals": args.pad_decimals,
             "arg_decimals": args.arg_decimals,

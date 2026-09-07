@@ -110,6 +110,7 @@ it says whether the model **derived** the answer or **recalled** it.
 | anthropic/claude-opus-5 | exp | 10/10 | **15.00** | 13.38 | 16,688 | $4.17 |
 | deepseek-v4-flash | exp | 54/101 | **15.00** | 13.17 | 51,695 | $1.46 |
 | **deepseek-v4-flash `effort=low`** | exp | **98/101** | **15.00** | 5.04 | 26,520 | **$0.75** |
+| **DeepSeek-V4-Flash-0731 — self-hosted, 2× RTX PRO 6000** | exp | **100/101** | **15.00** | 9.40 | **24,344** | local |
 | Claude Opus 5 (CLI) `effort=max` | exp | 20/20 | **15.00** | 5.56 | 15,690 | sub |
 | z-ai/glm-5.2 | exp | 18/101 | **15.00** | 8.37 | 30,181 | free |
 | Claude Fable 5 (CLI) | exp | 62/101 | **14.68** | 10.49 | 5,503 | sub |
@@ -206,6 +207,82 @@ model is scored on identical arguments.
 > Their **medians are stable** — Gemini scored 9.55 and 9.24 on two runs of the same 20 arguments —
 > but their **tails are not**: the same two runs put its worst point at **−13.51** and **6.14**.
 > Treat single-run tail figures for those models as one draw, not a property.
+
+---
+
+## Self-hosted: matching the frontier on two workstation GPUs
+
+The one local run in the Derivers table was reproduced end to end on owned hardware, and it
+**beats the hosted API of the same model on the same 101 arguments**:
+
+| | answered | median | worst | exact float | tok/pt | wall |
+|---|---|---|---|---|---|---|
+| `api.deepseek.com` `effort=low` | 98/101 | 15.00 | 5.04 | — | 26,520 | — |
+| **self-hosted, 2× RTX PRO 6000** | **100/101** | **15.00** | **9.40** | **25/101** | **24,344** | 72 min |
+
+Recomputed from `raw.jsonl` rather than the capped summary field: **median 15.51, mean 14.60,
+58/100 points at full double precision**, max relative error 4.0e-10.
+
+### Hardware
+
+2× NVIDIA RTX PRO 6000 Blackwell Max-Q (97,887 MiB each), PCIe gen5 x8 per card, 123 GB host RAM.
+
+> **P2P must actually work.** The two cards ship with IOMMU enabled by default on this platform,
+> and **`nvidia-smi topo -p2p r` reports `OK` while every peer transfer silently returns zeros** —
+> NCCL then hangs on the first collective of a tensor-parallel run, with no error. `amd_iommu=off`
+> on the kernel cmdline fixes it (27.2 GB/s verified, bit-exact). If a TP job hangs at startup,
+> check this before anything else.
+
+### Serving
+
+SGLang 0.5.18, tensor-parallel across both cards — the checkpoint is ~155 GiB and one card holds 95.
+
+```bash
+python -m sglang.launch_server \
+  --model-path DeepSeek-V4-Flash-0731 --tp-size 2 \
+  --context-length 262144 --mem-fraction-static 0.90 \
+  --max-running-requests 16 --max-prefill-tokens 32768 \
+  --trust-remote-code \
+  --reasoning-parser deepseek-v4 \
+  --default-chat-template-kwargs '{"thinking":true}'
+```
+
+Two flags are load-bearing and easy to miss. **DeepSeek-V4 ships no HF chat template**, so SGLang
+falls back to its built-in `dsv4` encoder — whose `thinking_mode` defaults to **off**. Without
+`--default-chat-template-kwargs '{"thinking":true}'` the model answers in ~8 tokens at 4.2 digits
+and looks like a shortcutter. Without `--reasoning-parser deepseek-v4` the reasoning text lands in
+`content` and nothing parses at all.
+
+Throughput, 8K-in/512-out, unique prompts (no prefix-cache reuse): **102 tok/s single-stream,
+387 tok/s aggregate at 16 clients, 7,498 tok/s prefill.** KV pool 1,308,672 tokens (`fp8_e4m3`).
+
+### The two settings that decide the whole result
+
+```bash
+--reasoning-effort low --no-temperature --max-tokens 48000 --concurrency 16
+```
+
+This exact model, weights and hardware scored **0/3 before these two changes and 100/101 after**:
+
+- **`temperature` must be omitted.** At `0.0` the model does not merely score worse — it **never
+  terminates**, running past 58,000 tokens and still climbing with no answer emitted. `0.6` fails
+  the same way, so this is a threshold, not a gradient. Every run in `results/` recorded with
+  `temperature_sent: true` answered nothing.
+- **`reasoning_effort=low` is not the same as omitting the field.** Omitting it selects the
+  encoder's own default, which is a different and worse setting. `low` is what the hosted runs win
+  with; `high` and `max` both spent their entire budget reasoning and returned nothing.
+- **`max_tokens` is a runaway guard, not a budget.** Every cap chosen below ~48k truncated a
+  legitimate derivation and produced a fake `0/N`. **A `0/N` where tok/pt equals the cap is a
+  config artifact, not a model result** — check that before concluding anything.
+
+### What it confirms
+
+**Tokens do not buy digits: pearson r = +0.04 across 100 points.** The cheapest point (6,264
+tokens) and the most expensive (48,000) land in the same digit range, and the worst point is not a
+cheap one. Reading the traces shows why — on expensive points the model runs a full Taylor series
+*and then* argument reduction against a recalled constant, cross-checking the two and paying twice
+for one answer. Cheap points commit to reduction immediately. The 3× token gap to GPT-5.5 at equal
+accuracy is duplicated work, not deeper work.
 
 ---
 
