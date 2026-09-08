@@ -47,6 +47,21 @@ SYSTEM = ("You are a numerical calculator. Answer with the numeric result only: 
 NUM_RE = re.compile(r'[-+]?(?:\d+\.\d*|\.\d+|\d+)(?:[eE][-+]?\d+)?')
 
 
+def effective_system(args):
+    """The system prompt actually sent. Default unless overridden.
+
+    Prompt changes are a legitimate experiment -- reasoning_effort is itself only prompt text,
+    and one sentence has moved a model from 0/101 to 15.00 here -- but they change what is being
+    measured. A run with a non-default system prompt is NOT comparable to the standard tables and
+    must be reported separately. The value used is recorded in summary.json meta for that reason.
+    """
+    if getattr(args, "system", None):
+        return args.system
+    if getattr(args, "system_append", None):
+        return SYSTEM + " " + args.system_append
+    return SYSTEM
+
+
 def recall_proof_grid(lo, hi, step, jitter, seed):
     """v1's grid, each point nudged by a deterministic ~10-decimal offset."""
     n = int(round((hi - lo) / step))
@@ -127,7 +142,7 @@ def build_anthropic_payload(args, x):
     """
     payload = {"model": args.model,
                "max_tokens": args.max_tokens or 16000,
-               "system": SYSTEM,
+               "system": effective_system(args),
                "messages": [{"role": "user", "content": build_user(args, x)}]}
     eff = (args.reasoning_effort or "").lower()
     if eff in ("none", "off", "disabled"):
@@ -256,7 +271,7 @@ def ask(args, key, x):
                    "anthropic-version": "2023-06-01"}
     else:
         payload = {"model": args.model,
-                   "messages": [{"role": "system", "content": SYSTEM},
+                   "messages": [{"role": "system", "content": effective_system(args)},
                                 {"role": "user", "content": build_user(args, x)}]}
         if not args.no_temperature:
             payload["temperature"] = args.temperature
@@ -461,6 +476,12 @@ def main():
     p.add_argument("--temperature", type=float, default=0.0)
     p.add_argument("--max-tokens", type=int, default=0)
     p.add_argument("--reasoning-effort", default=None)
+    p.add_argument("--system", default=None, metavar="TEXT",
+                   help="REPLACE the default system prompt. Changes the test, so runs using it "
+                        "are not comparable to the standard tables -- report them separately.")
+    p.add_argument("--system-append", default=None, metavar="TEXT",
+                   help="Append a sentence to the default system prompt, keeping the "
+                        "calculator framing. Same comparability caveat.")
     p.add_argument("--top-p", type=float, default=None,
                    help="nucleus sampling; omitted from the request when unset")
     p.add_argument("--top-k", type=int, default=None,
@@ -578,6 +599,8 @@ def main():
             "temperature": None if args.no_temperature else args.temperature,
             "temperature_sent": not args.no_temperature,
             "reasoning_effort": args.reasoning_effort,
+            "system_prompt": effective_system(args),
+            "system_prompt_is_default": effective_system(args) == SYSTEM,
             "top_p": args.top_p,
             "top_k": args.top_k,
             # thinking depth is a template variable on some models (Qwen3.8), so a run is

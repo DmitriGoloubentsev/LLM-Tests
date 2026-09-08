@@ -1,0 +1,93 @@
+{
+  "meta": {
+    "test": "test1v2",
+    "func": "exp",
+    "model": "deepseek-v4-flash",
+    "base_url": "http://192.168.1.251:8091/v1",
+    "api": "openai",
+    "temperature": null,
+    "temperature_sent": false,
+    "reasoning_effort": "high",
+    "top_p": null,
+    "top_k": null,
+    "chat_template_kwargs": null,
+    "concurrency": 10,
+    "recall_proof": true,
+    "seed": "test1v2",
+    "jitter": 0.0095,
+    "pad_decimals": 0,
+    "arg_decimals": 0,
+    "sigdigits_requested": 15,
+    "antitruncation_clause": true,
+    "grid": {
+      "lo": -1.0,
+      "hi": 1.0,
+      "step": 0.02,
+      "points": 10,
+      "sampled_from": 101
+    },
+    "wall_s": 2709.7,
+    "utc": "20260907_201008",
+    "system_prompt": "You are a numerical calculator. Answer with the numeric result only: a single decimal number, no words, no units, no formatting, no explanation.",
+    "user_prompt_example": "Compute exp(-0.9985798483), the exponential function e raised to the power -0.9985798483. Give the value as a plain decimal number with at least 15 significant digits. Give every digit you are confident in \u2014 do not round or truncate the result to fewer digits than you computed. Output only the number."
+  },
+  "points": 10,
+  "answered": 7,
+  "unparsed_or_failed": 3,
+  "exact_float_matches": 2,
+  "max_abs_err": 4.440892098500626e-16,
+  "mean_abs_err": 1.1102230246251565e-16,
+  "rms_abs_err": 1.8048747697572843e-16,
+  "max_rel_err": 2.393549995656235e-16,
+  "mean_rel_err": 1.2643444415522402e-16,
+  "min_correct_digits": 15.0,
+  "mean_correct_digits": 15.0,
+  "median_correct_digits": 15.0,
+  "digit_histogram": {
+    "15 (exact)": 7
+  },
+  "worst_abs": {
+    "x": 0.7931144531,
+    "expected": 2.2102694984611078,
+    "got": 2.210269498461108,
+    "abs_err": 4.440892098500626e-16,
+    "rel_err": 2.0092084253040552e-16,
+    "raw": "2.2102694984611083"
+  },
+  "worst_rel": {
+    "x": -0.7682166995,
+    "expected": 0.4638394964132633,
+    "got": 0.4638394964132634,
+    "abs_err": 1.1102230246251565e-16,
+    "rel_err": 2.393549995656235e-16,
+    "raw": "0.4638394964132634"
+  },
+  "latency_s": {
+    "mean": 621.2725714285715,
+    "min": 259.902,
+    "max": 845.725
+  },
+  "tokens": {
+    "prompt": 1277,
+    "completion": 255791,
+    "reasoning": 0,
+    "cache_hit": 0
+  },
+  "failures": [
+    {
+      "x": -0.7863662979,
+      "error": "TimeoutError: timed out",
+      "raw": null
+    },
+    {
+      "x": -0.2136228964,
+      "error": "TimeoutError: timed out",
+      "raw": null
+    },
+    {
+      "x": 0.1918553666,
+      "error": "TimeoutError: timed out",
+      "raw": null
+    }
+  ]
+}

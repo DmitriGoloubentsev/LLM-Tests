@@ -110,7 +110,7 @@ it says whether the model **derived** the answer or **recalled** it.
 | anthropic/claude-opus-5 | exp | 10/10 | **15.00** | 13.38 | 16,688 | $4.17 |
 | deepseek-v4-flash | exp | 54/101 | **15.00** | 13.17 | 51,695 | $1.46 |
 | **deepseek-v4-flash `effort=low`** | exp | **98/101** | **15.00** | 5.04 | 26,520 | **$0.75** |
-| **DeepSeek-V4-Flash-0731 — self-hosted, 2× RTX PRO 6000** | exp | **100/101** | **15.00** | 9.40 | **24,344** | local |
+| **DeepSeek-V4-Flash-0731 — self-hosted, 2× RTX PRO 6000** | exp | **100/101** | **15.00** | 9.40 | **23,790** | local |
 | Claude Opus 5 (CLI) `effort=max` | exp | 20/20 | **15.00** | 5.56 | 15,690 | sub |
 | z-ai/glm-5.2 | exp | 18/101 | **15.00** | 8.37 | 30,181 | free |
 | Claude Fable 5 (CLI) | exp | 62/101 | **14.68** | 10.49 | 5,503 | sub |
@@ -123,6 +123,7 @@ it says whether the model **derived** the answer or **recalled** it.
 
 | model | fn | answered | median | worst | tok/pt |
 |---|---|---|---|---|---|
+| **Qwen3.8-Flash-Next AWQ — self-hosted** | exp | 44/101 | 13.43 | 0.91 | 44,106 |
 | anthropic/claude-sonnet-5 | exp | 10/10 | 12.10 | 9.30 | 22,630 |
 | **openai/o3** | exp | 1/3 | 11.88 | 11.88 | 31,987 |
 | **meta/muse-glimmer-30b** | exp | 3/3 | 11.46 | 9.82 | 27,817 |
@@ -132,6 +133,7 @@ it says whether the model **derived** the answer or **recalled** it.
 | **openai/o4-mini** | exp | 3/3 | 10.96 | 9.82 | 15,557 |
 | **thinkingmachines/inkling-small** | exp | 3/3 | 10.01 | 6.18 | 25,808 |
 | gpt-oss:120b | exp | 98/101 | 9.55 | 3.18 | 9,105 |
+| **gpt-oss-120b — self-hosted, 1× RTX PRO 6000** | exp | 99/101 | 9.64 | 3.20 | 8,663 |
 | **google/gemini-3.5-flash** | exp | 20/20 | 9.24 | 6.14 | 22,401 |
 | poolside/laguna-xs-2.1 | exp | 61/101 | 7.60 | 3.08 | 25,599 |
 | gpt-oss:20b | exp | 93/101 | 6.37 | 2.44 | 26,420 |
@@ -218,10 +220,97 @@ The one local run in the Derivers table was reproduced end to end on owned hardw
 | | answered | median | worst | exact float | tok/pt | wall |
 |---|---|---|---|---|---|---|
 | `api.deepseek.com` `effort=low` | 98/101 | 15.00 | 5.04 | — | 26,520 | — |
-| **self-hosted, 2× RTX PRO 6000** | **100/101** | **15.00** | **9.40** | **25/101** | **24,344** | 72 min |
+| **self-hosted, 2× RTX PRO 6000** | **100/101** | **15.00** | **9.40** | **25/101** | **23,790** | 72 min |
 
 Recomputed from `raw.jsonl` rather than the capped summary field: **median 15.51, mean 14.60,
 58/100 points at full double precision**, max relative error 4.0e-10.
+
+### Three models on the same two cards
+
+Every row below is a full 101-point run on the same hardware, same grid, same seed, temperature
+omitted — so they differ only by model and quantisation.
+
+| model | quant / engine | answered | median | mean | ≥15 dig | tok/pt | wall |
+|---|---|---|---|---|---|---|---|
+| **DeepSeek-V4-Flash-0731** | fp8+mxfp4, SGLang TP=2 | **100/101** | **15.51** | 14.60 | 58/100 | 23,790 | 72 min |
+| Qwen3.8-Flash-Next | AWQ W4A16 + INT4 PLE, vLLM TP=1 | 44/101 | 13.43 | 13.09 | 12/44 | 44,106 | 104 min |
+| gpt-oss-120b | MXFP4, SGLang TP=1 | 99/101 | 9.64 | 9.80 | 5/99 | **8,663** | **20 min** |
+
+**gpt-oss-120b replicates its hosted result almost exactly.** Ollama Cloud: 98/101 at 9.55 median,
+9,105 tok/pt. Self-hosted MXFP4 on one card: 99/101 at 9.64, 8,663. Two different hosts, two
+different stacks, **0.09 digits apart** — well inside the noise floor measured below. That is the
+strongest evidence in this repo that the benchmark measures the *model* rather than the serving
+setup.
+
+**Qwen3.8-Flash-Next answered only 44 of 101.** The 57 failures were **not** token-cap
+truncations — it reasons for 32k–64k tokens and then emits no number at all, the empty-answer mode
+of [QwenLM/Qwen3.8#216](https://github.com/QwenLM/Qwen3.8/issues/216), here at **56%** against the
+~17% reported there. Its worst point scored **0.91 digits** — a confidently wrong answer, which
+DeepSeek never produced (worst 9.40). Read its 13.43 median next to that 44/101: the median
+describes the survivors.
+
+![DeepSeek-V4-Flash vs Qwen3.8-Flash-Next](test1v2/results/qwen38fn_awq_low_full101/plots/ds4_vs_qwen.png)
+
+![DeepSeek-V4-Flash vs gpt-oss-120b](test1v2/results/gptoss120b_full101/plots/ds4_vs_gptoss.png)
+
+### Reasoning-effort is not a quality dial
+
+The same DeepSeek checkpoint at `effort=high`, same 101 points:
+
+| | answered | median | tok/pt |
+|---|---|---|---|
+| `effort=low` | **100/101** | 15.51 | **23,790** |
+| `effort=high` | 82/101 | 16.00 | 58,397 |
+
+**2.5× the tokens, 18 fewer answers, and +0.59 digits paired — inside the noise floor.** All 19
+failures were cap truncations. It is a *variance amplifier*, not an improvement: of 81 paired
+points, 27 fall outside the noise band **in both directions** — it rescues some points and breaks
+others.
+
+It also relocates the failures. At `low`, the band `x < −0.8` is the **cheapest** region of the
+grid (20,072 tok/pt at 15.53 digits). At `high`, 5 of the first 11 points in that same band ran to
+the cap unanswered while 0 of 29 elsewhere did. More effort did not buy more depth — it selected a
+worse method.
+
+### The noise floor — read this before trusting any single-point number
+
+Two 101-point runs differing only by a system prompt with **no measurable effect** (−0.01 digits)
+form an effective same-setting repeat at n=98:
+
+| | |
+|---|---|
+| mean \|Δ\| | **1.87 digits** |
+| p90 | **5.10 digits** |
+| within 0.5 digits | 36% of points |
+| **differ by >3 digits** | **26% of points** |
+| signed median | +0.00 (unbiased → pure noise) |
+
+**A quarter of points move more than 3 digits between identical runs.** Medians over ~100 points
+are stable; per-point and worst-point figures are draws from this distribution. The `worst` column
+in the tables above should be read with that in mind.
+
+Three further traps, each of which produced a wrong conclusion before being caught:
+
+1. **10-point samples cannot resolve effects below ~20%.** A prompt that measured −36% at n=10
+   was −3.2% at n=101.
+2. **A streaming median is biased by completion order.** With 16 concurrent slots the cheap points
+   finish first, so a running median climbs throughout and every partial reading understates.
+3. **A `0/N` whose tok/pt equals the cap is a config artifact, not a model result.**
+
+### Prompting did not help
+
+Eight system-prompt variants, each against a contemporaneous paired control, targeting a measured
+waste pattern: **60% of DeepSeek's trace is written after the answer's first 9 digits already
+appear**, with 44 self-doubt marks and 481 high-precision arithmetic lines per trace for a job
+needing ~10–20 multiplications. Tokens and digits are **uncorrelated** (pearson r = +0.04), so the
+extra work earns nothing.
+
+Knowing the mechanism did not yield a fix. The best variant was **−3.2% tokens and −0.01 digits at
+n=101** — a null. Two variants were actively harmful at n=10 (+38% and +59%), both of them
+prohibitions requiring *continuous* self-monitoring ("never re-derive what you have computed",
+"stop as soon as you have the answer"). Prompt fixes also proved non-portable: the budget framing
+that moved minimax-m3 from 0/101 to 12.79 digits does nothing here (+6%), because it rescues a
+model *stuck* in a non-terminating method and DeepSeek is not stuck — it is redundant.
 
 ### Hardware
 

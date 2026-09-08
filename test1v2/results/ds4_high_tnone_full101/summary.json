@@ -1,0 +1,178 @@
+{
+  "meta": {
+    "test": "test1v2",
+    "func": "exp",
+    "model": "deepseek-v4-flash",
+    "base_url": "http://192.168.1.251:8091/v1",
+    "api": "openai",
+    "temperature": null,
+    "temperature_sent": false,
+    "reasoning_effort": "high",
+    "system_prompt": "You are a numerical calculator. Answer with the numeric result only: a single decimal number, no words, no units, no formatting, no explanation.",
+    "system_prompt_is_default": true,
+    "top_p": null,
+    "top_k": null,
+    "chat_template_kwargs": null,
+    "concurrency": 16,
+    "recall_proof": true,
+    "seed": "test1v2",
+    "jitter": 0.0095,
+    "pad_decimals": 0,
+    "arg_decimals": 0,
+    "sigdigits_requested": 15,
+    "antitruncation_clause": true,
+    "grid": {
+      "lo": -1.0,
+      "hi": 1.0,
+      "step": 0.02,
+      "points": 101,
+      "sampled_from": null
+    },
+    "wall_s": 9669.1,
+    "utc": "20260908_001747",
+    "user_prompt_example": "Compute exp(-0.9985798483), the exponential function e raised to the power -0.9985798483. Give the value as a plain decimal number with at least 15 significant digits. Give every digit you are confident in \u2014 do not round or truncate the result to fewer digits than you computed. Output only the number."
+  },
+  "points": 101,
+  "answered": 82,
+  "unparsed_or_failed": 19,
+  "exact_float_matches": 48,
+  "max_abs_err": 2.1570079056232316e-11,
+  "mean_abs_err": 6.996131316548727e-13,
+  "rms_abs_err": 3.384851496827024e-12,
+  "max_rel_err": 3.951725933822561e-11,
+  "mean_rel_err": 1.1879611077677536e-12,
+  "min_correct_digits": 10.403213182899151,
+  "mean_correct_digits": 14.570335028518782,
+  "median_correct_digits": 15.0,
+  "digit_histogram": {
+    "15 (exact)": 70,
+    "11": 2,
+    "10": 3,
+    "13": 3,
+    "12": 4
+  },
+  "worst_abs": {
+    "x": -0.5054064386,
+    "expected": 0.603260337306367,
+    "got": 0.6032603372847969,
+    "abs_err": 2.1570079056232316e-11,
+    "rel_err": 3.5755838271326475e-11,
+    "raw": "0.6032603372847968543"
+  },
+  "worst_rel": {
+    "x": -0.7863662979,
+    "expected": 0.4554969319363902,
+    "got": 0.45549693195439017,
+    "abs_err": 1.7999990387096432e-11,
+    "rel_err": 3.951725933822561e-11,
+    "raw": "0.455496931954390196"
+  },
+  "latency_s": {
+    "mean": 1201.9964878048781,
+    "min": 281.469,
+    "max": 2250.914
+  },
+  "tokens": {
+    "prompt": 18467,
+    "completion": 6291862,
+    "reasoning": 0,
+    "cache_hit": 0
+  },
+  "failures": [
+    {
+      "x": -0.9985798483,
+      "error": null,
+      "raw": ""
+    },
+    {
+      "x": -0.9513299347,
+      "error": null,
+      "raw": ""
+    },
+    {
+      "x": -0.9223543543,
+      "error": null,
+      "raw": ""
+    },
+    {
+      "x": -0.9078417884,
+      "error": null,
+      "raw": ""
+    },
+    {
+      "x": -0.829496683,
+      "error": null,
+      "raw": ""
+    },
+    {
+      "x": -0.4042105879,
+      "error": null,
+      "raw": ""
+    },
+    {
+      "x": -0.3806838196,
+      "error": null,
+      "raw": ""
+    },
+    {
+      "x": -0.3505948019,
+      "error": null,
+      "raw": ""
+    },
+    {
+      "x": -0.3181961257,
+      "error": null,
+      "raw": ""
+    },
+    {
+      "x": -0.1039949724,
+      "error": null,
+      "raw": ""
+    },
+    {
+      "x": -0.0859920192,
+      "error": null,
+      "raw": ""
+    },
+    {
+      "x": -0.0450636657,
+      "error": null,
+      "raw": ""
+    },
+    {
+      "x": 0.0291663476,
+      "error": null,
+      "raw": ""
+    },
+    {
+      "x": 0.1918553666,
+      "error": null,
+      "raw": ""
+    },
+    {
+      "x": 0.3365311812,
+      "error": null,
+      "raw": ""
+    },
+    {
+      "x": 0.3948244887,
+      "error": null,
+      "raw": ""
+    },
+    {
+      "x": 0.4554682359,
+      "error": null,
+      "raw": ""
+    },
+    {
+      "x": 0.5350224846,
+      "error": null,
+      "raw": ""
+    },
+    {
+      "x": 0.5618823536,
+      "error": null,
+      "raw": ""
+    }
+  ]
+}

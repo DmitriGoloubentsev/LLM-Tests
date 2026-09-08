@@ -7,3 +7,9 @@ __pycache__/
 CONTENT-PLAN.md
 LINKEDIN-DRAFT.md
 HN-LLM-exp.md
+
+# Not a model result: the server asserted at startup on --kv-cache-dtype bfloat16
+# (DeepSeek-V4's DSA path requires uint8-backed KV), so 87 of 101 points recorded
+# "Connection refused". Kept locally as evidence, excluded so it cannot be read as a
+# measurement of bf16 KV.
+test1v2/results/ds4_kvbf16_full101/

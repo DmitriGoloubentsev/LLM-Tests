@@ -1,0 +1,10 @@
+{"i": 0, "done": 1, "n": 10, "elapsed_s": 361.1, "x": -0.9985798483, "digits": 13.680575190151156, "completion_tokens": 18290, "latency_s": 361.065, "error": null}
+{"i": 5, "done": 2, "n": 10, "elapsed_s": 367.2, "x": -0.662176483, "digits": 13.480897123479801, "completion_tokens": 18588, "latency_s": 367.196, "error": null}
+{"i": 6, "done": 3, "n": 10, "elapsed_s": 399.6, "x": -0.3806838196, "digits": 14.202394078350626, "completion_tokens": 20583, "latency_s": 399.587, "error": null}
+{"i": 8, "done": 4, "n": 10, "elapsed_s": 442.8, "x": 0.1918553666, "digits": 16.0, "completion_tokens": 23111, "latency_s": 442.827, "error": null}
+{"i": 2, "done": 5, "n": 10, "elapsed_s": 448.2, "x": -0.7863662979, "digits": 13.071297555929663, "completion_tokens": 23430, "latency_s": 448.17, "error": null}
+{"i": 9, "done": 6, "n": 10, "elapsed_s": 506.9, "x": 0.7931144531, "digits": 15.506370192352758, "completion_tokens": 27032, "latency_s": 506.869, "error": null}
+{"i": 3, "done": 7, "n": 10, "elapsed_s": 521.5, "x": -0.7682166995, "digits": 12.903832224444477, "completion_tokens": 28132, "latency_s": 521.523, "error": null}
+{"i": 4, "done": 8, "n": 10, "elapsed_s": 534.7, "x": -0.7173250396, "digits": 7.306862223909821, "completion_tokens": 29104, "latency_s": 534.685, "error": null}
+{"i": 1, "done": 9, "n": 10, "elapsed_s": 556.9, "x": -0.863389757, "digits": 14.79403913933371, "completion_tokens": 30974, "latency_s": 556.882, "error": null}
+{"i": 7, "done": 10, "n": 10, "elapsed_s": 597.2, "x": -0.2136228964, "digits": 10.919702212582601, "completion_tokens": 35008, "latency_s": 597.214, "error": null}

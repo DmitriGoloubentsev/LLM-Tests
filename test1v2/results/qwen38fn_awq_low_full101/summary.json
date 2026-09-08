@@ -1,0 +1,374 @@
+{
+  "meta": {
+    "test": "test1v2",
+    "func": "exp",
+    "model": "qwen3.8-flash-next",
+    "base_url": "http://192.168.1.251:8092/v1",
+    "api": "openai",
+    "temperature": null,
+    "temperature_sent": false,
+    "reasoning_effort": null,
+    "system_prompt": "You are a numerical calculator. Answer with the numeric result only: a single decimal number, no words, no units, no formatting, no explanation.",
+    "system_prompt_is_default": true,
+    "top_p": null,
+    "top_k": null,
+    "chat_template_kwargs": {
+      "reasoning_effort": "low"
+    },
+    "concurrency": 16,
+    "recall_proof": true,
+    "seed": "test1v2",
+    "jitter": 0.0095,
+    "pad_decimals": 0,
+    "arg_decimals": 0,
+    "sigdigits_requested": 15,
+    "antitruncation_clause": true,
+    "grid": {
+      "lo": -1.0,
+      "hi": 1.0,
+      "step": 0.02,
+      "points": 101,
+      "sampled_from": null
+    },
+    "wall_s": 6258.5,
+    "utc": "20260908_034254",
+    "user_prompt_example": "Compute exp(-0.9985798483), the exponential function e raised to the power -0.9985798483. Give the value as a plain decimal number with at least 15 significant digits. Give every digit you are confident in \u2014 do not round or truncate the result to fewer digits than you computed. Output only the number."
+  },
+  "points": 101,
+  "answered": 44,
+  "unparsed_or_failed": 57,
+  "exact_float_matches": 2,
+  "max_abs_err": 0.0833939312305726,
+  "mean_abs_err": 0.0018953193666856856,
+  "rms_abs_err": 0.01257210816748602,
+  "max_rel_err": 0.12202907784154149,
+  "mean_rel_err": 0.0027733897877882715,
+  "min_correct_digits": 0.9135366706250264,
+  "mean_correct_digits": 12.902419915622096,
+  "median_correct_digits": 13.465259658359635,
+  "digit_histogram": {
+    "12": 12,
+    "11": 3,
+    "10": 1,
+    "9": 1,
+    "15 (exact)": 12,
+    "13": 6,
+    "14": 6,
+    "0": 1,
+    "7": 2
+  },
+  "worst_abs": {
+    "x": -0.3806838196,
+    "expected": 0.6833939312305726,
+    "got": 0.6,
+    "abs_err": 0.0833939312305726,
+    "rel_err": 0.12202907784154149,
+    "raw": "\n\n0.6"
+  },
+  "worst_rel": {
+    "x": -0.3806838196,
+    "expected": 0.6833939312305726,
+    "got": 0.6,
+    "abs_err": 0.0833939312305726,
+    "rel_err": 0.12202907784154149,
+    "raw": "\n\n0.6"
+  },
+  "latency_s": {
+    "mean": 749.2659318181818,
+    "min": 112.014,
+    "max": 1284.359
+  },
+  "tokens": {
+    "prompt": 15437,
+    "completion": 4335074,
+    "reasoning": 1951817,
+    "cache_hit": 0
+  },
+  "failures": [
+    {
+      "x": -0.9814799602,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.9513299347,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.9380804614,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.9223543543,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.8879174311,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.8344821424,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.8073587721,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.7863662979,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.7173250396,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.681319212,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.6177280923,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.6066231217,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.5731993577,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.5508534706,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.5425603887,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.5230900242,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.4476202759,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.3505948019,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.3381515142,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.2833967212,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.2544673891,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.2136228964,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.1862615737,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.1441326741,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.1039949724,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": -0.0553520462,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.0291663476,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.0473917113,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.0646797399,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.1482453477,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.1627731267,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.1918553666,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.2294190616,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.2861848676,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.328791263,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.3694180556,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.3862471261,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.4273082696,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.4393102754,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.4554682359,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.4740283039,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.5618823536,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.6484347985,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.6605729619,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.7247429906,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.7349933738,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.7673753916,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.7800439074,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.7931144531,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.8189004342,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.8428166028,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.8694673341,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.8730076706,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.9034060419,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.9246204423,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.9582162565,
+      "error": null,
+      "raw": null
+    },
+    {
+      "x": 0.9830754318,
+      "error": null,
+      "raw": null
+    }
+  ]
+}
